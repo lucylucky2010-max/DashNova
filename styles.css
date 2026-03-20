@@ -324,14 +324,19 @@ body {
   width: 18px;
   height: 18px;
   border-radius: 999px;
-  background: #22c55e;
-  color: #fff;
+  background: #e5e7eb;
+  color: #6b7280;
   font-size: 12px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
   margin-top: 1px;
+}
+
+.password-hint__check--pass {
+  background: #22c55e;
+  color: #fff;
 }
 
 .btn-login {

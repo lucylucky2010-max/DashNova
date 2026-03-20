@@ -106,20 +106,26 @@
             >
               <ul class="password-hint__list">
                 <li class="password-hint__item">
-                  <span class="password-hint__check" aria-hidden="true">✓</span>
+                  <span
+                    id="reg-hint-len-check"
+                    class="password-hint__check"
+                    aria-hidden="true"
+                  >
+                    ✓
+                  </span>
                   <span>请输入 8-20 个字符</span>
                 </li>
                 <li class="password-hint__item">
-                  <span class="password-hint__check" aria-hidden="true">✓</span>
-                  <span>需同时包含字母、数字以及特殊符号</span>
-                </li>
-                <li class="password-hint__item">
-                  <span class="password-hint__check" aria-hidden="true">✓</span>
-                  <span>密码不能与您的邮箱地址相同</span>
-                </li>
-                <li class="password-hint__item">
-                  <span class="password-hint__check" aria-hidden="true">✓</span>
-                  <span>不能包含除字母、数字、部分允许的特殊字符以外的字符</span>
+                  <span
+                    id="reg-hint-rule-check"
+                    class="password-hint__check"
+                    aria-hidden="true"
+                  >
+                    ✓
+                  </span>
+                  <span>
+                    需要包含字母、数字以及标点符号中至少一种（除空格）
+                  </span>
                 </li>
               </ul>
             </div>
@@ -264,6 +270,32 @@
 
         // 初始化：默认隐藏密码
         setIcon(false);
+
+        const lenCheck = document.getElementById("reg-hint-len-check");
+        const ruleCheck = document.getElementById("reg-hint-rule-check");
+
+        function setCheck(el, pass) {
+          if (!el) return;
+          el.classList.toggle("password-hint__check--pass", !!pass);
+        }
+
+        function updateChecks() {
+          const v = passwordInput.value || "";
+          const lenPass = v.length >= 8 && v.length <= 20;
+          const noSpacePass = !/\s/.test(v);
+          const hasLetter = /[A-Za-z]/.test(v);
+          const hasDigit = /\d/.test(v);
+          const asciiPunct = /[!-/:-@[-`{-~]/.test(v);
+          const zhPunct = /[，。、；：“”‘’（）【】《》！？…—]/.test(v);
+          const hasPunct = asciiPunct || zhPunct;
+          const rulePass = noSpacePass && (hasLetter || hasDigit || hasPunct);
+
+          setCheck(lenCheck, lenPass);
+          setCheck(ruleCheck, rulePass);
+        }
+
+        passwordInput.addEventListener("input", updateChecks);
+        updateChecks();
 
         // 确认密码：查看/隐藏开关（默认关闭）
         confirmToggleBtn.addEventListener("pointerdown", (e) => {
