@@ -98,32 +98,6 @@
                 </svg>
               </button>
             </div>
-            <div
-              id="password-hint"
-              class="password-hint"
-              role="tooltip"
-              aria-hidden="true"
-              hidden
-            >
-              <ul class="password-hint__list">
-                <li class="password-hint__item">
-                  <span class="password-hint__check" aria-hidden="true">✓</span>
-                  <span>请输入 8-20 个字符</span>
-                </li>
-                <li class="password-hint__item">
-                  <span class="password-hint__check" aria-hidden="true">✓</span>
-                  <span>需同时包含字母、数字以及特殊符号</span>
-                </li>
-                <li class="password-hint__item">
-                  <span class="password-hint__check" aria-hidden="true">✓</span>
-                  <span>密码不能与您的邮箱地址相同</span>
-                </li>
-                <li class="password-hint__item">
-                  <span class="password-hint__check" aria-hidden="true">✓</span>
-                  <span>不能包含除字母、数字、部分允许的特殊字符以外的字符</span>
-                </li>
-              </ul>
-            </div>
           </div>
           <button type="submit" class="btn-login">登录</button>
         </form>
@@ -138,22 +112,9 @@
       (function () {
         const passwordInput = document.getElementById("password");
         const toggleBtn = document.getElementById("pw-toggle");
-        const hint = document.getElementById("password-hint");
 
         const eyeOn = toggleBtn.querySelector(".pw-icon--on");
         const eyeOff = toggleBtn.querySelector(".pw-icon--off");
-
-        function showHint() {
-          if (!hint) return;
-          hint.hidden = false;
-          hint.setAttribute("aria-hidden", "false");
-        }
-
-        function hideHint() {
-          if (!hint) return;
-          hint.hidden = true;
-          hint.setAttribute("aria-hidden", "true");
-        }
 
         function setIcon(isShown) {
           if (eyeOn) eyeOn.style.display = isShown ? "block" : "none";
@@ -162,33 +123,7 @@
           toggleBtn.setAttribute("aria-label", isShown ? "隐藏密码" : "显示密码");
         }
 
-        let hideTimer = null;
-        function scheduleHide() {
-          if (!hint) return;
-          clearTimeout(hideTimer);
-          hideTimer = setTimeout(() => {
-            // 如果焦点仍在按钮上，不要隐藏提示
-            if (document.activeElement === toggleBtn) return;
-            hideHint();
-          }, 120);
-        }
-
-        let ignoreNextFocus = false;
-        passwordInput.addEventListener("pointerdown", () => {
-          ignoreNextFocus = true;
-        });
-
-        passwordInput.addEventListener("focus", () => {
-          if (ignoreNextFocus) {
-            ignoreNextFocus = false;
-            return;
-          }
-          showHint();
-        });
-        passwordInput.addEventListener("blur", scheduleHide);
-
         toggleBtn.addEventListener("pointerdown", (e) => {
-          // 防止点击按钮导致 input blur，从而影响提示框显示
           e.preventDefault();
         });
 
@@ -196,7 +131,6 @@
           const isText = passwordInput.type === "text";
           passwordInput.type = isText ? "password" : "text";
           setIcon(!isText);
-          showHint();
         });
 
         // 初始化图标：默认密码隐藏
