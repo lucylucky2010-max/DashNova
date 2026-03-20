@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>流光 — AI漫剧创作平台</title>
+    <link rel="icon" href="favicon.svg?v=20260320-1" type="image/svg+xml" />
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+      .main-hero {
+        text-align: center;
+        max-width: 680px;
+        margin: 0 auto;
+      }
+
+      .main-hero__greeting {
+        font-size: 32px;
+        font-weight: 700;
+        color: var(--text-title);
+        margin: 0 0 12px;
+        letter-spacing: -0.02em;
+      }
+
+      .main-hero__desc {
+        font-size: 16px;
+        color: var(--text-muted);
+        margin: 0 0 40px;
+        line-height: 1.6;
+      }
+
+      .main-actions {
+        display: flex;
+        justify-content: center;
+        gap: 16px;
+        flex-wrap: wrap;
+      }
+
+      .main-card {
+        background: var(--card-bg);
+        border-radius: var(--radius-card);
+        box-shadow: var(--shadow-card);
+        padding: 32px 28px;
+        width: 200px;
+        text-align: center;
+        text-decoration: none;
+        color: var(--text-title);
+        transition: transform 0.15s ease, box-shadow 0.15s ease;
+      }
+
+      .main-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 32px 64px -16px rgba(0, 0, 0, 0.12),
+          0 16px 32px -10px rgba(0, 0, 0, 0.08);
+      }
+
+      .main-card__icon {
+        font-size: 36px;
+        margin-bottom: 14px;
+        display: block;
+      }
+
+      .main-card__label {
+        font-size: 15px;
+        font-weight: 600;
+      }
+
+      .main-nav-user {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+      }
+
+      .main-nav-user__name {
+        font-size: 15px;
+        font-weight: 500;
+        color: var(--text-title);
+      }
+
+      .btn-logout {
+        display: inline-flex;
+        align-items: center;
+        padding: 7px 18px;
+        font-size: 14px;
+        font-weight: 500;
+        color: var(--text-muted);
+        background: transparent;
+        border: 1px solid var(--input-border);
+        border-radius: var(--radius-btn);
+        cursor: pointer;
+        text-decoration: none;
+        transition: color 0.15s ease, border-color 0.15s ease;
+      }
+
+      .btn-logout:hover {
+        color: var(--text-title);
+        border-color: #d1d5db;
+      }
+
+      @media (max-width: 640px) {
+        .main-hero__greeting {
+          font-size: 24px;
+        }
+
+        .main-card {
+          width: 160px;
+          padding: 24px 18px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="top-nav">
+      <div class="top-nav__inner">
+        <div class="top-nav__left">
+          <a href="main.html" class="logo" aria-label="DashNova 首页">
+            <img
+              class="logo__mark"
+              src="logo.svg"
+              width="44"
+              height="44"
+              alt="DashNova 标志"
+            />
+            <span class="logo__wordmark">DashNova</span>
+          </a>
+        </div>
+        <div class="main-nav-user">
+          <span class="main-nav-user__name" id="user-display">用户</span>
+          <a href="index.html" class="btn-logout">退出登录</a>
+        </div>
+      </div>
+    </header>
+
+    <main class="page-main">
+      <div class="main-hero">
+        <h1 class="main-hero__greeting" id="hero-greeting">欢迎回来</h1>
+        <p class="main-hero__desc">
+          选择一个功能，开始你的 AI 漫剧创作之旅
+        </p>
+        <div class="main-actions">
+          <a href="#" class="main-card">
+            <span class="main-card__icon">✨</span>
+            <span class="main-card__label">新建项目</span>
+          </a>
+          <a href="#" class="main-card">
+            <span class="main-card__icon">📂</span>
+            <span class="main-card__label">我的作品</span>
+          </a>
+          <a href="#" class="main-card">
+            <span class="main-card__icon">🎨</span>
+            <span class="main-card__label">素材库</span>
+          </a>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>
