@@ -20,7 +20,7 @@
     </linearGradient>
   </defs>
 
-  <!-- ?????8 ????? + ?????? -->
+  <!-- DashNova Mark: 8 blocks + center star -->
   <g fill="url(#logoMarkGradient)">
     <rect x="33.5" y="12.5" width="12" height="12" rx="3.2" />
     <rect x="54.5" y="12.5" width="12" height="12" rx="3.2" />
