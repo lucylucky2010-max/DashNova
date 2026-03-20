@@ -1,0 +1,1131 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>设置 — 流光AI漫剧创作平台</title>
+    <link rel="icon" href="favicon.svg?v=20260320-1" type="image/svg+xml" />
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="app-nav.css" />
+    <style>
+      .settings-layout {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 24px;
+        display: flex;
+        gap: 0;
+        min-height: calc(100vh - 56px);
+      }
+
+      /* ===== 左侧导航 ===== */
+      .settings-sidebar {
+        width: 200px;
+        flex-shrink: 0;
+        border-right: 1px solid var(--input-border);
+        padding: 28px 0 28px 0;
+      }
+
+      .sidebar-nav {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+      }
+
+      .sidebar-nav__item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 10px 16px;
+        font-size: 14px;
+        font-weight: 500;
+        color: var(--text-muted);
+        text-decoration: none;
+        border-radius: 8px;
+        margin-right: 16px;
+        cursor: pointer;
+        transition: color 0.15s ease, background 0.15s ease;
+        border: none;
+        background: none;
+        font-family: inherit;
+        width: calc(100% - 16px);
+        text-align: left;
+      }
+
+      .sidebar-nav__item:hover {
+        color: var(--text-title);
+        background: rgba(0, 0, 0, 0.04);
+      }
+
+      .sidebar-nav__item--active {
+        color: #3651d3;
+        background: rgba(54, 81, 211, 0.08);
+      }
+
+      .sidebar-nav__item--active:hover {
+        color: #3651d3;
+        background: rgba(54, 81, 211, 0.1);
+      }
+
+      .sidebar-nav__icon {
+        width: 18px;
+        height: 18px;
+        flex-shrink: 0;
+      }
+
+      /* ===== 右侧内容区 ===== */
+      .settings-content {
+        flex: 1;
+        min-width: 0;
+        padding: 32px 0 48px 36px;
+      }
+
+      .settings-panel {
+        display: none;
+      }
+
+      .settings-panel--active {
+        display: block;
+      }
+
+      /* 页面标题 */
+      .panel-title {
+        font-size: 22px;
+        font-weight: 700;
+        color: var(--text-title);
+        margin: 0 0 28px;
+      }
+
+      /* 区块标题 */
+      .section-heading {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 16px;
+        font-weight: 600;
+        color: var(--text-title);
+        margin: 0 0 6px;
+      }
+
+      .section-heading__icon {
+        width: 20px;
+        height: 20px;
+        color: #3651d3;
+        flex-shrink: 0;
+      }
+
+      .section-desc {
+        font-size: 13px;
+        color: var(--text-muted);
+        margin: 0 0 20px;
+        line-height: 1.5;
+      }
+
+      .section-block {
+        margin-bottom: 36px;
+      }
+
+      /* 子标题 */
+      .sub-heading {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 15px;
+        font-weight: 600;
+        color: var(--text-title);
+        margin: 0 0 16px;
+      }
+
+      .sub-heading__icon {
+        width: 18px;
+        height: 18px;
+        flex-shrink: 0;
+      }
+
+      /* 模型选择卡片组 */
+      .model-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+        margin-bottom: 24px;
+      }
+
+      .model-card {
+        background: #fff;
+        border: 1px solid var(--input-border);
+        border-radius: 12px;
+        padding: 20px;
+      }
+
+      .model-card__top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 12px;
+      }
+
+      .model-card__icon {
+        width: 20px;
+        height: 20px;
+        color: #3651d3;
+      }
+
+      .model-card__badge {
+        font-size: 12px;
+        color: var(--text-muted);
+        background: var(--bg-page);
+        padding: 2px 10px;
+        border-radius: 6px;
+      }
+
+      .concurrency-picker {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        flex-shrink: 0;
+      }
+
+      .concurrency-picker__label {
+        font-size: 12px;
+        color: var(--text-muted);
+        white-space: nowrap;
+      }
+
+      .concurrency-picker__select {
+        width: 52px;
+        padding: 4px 8px;
+        font-size: 13px;
+        font-family: inherit;
+        color: var(--text-title);
+        background: var(--bg-page);
+        border: 1px solid var(--input-border);
+        border-radius: 6px;
+        appearance: auto;
+        cursor: pointer;
+        transition: border-color 0.15s ease;
+      }
+
+      .concurrency-picker__select:hover {
+        border-color: #d1d5db;
+      }
+
+      .concurrency-picker__select:focus {
+        outline: none;
+        border-color: #3651d3;
+        box-shadow: 0 0 0 2px rgba(54, 81, 211, 0.12);
+      }
+
+      .model-card__title-row {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .model-card__label {
+        font-size: 14px;
+        font-weight: 600;
+        color: var(--text-title);
+        margin: 0;
+      }
+
+      .model-card__desc {
+        font-size: 12px;
+        color: var(--text-muted);
+        margin: 0 0 12px;
+        line-height: 1.4;
+      }
+
+      /* 下拉选择器 */
+      .select-wrap {
+        position: relative;
+      }
+
+      .select-field {
+        width: 100%;
+        padding: 10px 36px 10px 14px;
+        font-size: 14px;
+        font-family: inherit;
+        color: var(--text-title);
+        background: #fff;
+        border: 1px solid var(--input-border);
+        border-radius: 8px;
+        appearance: none;
+        cursor: pointer;
+        transition: border-color 0.15s ease;
+      }
+
+      .select-field:hover {
+        border-color: #d1d5db;
+      }
+
+      .select-field:focus {
+        outline: none;
+        border-color: #3651d3;
+        box-shadow: 0 0 0 3px rgba(54, 81, 211, 0.12);
+      }
+
+      .select-wrap::after {
+        content: "";
+        position: absolute;
+        right: 12px;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 0;
+        height: 0;
+        border-left: 5px solid transparent;
+        border-right: 5px solid transparent;
+        border-top: 5px solid var(--text-muted);
+        pointer-events: none;
+      }
+
+      /* 提示横幅 */
+      .alert-banner {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 16px;
+        font-size: 13px;
+        color: #92400e;
+        background: #fffbeb;
+        border: 1px solid #fde68a;
+        border-radius: 8px;
+        margin-bottom: 20px;
+      }
+
+      .alert-banner__icon {
+        width: 16px;
+        height: 16px;
+        flex-shrink: 0;
+        color: #f59e0b;
+      }
+
+      /* 图像模型四列 */
+      .image-model-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 14px;
+      }
+
+      .image-model-item {
+        background: #fff;
+        border: 1px solid var(--input-border);
+        border-radius: 10px;
+        padding: 14px;
+      }
+
+      .image-model-item__label {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--text-title);
+        margin-bottom: 10px;
+      }
+
+      .image-model-item__icon {
+        width: 16px;
+        height: 16px;
+        color: #3651d3;
+      }
+
+      /* ===== 自定义模型面板 ===== */
+      .vendor-header {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        margin-bottom: 20px;
+      }
+
+      .vendor-header__desc {
+        font-size: 13px;
+        color: var(--text-muted);
+        margin: 4px 0 0;
+        line-height: 1.5;
+      }
+
+      .btn-add-vendor {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 8px 20px;
+        font-size: 14px;
+        font-weight: 600;
+        font-family: inherit;
+        color: #fff;
+        background: #3651d3;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        flex-shrink: 0;
+        transition: background 0.15s ease;
+      }
+
+      .btn-add-vendor:hover {
+        background: #2b42b0;
+      }
+
+      .vendor-hidden {
+        text-align: center;
+        padding: 12px;
+        font-size: 13px;
+        color: var(--text-muted);
+        margin-bottom: 24px;
+      }
+
+      .vendor-hidden__list {
+        margin-top: 4px;
+        font-size: 12px;
+        color: #9ca3af;
+      }
+
+      /* 厂商卡片 */
+      .vendor-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+      }
+
+      .vendor-card {
+        background: #fff;
+        border: 1px solid var(--input-border);
+        border-radius: 14px;
+        overflow: hidden;
+      }
+
+      .vendor-card__header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 16px 20px;
+        border-bottom: 1px solid var(--input-border);
+      }
+
+      .vendor-card__name {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 15px;
+        font-weight: 600;
+        color: var(--text-title);
+      }
+
+      .vendor-card__status {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: #ef4444;
+      }
+
+      .vendor-card__status--connected {
+        background: #22c55e;
+      }
+
+      .vendor-card__actions {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-size: 13px;
+        color: var(--text-muted);
+      }
+
+      .vendor-card__action {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        text-decoration: none;
+        color: var(--text-muted);
+        transition: color 0.12s ease;
+      }
+
+      .vendor-card__action:hover {
+        color: var(--text-title);
+      }
+
+      .vendor-card__action-icon {
+        width: 14px;
+        height: 14px;
+      }
+
+      .vendor-card__body {
+        padding: 16px 20px;
+      }
+
+      /* API Key 行 */
+      .api-key-row {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 16px;
+      }
+
+      .api-key-label {
+        font-size: 13px;
+        font-weight: 500;
+        color: var(--text-muted);
+        flex-shrink: 0;
+      }
+
+      .btn-connect {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        padding: 5px 14px;
+        font-size: 13px;
+        font-weight: 500;
+        font-family: inherit;
+        color: #3651d3;
+        background: #fff;
+        border: 1px solid #3651d3;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: background 0.12s ease;
+      }
+
+      .btn-connect:hover {
+        background: rgba(54, 81, 211, 0.06);
+      }
+
+      /* 文本/图像/视频标签 */
+      .vendor-tabs {
+        display: flex;
+        border: 1px solid var(--input-border);
+        border-radius: 8px;
+        overflow: hidden;
+        margin-bottom: 14px;
+      }
+
+      .vendor-tab {
+        flex: 1;
+        padding: 8px 0;
+        font-size: 13px;
+        font-weight: 500;
+        text-align: center;
+        color: var(--text-muted);
+        background: #fff;
+        border: none;
+        cursor: pointer;
+        font-family: inherit;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 4px;
+        transition: color 0.12s ease, background 0.12s ease;
+      }
+
+      .vendor-tab:not(:last-child) {
+        border-right: 1px solid var(--input-border);
+      }
+
+      .vendor-tab--active {
+        color: var(--text-title);
+        background: var(--bg-page);
+        font-weight: 600;
+      }
+
+      .vendor-tab__icon {
+        width: 14px;
+        height: 14px;
+      }
+
+      /* 模型列表 */
+      .model-list-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 10px;
+      }
+
+      .model-list-header__left {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 13px;
+        font-weight: 500;
+        color: var(--text-muted);
+      }
+
+      .model-count {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 18px;
+        height: 18px;
+        padding: 0 5px;
+        font-size: 11px;
+        font-weight: 600;
+        color: var(--text-muted);
+        background: var(--bg-page);
+        border-radius: 4px;
+      }
+
+      .btn-add-model {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        font-size: 13px;
+        font-weight: 500;
+        color: var(--text-muted);
+        background: none;
+        border: none;
+        cursor: pointer;
+        font-family: inherit;
+        padding: 0;
+        transition: color 0.12s ease;
+      }
+
+      .btn-add-model:hover {
+        color: var(--text-title);
+      }
+
+      .model-list {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .model-list__item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px 0;
+        border-top: 1px solid #f3f4f6;
+      }
+
+      .model-list__info {
+        min-width: 0;
+      }
+
+      .model-list__name {
+        font-size: 13px;
+        font-weight: 500;
+        color: var(--text-title);
+        margin-bottom: 2px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .model-list__name-pricing {
+        font-weight: 400;
+        color: var(--text-muted);
+        font-size: 12px;
+        margin-left: 6px;
+      }
+
+      .model-list__id {
+        font-size: 11px;
+        color: #9ca3af;
+      }
+
+      /* 开关 */
+      .toggle {
+        position: relative;
+        width: 36px;
+        height: 20px;
+        flex-shrink: 0;
+      }
+
+      .toggle input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+        position: absolute;
+      }
+
+      .toggle__track {
+        position: absolute;
+        inset: 0;
+        background: #d1d5db;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: background 0.2s ease;
+      }
+
+      .toggle__track::after {
+        content: "";
+        position: absolute;
+        left: 2px;
+        top: 2px;
+        width: 16px;
+        height: 16px;
+        background: #fff;
+        border-radius: 50%;
+        transition: transform 0.2s ease;
+      }
+
+      .toggle input:checked + .toggle__track {
+        background: #3651d3;
+      }
+
+      .toggle input:checked + .toggle__track::after {
+        transform: translateX(16px);
+      }
+
+      @media (max-width: 900px) {
+        .model-row,
+        .vendor-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .image-model-grid {
+          grid-template-columns: 1fr 1fr;
+        }
+      }
+
+      @media (max-width: 640px) {
+        .settings-layout {
+          flex-direction: column;
+          padding: 0 16px;
+        }
+
+        .settings-sidebar {
+          width: 100%;
+          border-right: none;
+          border-bottom: 1px solid var(--input-border);
+          padding: 16px 0;
+        }
+
+        .sidebar-nav {
+          flex-direction: row;
+          gap: 4px;
+        }
+
+        .sidebar-nav__item {
+          margin-right: 0;
+          width: auto;
+        }
+
+        .settings-content {
+          padding: 24px 0 40px;
+        }
+
+        .image-model-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="app-nav">
+      <div class="app-nav__inner">
+        <a href="main.html" class="app-nav__brand" aria-label="DashNova 首页">
+          <img class="app-nav__brand-icon" src="logo.svg" width="36" height="36" alt="DashNova" />
+          <span class="app-nav__brand-text">DashNova</span>
+        </a>
+
+        <nav class="app-nav__links" aria-label="主导航">
+          <a href="main.html" class="app-nav__link" data-page="home">
+            <svg class="app-nav__link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9.5Z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+            首页
+          </a>
+          <a href="workspace.html" class="app-nav__link" data-page="projects">
+            <svg class="app-nav__link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+            项目管理
+          </a>
+          <a href="asset-hub.html" class="app-nav__link" data-page="assets">
+            <svg class="app-nav__link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="13.5" cy="6.5" r="2.5"/><path d="M3 20l5.5-7.5L12 17l3.5-4.5L21 20"/><rect x="2" y="2" width="20" height="20" rx="2.18"/></svg>
+            资产库
+          </a>
+          <a href="settings.html" class="app-nav__link app-nav__link--active" data-page="settings">
+            <svg class="app-nav__link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09a1.65 1.65 0 0 0-1.08-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09a1.65 1.65 0 0 0 1.51-1.08 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1.08 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9c.26.604.852.997 1.51 1.08H21a2 2 0 0 1 0 4h-.09c-.658.08-1.25.476-1.51 1.08Z"/></svg>
+            设置
+          </a>
+        </nav>
+
+        <div class="app-nav__user" id="user-menu">
+          <button class="user-trigger" id="user-trigger" aria-haspopup="true" aria-expanded="false">
+            <span class="user-avatar">A</span>
+            <span class="user-trigger__name">Admin</span>
+            <svg class="user-trigger__arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="user-dropdown" role="menu">
+            <div class="user-dropdown__header">Admin</div>
+            <a href="#" class="user-dropdown__item" role="menuitem">
+              <svg class="user-dropdown__item-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+              账户分配
+            </a>
+            <a href="#" class="user-dropdown__item" role="menuitem">
+              <svg class="user-dropdown__item-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+              修改密码
+            </a>
+            <div class="user-dropdown__divider"></div>
+            <a href="index.html" class="user-dropdown__item user-dropdown__item--danger" role="menuitem">
+              <svg class="user-dropdown__item-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+              退出登录
+            </a>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <div class="settings-layout">
+      <!-- 左侧二级导航 -->
+      <aside class="settings-sidebar">
+        <nav class="sidebar-nav">
+          <button class="sidebar-nav__item sidebar-nav__item--active" data-panel="default-model">
+            <svg class="sidebar-nav__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09a1.65 1.65 0 0 0-1.08-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09a1.65 1.65 0 0 0 1.51-1.08 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1.08 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9c.26.604.852.997 1.51 1.08H21a2 2 0 0 1 0 4h-.09c-.658.08-1.25.476-1.51 1.08Z"/></svg>
+            默认模型设置
+          </button>
+          <button class="sidebar-nav__item" data-panel="custom-model">
+            <svg class="sidebar-nav__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+            自定义模型
+          </button>
+        </nav>
+      </aside>
+
+      <!-- 右侧内容 -->
+      <main class="settings-content">
+
+        <!-- ====== 面板一：默认模型配置 ====== -->
+        <div id="panel-default-model" class="settings-panel settings-panel--active">
+          <h1 class="panel-title">默认模型配置</h1>
+          <p class="section-desc" style="margin-top:-20px;">新建项目与资产库将使用此默认配置，也可在项目设置中为单独项目自定义模型</p>
+
+          <!-- 文本分析与视频能力 -->
+          <div class="section-block">
+            <h3 class="sub-heading">
+              <svg class="sub-heading__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+              文本分析与视频能力
+            </h3>
+            <div class="model-row">
+              <div class="model-card">
+                <div class="model-card__top">
+                  <div class="model-card__title-row">
+                    <svg class="model-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+                    <span class="model-card__label">文本分析模型</span>
+                  </div>
+                  <div class="concurrency-picker">
+                    <span class="concurrency-picker__label">允许并发数</span>
+                    <select class="concurrency-picker__select"><option>1</option><option>2</option><option>3</option><option>4</option><option selected>5</option><option>6</option><option>7</option><option>8</option></select>
+                  </div>
+                </div>
+                <p class="model-card__desc">负责脚本解析、分镜构建等全流程文本分析能力。</p>
+                <div class="select-wrap">
+                  <select class="select-field">
+                    <option>必选配置</option>
+                  </select>
+                </div>
+              </div>
+              <div class="model-card">
+                <div class="model-card__top">
+                  <div class="model-card__title-row">
+                    <svg class="model-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
+                    <span class="model-card__label">视频生成模型</span>
+                  </div>
+                  <div class="concurrency-picker">
+                    <span class="concurrency-picker__label">允许并发数</span>
+                    <select class="concurrency-picker__select"><option>1</option><option>2</option><option>3</option><option>4</option><option selected>5</option><option>6</option><option>7</option><option>8</option></select>
+                  </div>
+                </div>
+                <p class="model-card__desc">负责将图像与指令合成为最终视频片段。</p>
+                <div class="select-wrap">
+                  <select class="select-field">
+                    <option>必选配置</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 全局图像模型配置 -->
+          <div class="section-block">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
+              <h3 class="sub-heading" style="margin:0;">
+                <svg class="sub-heading__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="2.18"/><circle cx="13.5" cy="6.5" r="2.5"/><path d="M3 20l5.5-7.5L12 17l3.5-4.5L21 20"/></svg>
+                全局图像模型配置
+              </h3>
+              <div class="concurrency-picker">
+                <span class="concurrency-picker__label">允许并发数</span>
+                <select class="concurrency-picker__select"><option>1</option><option>2</option><option>3</option><option>4</option><option selected>5</option><option>6</option><option>7</option><option>8</option></select>
+              </div>
+            </div>
+            <p class="section-desc">设置负责整个系统所有地方图像生成/编辑的模型</p>
+
+            <div class="alert-banner">
+              <svg class="alert-banner__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+              推荐使用 Google Banana 系列模型，目前其他图像模型生成效果有限。
+            </div>
+
+            <div class="image-model-grid">
+              <div class="image-model-item">
+                <div class="image-model-item__label">
+                  <svg class="image-model-item__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                  角色生成
+                </div>
+                <div class="select-wrap">
+                  <select class="select-field"><option>跟随全局配置</option></select>
+                </div>
+              </div>
+              <div class="image-model-item">
+                <div class="image-model-item__label">
+                  <svg class="image-model-item__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="2.18"/><circle cx="13.5" cy="6.5" r="2.5"/><path d="M3 20l5.5-7.5L12 17l3.5-4.5L21 20"/></svg>
+                  场景生成
+                </div>
+                <div class="select-wrap">
+                  <select class="select-field"><option>跟随全局配置</option></select>
+                </div>
+              </div>
+              <div class="image-model-item">
+                <div class="image-model-item__label">
+                  <svg class="image-model-item__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+                  镜头生成
+                </div>
+                <div class="select-wrap">
+                  <select class="select-field"><option>跟随全局配置</option></select>
+                </div>
+              </div>
+              <div class="image-model-item">
+                <div class="image-model-item__label">
+                  <svg class="image-model-item__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+                  编辑图片
+                </div>
+                <div class="select-wrap">
+                  <select class="select-field"><option>跟随全局配置</option></select>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 扩展功能 -->
+          <div class="section-block">
+            <h3 class="sub-heading">
+              <svg class="sub-heading__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+              扩展功能
+            </h3>
+
+            <div class="image-model-grid" style="grid-template-columns: repeat(3, 1fr);">
+              <div class="image-model-item">
+                <div class="image-model-item__label">口型同步</div>
+                <div class="select-wrap">
+                  <select class="select-field"><option>暂不启用</option></select>
+                </div>
+              </div>
+              <div class="image-model-item">
+                <div class="image-model-item__label">语音合成</div>
+                <div class="select-wrap">
+                  <select class="select-field"><option>暂不启用</option></select>
+                </div>
+              </div>
+              <div class="image-model-item">
+                <div class="image-model-item__label">音色设计</div>
+                <div class="select-wrap">
+                  <select class="select-field"><option>暂不启用</option></select>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ====== 面板二：自定义模型 ====== -->
+        <div id="panel-custom-model" class="settings-panel">
+          <div class="vendor-header">
+            <div>
+              <h1 class="panel-title" style="margin-bottom:4px;">自定义模型</h1>
+              <p class="vendor-header__desc">在此使用来自全球丰富的模型配置，按住左上角拖拽手柄，可调节厂商顺序</p>
+            </div>
+            <button class="btn-add-vendor">新增模型服务商</button>
+          </div>
+
+          <div class="vendor-grid">
+            <!-- 火山引擎 Ark -->
+            <div class="vendor-card">
+              <div class="vendor-card__header">
+                <span class="vendor-card__name">
+                  <span>+</span>
+                  火山引擎 Ark
+                  <span class="vendor-card__status"></span>
+                </span>
+                <div class="vendor-card__actions">
+                  <a href="#" class="vendor-card__action">
+                    <svg class="vendor-card__action-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>
+                    测试连接
+                  </a>
+                  <a href="#" class="vendor-card__action">
+                    <svg class="vendor-card__action-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+                    开通教程
+                  </a>
+                </div>
+              </div>
+              <div class="vendor-card__body">
+                <div class="api-key-row">
+                  <span class="api-key-label">API Key</span>
+                  <button class="btn-connect">+ 连接</button>
+                </div>
+                <div class="vendor-tabs">
+                  <button class="vendor-tab vendor-tab--active">
+                    <svg class="vendor-tab__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+                    文本
+                  </button>
+                  <button class="vendor-tab">
+                    <svg class="vendor-tab__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="2.18"/><circle cx="13.5" cy="6.5" r="2.5"/><path d="M3 20l5.5-7.5L12 17l3.5-4.5L21 20"/></svg>
+                    图像
+                  </button>
+                  <button class="vendor-tab">
+                    <svg class="vendor-tab__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
+                    视频
+                  </button>
+                </div>
+                <div class="model-list-header">
+                  <div class="model-list-header__left">
+                    <svg class="vendor-tab__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+                    文本 <span class="model-count">6</span>
+                  </div>
+                  <button class="btn-add-model">+ 添加</button>
+                </div>
+                <div class="model-list">
+                  <div class="model-list__item">
+                    <div class="model-list__info">
+                      <div class="model-list__name">Doubao Seed 2.0 Pro <span class="model-list__name-pricing">输入 ¥3.2 / 输出 ¥10</span></div>
+                      <div class="model-list__id">doubao-seed-2-0-pro-260215</div>
+                    </div>
+                    <label class="toggle"><input type="checkbox" /><span class="toggle__track"></span></label>
+                  </div>
+                  <div class="model-list__item">
+                    <div class="model-list__info">
+                      <div class="model-list__name">Doubao Seed 2.0 Lite <span class="model-list__name-pricing">输入 ¥0.6 / 输出 ¥3.6</span></div>
+                      <div class="model-list__id">doubao-seed-2-0-lite-260215</div>
+                    </div>
+                    <label class="toggle"><input type="checkbox" /><span class="toggle__track"></span></label>
+                  </div>
+                  <div class="model-list__item">
+                    <div class="model-list__info">
+                      <div class="model-list__name">Doubao Seed 2.0 Mini <span class="model-list__name-pricing">输入 ¥0.2 / 输出 ¥2</span></div>
+                      <div class="model-list__id">doubao-seed-2-0-mini-260215</div>
+                    </div>
+                    <label class="toggle"><input type="checkbox" /><span class="toggle__track"></span></label>
+                  </div>
+                  <div class="model-list__item">
+                    <div class="model-list__info">
+                      <div class="model-list__name">Doubao Seed 1.6 <span class="model-list__name-pricing">输入 ¥0.8 / 输出 ¥2</span></div>
+                      <div class="model-list__id">doubao-seed-1-6-251015</div>
+                    </div>
+                    <label class="toggle"><input type="checkbox" /><span class="toggle__track"></span></label>
+                  </div>
+                  <div class="model-list__item">
+                    <div class="model-list__info">
+                      <div class="model-list__name">Doubao Seed 1.6 Lite <span class="model-list__name-pricing">输入 ¥0.3 / 输出 ¥0.6</span></div>
+                      <div class="model-list__id">doubao-seed-1-6-lite-251015</div>
+                    </div>
+                    <label class="toggle"><input type="checkbox" /><span class="toggle__track"></span></label>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Google AI Studio -->
+            <div class="vendor-card">
+              <div class="vendor-card__header">
+                <span class="vendor-card__name">
+                  <span>+</span>
+                  Google AI Studio
+                  <span class="vendor-card__status"></span>
+                </span>
+                <div class="vendor-card__actions">
+                  <a href="#" class="vendor-card__action">
+                    <svg class="vendor-card__action-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>
+                    测试连接
+                  </a>
+                  <a href="#" class="vendor-card__action">
+                    <svg class="vendor-card__action-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+                    开通教程
+                  </a>
+                </div>
+              </div>
+              <div class="vendor-card__body">
+                <div class="api-key-row">
+                  <span class="api-key-label">API Key</span>
+                  <button class="btn-connect">+ 连接</button>
+                </div>
+                <div class="vendor-tabs">
+                  <button class="vendor-tab vendor-tab--active">
+                    <svg class="vendor-tab__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+                    文本
+                  </button>
+                  <button class="vendor-tab">
+                    <svg class="vendor-tab__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="2.18"/><circle cx="13.5" cy="6.5" r="2.5"/><path d="M3 20l5.5-7.5L12 17l3.5-4.5L21 20"/></svg>
+                    图像
+                  </button>
+                  <button class="vendor-tab">
+                    <svg class="vendor-tab__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
+                    视频
+                  </button>
+                </div>
+                <div class="model-list-header">
+                  <div class="model-list-header__left">
+                    <svg class="vendor-tab__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+                    文本 <span class="model-count">3</span>
+                  </div>
+                  <button class="btn-add-model">+ 添加</button>
+                </div>
+                <div class="model-list">
+                  <div class="model-list__item">
+                    <div class="model-list__info">
+                      <div class="model-list__name">Gemini 3.1 Pro <span class="model-list__name-pricing">输入 ¥14.4 / 输出 ¥86.4</span></div>
+                      <div class="model-list__id">gemini-3.1-pro-preview</div>
+                    </div>
+                    <label class="toggle"><input type="checkbox" /><span class="toggle__track"></span></label>
+                  </div>
+                  <div class="model-list__item">
+                    <div class="model-list__info">
+                      <div class="model-list__name">Gemini 3 Flash <span class="model-list__name-pricing">输入 ¥3.6 / 输出 ¥21.6</span></div>
+                      <div class="model-list__id">gemini-3-flash-preview</div>
+                    </div>
+                    <label class="toggle"><input type="checkbox" /><span class="toggle__track"></span></label>
+                  </div>
+                  <div class="model-list__item">
+                    <div class="model-list__info">
+                      <div class="model-list__name">Gemini 3.1 Flash-Lite</div>
+                      <div class="model-list__id">gemini-3.1-flash-lite-preview</div>
+                    </div>
+                    <label class="toggle"><input type="checkbox" /><span class="toggle__track"></span></label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </main>
+    </div>
+
+    <script>
+      (function () {
+        // 用户下拉菜单
+        var menu = document.getElementById("user-menu");
+        var trigger = document.getElementById("user-trigger");
+        trigger.addEventListener("click", function (e) {
+          e.stopPropagation();
+          var open = menu.classList.toggle("open");
+          trigger.setAttribute("aria-expanded", String(open));
+        });
+        document.addEventListener("click", function () {
+          menu.classList.remove("open");
+          trigger.setAttribute("aria-expanded", "false");
+        });
+
+        // 左侧二级导航切换
+        var sideItems = document.querySelectorAll(".sidebar-nav__item");
+        var panels = document.querySelectorAll(".settings-panel");
+        sideItems.forEach(function (item) {
+          item.addEventListener("click", function () {
+            sideItems.forEach(function (i) { i.classList.remove("sidebar-nav__item--active"); });
+            panels.forEach(function (p) { p.classList.remove("settings-panel--active"); });
+            item.classList.add("sidebar-nav__item--active");
+            var target = document.getElementById("panel-" + item.getAttribute("data-panel"));
+            if (target) target.classList.add("settings-panel--active");
+          });
+        });
+
+        // 厂商卡片内标签切换
+        document.querySelectorAll(".vendor-tabs").forEach(function (tabs) {
+          var btns = tabs.querySelectorAll(".vendor-tab");
+          btns.forEach(function (btn) {
+            btn.addEventListener("click", function () {
+              btns.forEach(function (b) { b.classList.remove("vendor-tab--active"); });
+              btn.classList.add("vendor-tab--active");
+            });
+          });
+        });
+      })();
+    </script>
+  </body>
+</html>
