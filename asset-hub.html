@@ -138,12 +138,14 @@
         flex-shrink: 0;
       }
 
-      .asset-header__note a {
+      .asset-header__note a,
+      .asset-header__desc a {
         color: #3651d3;
         text-decoration: none;
       }
 
-      .asset-header__note a:hover {
+      .asset-header__note a:hover,
+      .asset-header__desc a:hover {
         text-decoration: underline;
       }
 
@@ -560,12 +562,8 @@
       <!-- 右侧内容 -->
       <main class="asset-content">
         <div class="asset-header">
-          <h1 class="asset-header__title">资产中心</h1>
-          <p class="asset-header__desc">管理您的全局角色和场景资产</p>
-          <p class="asset-header__note">
-            <svg class="asset-header__note-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
-            资产中心使用默认模型，如需修改请在 <a href="settings.html">API配置页面</a> 进行设置
-          </p>
+          <h1 class="asset-header__title">资产库</h1>
+          <p class="asset-header__desc">管理创建的角色、场景等资产，资产库中所有内容使用默认模型。如需修改请在 <a href="settings.html">设置页</a> 进行配置。</p>
         </div>
 
         <div class="asset-toolbar">
