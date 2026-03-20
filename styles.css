@@ -232,6 +232,108 @@ body {
   box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
 }
 
+.password-field {
+  position: relative;
+}
+
+.password-input-wrap {
+  position: relative;
+}
+
+.password-input-wrap .field__input {
+  padding-right: 48px;
+}
+
+.pw-toggle {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  border-radius: var(--radius-pill, 999px);
+  border: 1px solid var(--input-border);
+  background: #fff;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: color 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+}
+
+.pw-toggle:hover {
+  color: var(--primary);
+  border-color: #d1d5db;
+  background: #f9fafb;
+}
+
+.pw-icon {
+  display: block;
+}
+
+.pw-icon--on {
+  display: none;
+}
+
+.password-hint {
+  position: absolute;
+  left: 50%;
+  bottom: calc(100% + 10px);
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 380px;
+  background: #ffffff;
+  border: 1px solid var(--input-border);
+  border-radius: 14px;
+  box-shadow: var(--shadow-card);
+  padding: 12px 14px;
+  z-index: 60;
+}
+
+.password-hint::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 7px solid transparent;
+  border-top-color: #ffffff;
+}
+
+.password-hint__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.password-hint__item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 13px;
+  color: var(--text-muted);
+  line-height: 1.25;
+}
+
+.password-hint__check {
+  width: 18px;
+  height: 18px;
+  border-radius: 999px;
+  background: #22c55e;
+  color: #fff;
+  font-size: 12px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
 .btn-login {
   margin-top: 8px;
   width: 100%;
@@ -329,5 +431,9 @@ body {
 
   .login-card__title {
     font-size: 24px;
+  }
+
+  .password-hint {
+    max-width: 92vw;
   }
 }
