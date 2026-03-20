@@ -173,8 +173,18 @@
           }, 120);
         }
 
-        passwordInput.addEventListener("focus", showHint);
-        passwordInput.addEventListener("click", showHint);
+        let ignoreNextFocus = false;
+        passwordInput.addEventListener("pointerdown", () => {
+          ignoreNextFocus = true;
+        });
+
+        passwordInput.addEventListener("focus", () => {
+          if (ignoreNextFocus) {
+            ignoreNextFocus = false;
+            return;
+          }
+          showHint();
+        });
         passwordInput.addEventListener("blur", scheduleHide);
 
         toggleBtn.addEventListener("pointerdown", (e) => {
