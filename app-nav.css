@@ -1,0 +1,143 @@
+:root {
+  --nav-active: #3651d3;
+}
+
+.app-nav {
+  background: var(--bg-nav);
+  border-bottom: 1px solid var(--border-nav);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.8) inset;
+}
+
+.app-nav__inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  height: 56px;
+  gap: 0;
+}
+
+.app-nav__brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  line-height: 1;
+  margin-right: 40px;
+  flex-shrink: 0;
+}
+
+.app-nav__brand:hover {
+  opacity: 0.92;
+}
+
+.app-nav__brand-icon {
+  display: block;
+  width: 36px;
+  height: 36px;
+}
+
+.app-nav__brand-text {
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--brand-wordmark);
+}
+
+.app-nav__links {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex: 1;
+  min-width: 0;
+}
+
+.app-nav__link {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-muted);
+  text-decoration: none;
+  border-radius: 8px;
+  transition: color 0.15s ease, background 0.15s ease;
+  white-space: nowrap;
+}
+
+.app-nav__link:hover {
+  color: var(--text-title);
+  background: rgba(0, 0, 0, 0.04);
+}
+
+.app-nav__link--active {
+  color: var(--nav-active);
+  background: rgba(54, 81, 211, 0.08);
+}
+
+.app-nav__link--active:hover {
+  color: var(--nav-active);
+  background: rgba(54, 81, 211, 0.1);
+}
+
+.app-nav__link-icon {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+
+.app-nav__user {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-left: auto;
+  flex-shrink: 0;
+}
+
+.btn-logout {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 16px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-muted);
+  background: transparent;
+  border: 1px solid var(--input-border);
+  border-radius: 8px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+
+.btn-logout:hover {
+  color: var(--text-title);
+  border-color: #d1d5db;
+}
+
+@media (max-width: 640px) {
+  .app-nav__inner {
+    padding: 0 16px;
+    gap: 0;
+  }
+
+  .app-nav__brand {
+    margin-right: 16px;
+  }
+
+  .app-nav__brand-text {
+    display: none;
+  }
+
+  .app-nav__link {
+    padding: 8px 10px;
+    font-size: 13px;
+    gap: 4px;
+  }
+
+  .app-nav__link-icon {
+    display: none;
+  }
+}

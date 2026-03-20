@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>素材库 — 流光AI漫剧创作平台</title>
+    <link rel="icon" href="favicon.svg?v=20260320-1" type="image/svg+xml" />
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="app-nav.css" />
+    <style>
+      .app-content {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 36px 24px 48px;
+      }
+
+      .page-header {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        margin-bottom: 32px;
+        gap: 16px;
+      }
+
+      .page-header__title {
+        font-size: 24px;
+        font-weight: 700;
+        color: var(--text-title);
+        margin: 0 0 6px;
+      }
+
+      .page-header__desc {
+        font-size: 14px;
+        color: var(--text-muted);
+        margin: 0;
+      }
+
+      .search-box {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 14px;
+        background: #fff;
+        border: 1px solid var(--input-border);
+        border-radius: var(--radius-input);
+        flex-shrink: 0;
+        transition: border-color 0.15s ease, box-shadow 0.15s ease;
+      }
+
+      .search-box:focus-within {
+        border-color: var(--nav-active);
+        box-shadow: 0 0 0 3px rgba(54, 81, 211, 0.12);
+      }
+
+      .search-box__icon {
+        width: 16px;
+        height: 16px;
+        color: var(--text-placeholder);
+        flex-shrink: 0;
+      }
+
+      .search-box__input {
+        border: none;
+        outline: none;
+        font-size: 14px;
+        font-family: inherit;
+        color: var(--text-title);
+        background: transparent;
+        width: 200px;
+      }
+
+      .search-box__input::placeholder {
+        color: var(--text-placeholder);
+      }
+
+      /* 素材分类标签 */
+      .asset-tabs {
+        display: flex;
+        gap: 8px;
+        margin-bottom: 28px;
+        flex-wrap: wrap;
+      }
+
+      .asset-tab {
+        padding: 7px 18px;
+        font-size: 14px;
+        font-weight: 500;
+        color: var(--text-muted);
+        background: #fff;
+        border: 1px solid var(--input-border);
+        border-radius: 20px;
+        cursor: pointer;
+        text-decoration: none;
+        transition: all 0.15s ease;
+      }
+
+      .asset-tab:hover {
+        color: var(--text-title);
+        border-color: #d1d5db;
+      }
+
+      .asset-tab--active {
+        color: #fff;
+        background: var(--nav-active);
+        border-color: var(--nav-active);
+      }
+
+      .asset-tab--active:hover {
+        color: #fff;
+        background: #2b42b0;
+        border-color: #2b42b0;
+      }
+
+      .empty-state {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 80px 20px;
+        text-align: center;
+      }
+
+      .empty-state__icon {
+        width: 56px;
+        height: 56px;
+        color: #d1d5db;
+        margin-bottom: 20px;
+      }
+
+      .empty-state__title {
+        font-size: 16px;
+        font-weight: 600;
+        color: var(--text-title);
+        margin: 0 0 8px;
+      }
+
+      .empty-state__desc {
+        font-size: 14px;
+        color: var(--text-muted);
+        margin: 0 0 24px;
+      }
+
+      .btn-primary {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 10px 28px;
+        font-size: 15px;
+        font-weight: 600;
+        font-family: inherit;
+        color: #fff;
+        background: var(--nav-active);
+        border: none;
+        border-radius: var(--radius-btn);
+        cursor: pointer;
+        text-decoration: none;
+        transition: background 0.15s ease, box-shadow 0.15s ease;
+      }
+
+      .btn-primary:hover {
+        background: #2b42b0;
+        box-shadow: 0 4px 14px rgba(54, 81, 211, 0.3);
+      }
+
+      @media (max-width: 640px) {
+        .app-content {
+          padding: 24px 16px 40px;
+        }
+
+        .page-header {
+          flex-direction: column;
+        }
+
+        .search-box__input {
+          width: 140px;
+        }
+
+        .page-header__title {
+          font-size: 20px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="app-nav">
+      <div class="app-nav__inner">
+        <a href="main.html" class="app-nav__brand" aria-label="DashNova 首页">
+          <img class="app-nav__brand-icon" src="logo.svg" width="36" height="36" alt="DashNova" />
+          <span class="app-nav__brand-text">DashNova</span>
+        </a>
+
+        <nav class="app-nav__links" aria-label="主导航">
+          <a href="main.html" class="app-nav__link" data-page="home">
+            <svg class="app-nav__link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9.5Z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+            首页
+          </a>
+          <a href="workspace.html" class="app-nav__link" data-page="projects">
+            <svg class="app-nav__link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+            项目管理
+          </a>
+          <a href="asset-hub.html" class="app-nav__link app-nav__link--active" data-page="assets">
+            <svg class="app-nav__link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="13.5" cy="6.5" r="2.5"/><path d="M3 20l5.5-7.5L12 17l3.5-4.5L21 20"/><rect x="2" y="2" width="20" height="20" rx="2.18"/></svg>
+            素材库
+          </a>
+          <a href="#settings" class="app-nav__link" data-page="settings">
+            <svg class="app-nav__link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09a1.65 1.65 0 0 0-1.08-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09a1.65 1.65 0 0 0 1.51-1.08 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1.08 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9c.26.604.852.997 1.51 1.08H21a2 2 0 0 1 0 4h-.09c-.658.08-1.25.476-1.51 1.08Z"/></svg>
+            设置
+          </a>
+        </nav>
+
+        <div class="app-nav__user">
+          <a href="index.html" class="btn-logout">退出登录</a>
+        </div>
+      </div>
+    </header>
+
+    <main class="app-content">
+      <div class="page-header">
+        <div>
+          <h1 class="page-header__title">素材库</h1>
+          <p class="page-header__desc">浏览和管理您的AI漫剧创作素材</p>
+        </div>
+        <div class="search-box">
+          <svg class="search-box__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <input type="text" class="search-box__input" placeholder="搜索素材..." />
+        </div>
+      </div>
+
+      <div class="asset-tabs">
+        <a href="#" class="asset-tab asset-tab--active">全部</a>
+        <a href="#" class="asset-tab">角色</a>
+        <a href="#" class="asset-tab">场景</a>
+        <a href="#" class="asset-tab">道具</a>
+        <a href="#" class="asset-tab">特效</a>
+      </div>
+
+      <div class="empty-state">
+        <svg class="empty-state__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="2.18"/><circle cx="13.5" cy="6.5" r="2.5"/><path d="M3 20l5.5-7.5L12 17l3.5-4.5L21 20"/></svg>
+        <p class="empty-state__title">还没有素材</p>
+        <p class="empty-state__desc">上传您的第一个创作素材</p>
+        <a href="#" class="btn-primary">上传素材</a>
+      </div>
+    </main>
+
+    <script>
+      (function () {
+        var tabs = document.querySelectorAll(".asset-tab");
+        tabs.forEach(function (tab) {
+          tab.addEventListener("click", function (e) {
+            e.preventDefault();
+            tabs.forEach(function (t) { t.classList.remove("asset-tab--active"); });
+            this.classList.add("asset-tab--active");
+          });
+        });
+      })();
+    </script>
+  </body>
+</html>

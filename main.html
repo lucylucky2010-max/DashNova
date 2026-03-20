@@ -6,130 +6,8 @@
     <title>流光 — AI漫剧创作平台</title>
     <link rel="icon" href="favicon.svg?v=20260320-1" type="image/svg+xml" />
     <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="app-nav.css" />
     <style>
-      :root {
-        --nav-active: #3651d3;
-      }
-
-      /* ===== 顶部导航（覆盖登录页样式） ===== */
-      .app-nav {
-        background: var(--bg-nav);
-        border-bottom: 1px solid var(--border-nav);
-        box-shadow: 0 1px 0 rgba(255, 255, 255, 0.8) inset;
-      }
-
-      .app-nav__inner {
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 0 24px;
-        display: flex;
-        align-items: center;
-        height: 56px;
-        gap: 0;
-      }
-
-      .app-nav__brand {
-        display: inline-flex;
-        align-items: center;
-        gap: 10px;
-        text-decoration: none;
-        line-height: 1;
-        margin-right: 40px;
-        flex-shrink: 0;
-      }
-
-      .app-nav__brand:hover {
-        opacity: 0.92;
-      }
-
-      .app-nav__brand-icon {
-        display: block;
-        width: 36px;
-        height: 36px;
-      }
-
-      .app-nav__brand-text {
-        font-size: 20px;
-        font-weight: 600;
-        letter-spacing: -0.02em;
-        color: var(--brand-wordmark);
-      }
-
-      /* 导航链接组 */
-      .app-nav__links {
-        display: flex;
-        align-items: center;
-        gap: 4px;
-        flex: 1;
-        min-width: 0;
-      }
-
-      .app-nav__link {
-        position: relative;
-        display: inline-flex;
-        align-items: center;
-        gap: 6px;
-        padding: 8px 16px;
-        font-size: 14px;
-        font-weight: 500;
-        color: var(--text-muted);
-        text-decoration: none;
-        border-radius: 8px;
-        transition: color 0.15s ease, background 0.15s ease;
-        white-space: nowrap;
-      }
-
-      .app-nav__link:hover {
-        color: var(--text-title);
-        background: rgba(0, 0, 0, 0.04);
-      }
-
-      .app-nav__link--active {
-        color: var(--nav-active);
-        background: rgba(54, 81, 211, 0.08);
-      }
-
-      .app-nav__link--active:hover {
-        color: var(--nav-active);
-        background: rgba(54, 81, 211, 0.1);
-      }
-
-      .app-nav__link-icon {
-        width: 18px;
-        height: 18px;
-        flex-shrink: 0;
-      }
-
-      /* 右侧用户区 */
-      .app-nav__user {
-        display: flex;
-        align-items: center;
-        gap: 16px;
-        margin-left: auto;
-        flex-shrink: 0;
-      }
-
-      .btn-logout {
-        display: inline-flex;
-        align-items: center;
-        padding: 6px 16px;
-        font-size: 13px;
-        font-weight: 500;
-        color: var(--text-muted);
-        background: transparent;
-        border: 1px solid var(--input-border);
-        border-radius: 8px;
-        cursor: pointer;
-        text-decoration: none;
-        transition: color 0.15s ease, border-color 0.15s ease;
-      }
-
-      .btn-logout:hover {
-        color: var(--text-title);
-        border-color: #d1d5db;
-      }
-
-      /* ===== 页面内容区 ===== */
       .main-hero {
         text-align: center;
         max-width: 680px;
@@ -188,29 +66,6 @@
       }
 
       @media (max-width: 640px) {
-        .app-nav__inner {
-          padding: 0 16px;
-          gap: 0;
-        }
-
-        .app-nav__brand {
-          margin-right: 16px;
-        }
-
-        .app-nav__brand-text {
-          display: none;
-        }
-
-        .app-nav__link {
-          padding: 8px 10px;
-          font-size: 13px;
-          gap: 4px;
-        }
-
-        .app-nav__link-icon {
-          display: none;
-        }
-
         .main-hero__greeting {
           font-size: 24px;
         }
@@ -241,11 +96,11 @@
             <svg class="app-nav__link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9.5Z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
             首页
           </a>
-          <a href="#projects" class="app-nav__link" data-page="projects">
+          <a href="workspace.html" class="app-nav__link" data-page="projects">
             <svg class="app-nav__link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
             项目管理
           </a>
-          <a href="#assets" class="app-nav__link" data-page="assets">
+          <a href="asset-hub.html" class="app-nav__link" data-page="assets">
             <svg class="app-nav__link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="13.5" cy="6.5" r="2.5"/><path d="M3 20l5.5-7.5L12 17l3.5-4.5L21 20"/><rect x="2" y="2" width="20" height="20" rx="2.18"/></svg>
             素材库
           </a>
@@ -284,18 +139,5 @@
       </div>
     </main>
 
-    <script>
-      (function () {
-        const links = document.querySelectorAll(".app-nav__link");
-        links.forEach(function (link) {
-          link.addEventListener("click", function (e) {
-            links.forEach(function (l) {
-              l.classList.remove("app-nav__link--active");
-            });
-            this.classList.add("app-nav__link--active");
-          });
-        });
-      })();
-    </script>
   </body>
 </html>
