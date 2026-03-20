@@ -1,0 +1,318 @@
+/* ===== 设计变量（与参考图一致） ===== */
+:root {
+  --bg-page: #f9fafb;
+  --bg-nav: #ffffff;
+  --border-nav: rgba(0, 0, 0, 0.06);
+  --card-bg: #ffffff;
+  --text-title: #111827;
+  --text-body: #111827;
+  --text-muted: #6b7280;
+  --text-placeholder: #9ca3af;
+  --primary: #3b82f6;
+  --primary-hover: #2563eb;
+  --input-border: #e5e7eb;
+  --brand-wordmark: #1f3a72;
+  --shadow-card: 0 25px 50px -12px rgba(0, 0, 0, 0.08),
+    0 12px 24px -8px rgba(0, 0, 0, 0.06);
+  --radius-card: 24px;
+  --radius-input: 10px;
+  --radius-btn: 12px;
+  --font-stack: system-ui, -apple-system, "PingFang SC", "Microsoft YaHei",
+    "Helvetica Neue", sans-serif;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: var(--font-stack);
+  background: var(--bg-page);
+  color: var(--text-body);
+}
+
+/* ===== 顶栏 ===== */
+.top-nav {
+  background: var(--bg-nav);
+  border-bottom: 1px solid var(--border-nav);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.8) inset;
+}
+
+.top-nav__inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 14px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.top-nav__left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* 品牌区：图形 + DashNova 无衬线字标 */
+.logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  line-height: 1;
+  border-radius: 12px;
+  transition: opacity 0.15s ease;
+}
+
+.logo:hover {
+  opacity: 0.92;
+}
+
+.logo:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 3px;
+}
+
+.logo__mark {
+  display: block;
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+}
+
+.logo__wordmark {
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue",
+    Arial, "PingFang SC", "Microsoft YaHei", sans-serif;
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--brand-wordmark);
+}
+
+.top-nav__right {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.link-plain {
+  color: var(--text-title);
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.link-plain:hover {
+  color: var(--primary);
+}
+
+.link-plain--current {
+  color: var(--primary);
+  cursor: default;
+}
+
+.btn-register {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 20px;
+  background: var(--primary);
+  color: #fff;
+  font-size: 15px;
+  font-weight: 500;
+  text-decoration: none;
+  border-radius: var(--radius-btn);
+  border: none;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.btn-register:hover {
+  background: var(--primary-hover);
+}
+
+.btn-register--current {
+  cursor: default;
+  box-shadow: 0 4px 14px rgba(59, 130, 246, 0.35);
+}
+
+.btn-register--current:hover {
+  background: var(--primary);
+}
+
+/* ===== 主区域：居中卡片 ===== */
+.page-main {
+  min-height: calc(100vh - 61px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px 48px;
+}
+
+.login-card {
+  width: 100%;
+  max-width: 440px;
+  background: var(--card-bg);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+  padding: 40px 40px 36px;
+}
+
+.login-card__header {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.login-card__title {
+  margin: 0 0 10px;
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--text-title);
+  letter-spacing: -0.02em;
+}
+
+.login-card__subtitle {
+  margin: 0;
+  font-size: 15px;
+  color: var(--text-muted);
+}
+
+/* ===== 表单 ===== */
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.field__label {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-title);
+}
+
+.field__input {
+  width: 100%;
+  padding: 14px 16px;
+  font-size: 15px;
+  font-family: inherit;
+  color: var(--text-title);
+  background: #fff;
+  border: 1px solid var(--input-border);
+  border-radius: var(--radius-input);
+  outline: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.field__input::placeholder {
+  color: var(--text-placeholder);
+}
+
+.field__input:hover {
+  border-color: #d1d5db;
+}
+
+.field__input:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+}
+
+.btn-login {
+  margin-top: 8px;
+  width: 100%;
+  padding: 14px 20px;
+  font-size: 16px;
+  font-weight: 600;
+  font-family: inherit;
+  color: #fff;
+  background: var(--primary);
+  border: none;
+  border-radius: var(--radius-btn);
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.btn-login:hover {
+  background: var(--primary-hover);
+}
+
+.btn-login:active {
+  transform: translateY(1px);
+}
+
+.btn-login--shadow {
+  box-shadow: 0 4px 14px rgba(59, 130, 246, 0.28);
+}
+
+.btn-login--shadow:hover {
+  box-shadow: 0 6px 20px rgba(59, 130, 246, 0.35);
+}
+
+/* ===== 卡片底部链接 ===== */
+.login-card__hint {
+  margin: 28px 0 0;
+  text-align: center;
+  font-size: 14px;
+  color: var(--text-muted);
+}
+
+.link-primary {
+  color: var(--primary);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.link-primary:hover {
+  text-decoration: underline;
+}
+
+.login-card__back {
+  display: block;
+  margin-top: 24px;
+  text-align: center;
+  font-size: 14px;
+  color: var(--text-muted);
+  text-decoration: none;
+}
+
+.login-card__back:hover {
+  color: var(--text-title);
+}
+
+/* ===== 小屏适配 ===== */
+@media (max-width: 640px) {
+  .top-nav__inner {
+    flex-wrap: wrap;
+    padding: 12px 16px;
+  }
+
+  .top-nav__right {
+    width: 100%;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    gap: 12px 16px;
+  }
+
+  .login-card {
+    padding: 32px 24px 28px;
+  }
+
+  .login-card__title {
+    font-size: 24px;
+  }
+}

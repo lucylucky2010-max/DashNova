@@ -1,0 +1,8 @@
+{
+  "name": "cursor-login",
+  "private": true,
+  "scripts": {
+    "preview": "python3 -m http.server 8080",
+    "deploy": "npx --yes vercel@latest deploy --prod"
+  }
+}
