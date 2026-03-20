@@ -249,28 +249,29 @@ body {
   right: 10px;
   top: 50%;
   transform: translateY(-50%);
-  width: 34px;
-  height: 34px;
+  width: 36px;
+  height: 36px;
   padding: 0;
-  border-radius: var(--radius-pill, 999px);
-  border: 1px solid var(--input-border);
-  background: #fff;
+  border-radius: 0;
+  border: none;
+  background: transparent;
   color: var(--text-muted);
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: color 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+  transition: color 0.15s ease;
 }
 
 .pw-toggle:hover {
   color: var(--primary);
-  border-color: #d1d5db;
-  background: #f9fafb;
 }
 
 .pw-icon {
   display: block;
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
 }
 
 .pw-icon--on {
