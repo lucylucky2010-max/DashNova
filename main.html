@@ -19,6 +19,36 @@
         position: relative;
       }
 
+      /* ── 背景：弧形流线光带 ── */
+      .bg-trails {
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        z-index: 0;
+        overflow: hidden;
+      }
+
+      /* ── 背景：星点（低密度 + 淡蓝辉光） ── */
+      .bg-stars {
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        z-index: 0;
+        overflow: hidden;
+      }
+
+      .bg-star {
+        position: absolute;
+        color: rgba(255,255,255,0.95);
+        filter: drop-shadow(0 0 4px rgba(100,150,255,0.55)) drop-shadow(0 0 10px rgba(120,160,255,0.25));
+      }
+
+      .bg-star svg {
+        display: block;
+        width: 7px;
+        height: 7px;
+      }
+
       .app-nav { flex-shrink: 0; position: relative; z-index: 10; }
 
       /* ── 页面主体 ── */
@@ -109,203 +139,311 @@
         height: clamp(340px, 58vh, 500px);
       }
 
-      /* 背景装饰窗口 */
+      /* ── 左侧背景面板（Scene Planner） ── */
       .bg-panel {
         position: absolute;
         border-radius: 16px;
-        background: rgba(255,255,255,0.55);
-        border: 1px solid rgba(255,255,255,0.6);
-        box-shadow: 0 8px 32px -8px rgba(54,81,211,0.06);
-        backdrop-filter: blur(6px);
+        overflow: hidden;
       }
 
       .bg-panel--left {
-        left: -20px;
+        left: -30px;
         top: 16px;
-        width: 160px;
-        height: 260px;
-        z-index: 0;
-        opacity: 0.5;
-      }
-
-      .bg-panel--right {
-        right: -8px;
-        top: -10px;
-        width: 220px;
-        height: 140px;
-        z-index: 0;
-        opacity: 0.45;
-      }
-
-      .bg-panel__bar {
+        width: 260px;
+        height: 340px;
+        z-index: -1;
+        transform: rotate(-4deg);
+        background: rgba(255,255,255,0.5);
+        border: 1px solid rgba(255,255,255,0.6);
+        box-shadow: 0 15px 35px rgba(0,0,0,0.05);
+        backdrop-filter: blur(6px);
+        opacity: 0.8;
+        padding: 14px;
+        box-sizing: border-box;
         display: flex;
-        gap: 4px;
-        padding: 10px 14px;
-        border-bottom: 1px solid rgba(0,0,0,0.04);
+        flex-direction: column;
+        gap: 12px;
       }
 
-      .bg-panel__dot {
-        width: 6px;
+      .bg-panel--left .bp-topbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding-bottom: 8px;
+        border-bottom: 1px solid rgba(229,231,235,0.5);
+      }
+
+      .bp-dots { display: flex; gap: 5px; }
+      .bp-dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(209,213,219,0.8); }
+
+      .bp-topbar-label {
+        font-size: 8.5px;
+        font-weight: 500;
+        color: #9ca3af;
+        letter-spacing: 0.5px;
+      }
+
+      .bp-highlight {
+        display: flex;
+        align-items: center;
+        gap: 7px;
+        padding: 5px 9px;
+        background: rgba(232,240,254,0.8);
+        border-radius: 6px;
+      }
+
+      .bp-highlight svg { width: 12px; height: 12px; color: #246bf2; flex-shrink: 0; }
+
+      .bp-highlight-text {
+        font-size: 10.5px;
+        font-weight: 600;
+        color: #246bf2;
+      }
+
+      .bp-script-list {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        flex: 1;
+      }
+
+      .bp-script-row {
+        display: flex;
+        align-items: flex-start;
+        gap: 7px;
+      }
+
+      .bp-script-num {
+        font-size: 9px;
+        color: #9ca3af;
+        font-weight: 500;
+        flex-shrink: 0;
+        padding-top: 2px;
+      }
+
+      .bp-script-lines {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+      }
+
+      .bp-script-row--active .bp-script-lines {
+        padding: 7px;
+        background: rgba(255,255,255,0.6);
+        border: 1px solid rgba(255,255,255,0.5);
+        border-radius: 8px;
+        box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+      }
+
+      .bp-bar {
         height: 6px;
-        border-radius: 50%;
-        background: rgba(0,0,0,0.08);
+        border-radius: 9999px;
+        background: rgba(229,231,235,0.8);
       }
 
-      .bg-panel__line {
-        margin: 10px 14px;
-        height: 5px;
-        border-radius: 3px;
-        background: rgba(0,0,0,0.04);
+      .bp-bar--light { background: rgba(229,231,235,0.6); }
+      .bp-bar--faint { background: #f3f4f6; }
+
+      /* ── 右侧背景面板（场景对话） ── */
+      .bg-panel--right {
+        right: -10px;
+        top: -18px;
+        width: 320px;
+        height: 235px;
+        z-index: 0;
+        transform: rotate(3deg);
+        background: rgba(255,255,255,0.8);
+        border: 1px solid rgba(255,255,255,0.8);
+        border-radius: 16px;
+        box-shadow: 0 6px 20px rgba(0,0,0,0.03);
+        backdrop-filter: blur(12px);
+        padding: 0;
+        box-sizing: border-box;
       }
 
-      .bg-panel__line--short { width: 60%; }
-      .bg-panel__line--mid { width: 80%; }
+      .bg-panel--right .rp-topbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 12px 16px;
+        border-bottom: 1px solid #f3f4f6;
+      }
 
-      .bg-panel--right .bg-panel__title {
-        padding: 10px 14px 6px;
-        font-size: 10px;
+      .rp-dots { display: flex; gap: 5px; }
+      .rp-dot { width: 10px; height: 10px; border-radius: 50%; }
+      .rp-dot--r { background: #ff5f56; }
+      .rp-dot--y { background: #ffbd2e; }
+      .rp-dot--g { background: #27c93f; }
+
+      .rp-nav { display: flex; gap: 6px; }
+      .rp-nav-btn {
+        width: 14px; height: 14px; border-radius: 2px;
+        background: #f3f4f6;
+        display: flex; align-items: center; justify-content: center;
+        font-size: 8px; color: #9ca3af;
+      }
+
+      .rp-title {
+        font-size: 13px;
         font-weight: 700;
-        color: rgba(0,0,0,0.12);
+        color: #1c2a4f;
+        padding: 16px 16px 0;
       }
 
-      /* 主图片面板 */
+      .rp-body { padding: 12px 16px 16px; padding-left: 24px; display: flex; flex-direction: column; gap: 14px; }
+
+      .rp-row {
+        display: flex;
+        align-items: flex-start;
+        gap: 7px;
+      }
+
+      .rp-num {
+        font-size: 10px;
+        color: #9ca3af;
+        flex-shrink: 0;
+        padding-top: 2px;
+      }
+
+      .rp-lines {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+      }
+
+      .rp-bar {
+        height: 12px;
+        border-radius: 4px;
+        background: #f3f4f6;
+      }
+
+      /* ── 主图片面板 ── */
       .image-panel {
         position: absolute;
         left: 56px;
         top: 28px;
         right: 40px;
         bottom: 60px;
-        background: #fff;
+        background: rgba(255,255,255,0.95);
+        border: 1px solid #fff;
         border-radius: 20px;
-        box-shadow:
-          0 24px 56px -12px rgba(54,81,211,0.16),
-          0 0 0 1px rgba(0,0,0,0.03);
+        box-shadow: 0 8px 24px rgba(28,42,79,0.06);
+        backdrop-filter: blur(20px);
         overflow: hidden;
         z-index: 1;
         display: flex;
         flex-direction: column;
       }
 
-      .image-panel__bar {
+      .ip-topbar {
         display: flex;
         align-items: center;
-        gap: 6px;
-        padding: 10px 16px;
-        background: #fafbfd;
-        border-bottom: 1px solid rgba(0,0,0,0.05);
+        gap: 12px;
+        height: 44px;
+        padding: 0 16px;
+        background: rgba(249,250,251,0.8);
+        border-bottom: 1px solid rgba(243,244,246,0.8);
         flex-shrink: 0;
       }
 
-      .image-panel__dot { width: 8px; height: 8px; border-radius: 50%; }
-      .image-panel__dot--r { background: #ff6b6b; }
-      .image-panel__dot--y { background: #feca57; }
-      .image-panel__dot--g { background: #48dbfb; }
+      .ip-dots { display: flex; gap: 6px; }
+      .ip-dot { width: 12px; height: 12px; border-radius: 50%; }
+      .ip-dot--r { background: #ff5f56; }
+      .ip-dot--y { background: #ffbd2e; }
+      .ip-dot--g { background: #27c93f; }
 
-      .image-panel__label {
-        margin-left: 10px;
-        font-size: 11px;
-        color: #94a3b8;
-        font-weight: 600;
+      .ip-nav {
+        display: flex; gap: 4px; opacity: 0.5; margin-left: 8px;
+      }
+      .ip-nav-btn {
+        width: 16px; height: 16px;
+        display: flex; align-items: center; justify-content: center;
+        font-size: 10px; color: #9ca3af;
       }
 
-      .image-panel__grid {
+      .ip-address {
+        flex: 1;
+        max-width: 200px;
+        height: 24px;
+        border-radius: 6px;
+        border: 1px solid #e5e7eb;
+        background: #fff;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        padding: 0 9px;
+      }
+
+      .ip-address-dot {
+        width: 8px; height: 8px;
+        border-radius: 50%;
+        background: #e5e7eb;
+      }
+
+      .ip-actions {
+        display: flex; gap: 8px;
+      }
+
+      .ip-action-btn {
+        width: 16px; height: 16px; border-radius: 4px;
+        background: #e5e7eb;
+      }
+
+      .ip-grid {
         flex: 1;
         display: grid;
-        grid-template-columns: 1.4fr 1fr;
-        grid-template-rows: 1fr 1fr;
-        gap: 8px;
-        padding: 10px;
+        grid-template-columns: 1.22fr 1fr;
+        gap: 14px;
+        padding: 14px;
         min-height: 0;
       }
 
-      .image-panel__img {
-        border-radius: 16px;
+      .ip-img-wrap {
+        position: relative;
+        border-radius: 12px;
+        overflow: hidden;
+        background: #e5e7eb;
+      }
+
+      .ip-img-wrap--main { grid-row: 1 / 3; }
+
+      .ip-img-wrap img {
         width: 100%;
         height: 100%;
         object-fit: cover;
         display: block;
       }
 
-      .image-panel__img--main {
-        grid-row: 1 / 3;
-      }
+      .ip-img-wrap--right { border-radius: 10px; }
 
-      /* 视频预览卡 */
-      .video-card {
+      .ip-overlay-icon {
         position: absolute;
-        right: 0;
-        bottom: 10px;
-        width: 140px;
-        height: 100px;
-        background: linear-gradient(145deg, #1e293b, #334155);
-        border-radius: 16px;
-        box-shadow: 0 12px 32px -6px rgba(0,0,0,0.28);
-        z-index: 3;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        gap: 8px;
-        overflow: hidden;
-      }
-
-      .video-card__play {
-        width: 32px;
-        height: 32px;
-        border-radius: 50%;
-        background: rgba(255,255,255,0.12);
+        left: 12px;
+        bottom: 12px;
+        width: 40px;
+        height: 40px;
+        border-radius: 8px;
+        background: rgba(255,255,255,0.3);
+        border: 1px solid rgba(255,255,255,0.5);
+        backdrop-filter: blur(6px);
         display: flex;
         align-items: center;
         justify-content: center;
       }
 
-      .video-card__play svg {
-        width: 16px;
-        height: 16px;
-        color: #fff;
-        margin-left: 2px;
+      .ip-overlay-icon svg {
+        width: 20px; height: 20px; color: #fff;
       }
 
-      .video-card__bars {
-        display: flex;
-        align-items: center;
-        gap: 3px;
-        padding: 0 16px;
-        width: 100%;
-        box-sizing: border-box;
-      }
 
-      .video-card__track {
-        flex: 1;
-        height: 3px;
-        border-radius: 2px;
-        background: rgba(255,255,255,0.12);
-        position: relative;
-        overflow: hidden;
-      }
-
-      .video-card__track::after {
-        content: "";
-        position: absolute;
-        left: 0;
-        top: 0;
-        bottom: 0;
-        width: 35%;
-        background: #60a5fa;
-        border-radius: 2px;
-      }
-
-      .video-card__time {
-        font-size: 9px;
-        color: rgba(255,255,255,0.5);
-        flex-shrink: 0;
-      }
 
       /* ── 功能卡片 ── */
       .features {
         max-width: 1280px;
         width: 100%;
-        margin: -10px auto 0;
+        margin: -20px auto 0;
         padding: 0 80px 24px;
         display: grid;
         grid-template-columns: repeat(3, 1fr);
@@ -315,34 +453,70 @@
       }
 
       .feature-card {
-        background: rgba(255,255,255,0.72);
-        border: 1px solid rgba(0,0,0,0.05);
-        border-radius: 14px;
-        padding: 20px 24px;
+        background: rgba(255,255,255,0.6);
+        border: 1px solid rgba(255,255,255,0.7);
+        border-radius: 22px;
+        padding: 28px;
         text-align: center;
-        backdrop-filter: blur(8px);
-        transition: transform 0.15s, box-shadow 0.15s;
+        backdrop-filter: blur(12px);
+        box-shadow:
+          0 1px 2px rgba(96,130,240,0.04),
+          0 4px 20px -4px rgba(96,130,240,0.07);
+        transition: transform 0.3s cubic-bezier(.4,0,.2,1),
+                    box-shadow 0.3s cubic-bezier(.4,0,.2,1),
+                    border-color 0.3s ease;
       }
 
       .feature-card:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 12px 32px -8px rgba(54,81,211,0.1);
+        transform: translateY(-4px);
+        border-color: rgba(96,130,240,0.18);
+        box-shadow:
+          0 2px 4px rgba(96,130,240,0.05),
+          0 10px 28px -6px rgba(96,130,240,0.1);
       }
 
-      .feature-card__icon { width: 26px; height: 26px; margin: 0 auto 8px; color: #3651d3; }
+      .feature-card__icon { width: 28px; height: 28px; margin: 0 auto 10px; color: #5a7cf5; }
 
       .feature-card__title {
-        font-size: 14px;
+        font-size: 15px;
         font-weight: 700;
-        color: var(--text-title);
-        margin: 0 0 3px;
+        color: #1c2a4f;
+        margin: 0 0 6px;
       }
 
       .feature-card__desc {
-        font-size: 12px;
-        color: var(--text-muted);
+        font-size: 12.5px;
+        color: #9ca3af;
         margin: 0;
-        line-height: 1.5;
+        line-height: 1.6;
+      }
+
+      /* ── 浮动微动画 ── */
+      @keyframes floatLeft {
+        0%, 100% { transform: rotate(-4deg) translate(0, 0); }
+        50%      { transform: rotate(-3.4deg) translate(2px, -5px); }
+      }
+
+      @keyframes floatCenter {
+        0%, 100% { transform: translate(0, 0) rotate(0deg); }
+        50%      { transform: translate(-2px, -4px) rotate(0.2deg); }
+      }
+
+      @keyframes floatRight {
+        0%, 100% { transform: rotate(3deg) translate(0, 0); }
+        50%      { transform: rotate(3.5deg) translate(-2px, -5px); }
+      }
+
+      .bg-panel--left {
+        animation: floatLeft 6s ease-in-out infinite;
+      }
+
+      .image-panel {
+        animation: floatCenter 7s ease-in-out 0.8s infinite;
+      }
+
+      .bg-panel--right {
+        animation: floatRight 5.5s ease-in-out infinite;
       }
 
       @media (max-width: 1100px) {
@@ -362,6 +536,43 @@
     </style>
   </head>
   <body>
+    <div class="bg-trails" aria-hidden="true">
+      <svg viewBox="0 0 1440 900" preserveAspectRatio="none" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="trail-a" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="rgba(255,255,255,0)"/>
+            <stop offset="38%" stop-color="rgba(130,165,255,0.14)"/>
+            <stop offset="62%" stop-color="rgba(160,190,255,0.1)"/>
+            <stop offset="100%" stop-color="rgba(255,255,255,0)"/>
+          </linearGradient>
+          <linearGradient id="trail-b" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="rgba(255,255,255,0)"/>
+            <stop offset="42%" stop-color="rgba(100,150,240,0.11)"/>
+            <stop offset="100%" stop-color="rgba(255,255,255,0)"/>
+          </linearGradient>
+          <linearGradient id="trail-c" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="rgba(255,255,255,0)"/>
+            <stop offset="48%" stop-color="rgba(140,160,255,0.09)"/>
+            <stop offset="100%" stop-color="rgba(255,255,255,0)"/>
+          </linearGradient>
+        </defs>
+        <path d="M-80 720 Q 420 360, 880 400 T 1520 180" fill="none" stroke="url(#trail-a)" stroke-width="1.5"/>
+        <path d="M-40 820 Q 380 480, 800 520 T 1540 320" fill="none" stroke="url(#trail-b)" stroke-width="1"/>
+        <path d="M180 0 Q 520 260, 1020 220 T 1520 500" fill="none" stroke="url(#trail-c)" stroke-width="1.2"/>
+      </svg>
+    </div>
+    <div class="bg-stars" aria-hidden="true">
+      <span class="bg-star" style="left:14%;top:22%">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.2 6.8h7l-5.7 4.1 2.2 6.8L12 15.6 6.3 19.7l2.2-6.8L2.8 8.8h7L12 2z"/></svg>
+      </span>
+      <span class="bg-star" style="left:72%;top:16%">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.2 6.8h7l-5.7 4.1 2.2 6.8L12 15.6 6.3 19.7l2.2-6.8L2.8 8.8h7L12 2z"/></svg>
+      </span>
+      <span class="bg-star" style="left:48%;top:78%">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.2 6.8h7l-5.7 4.1 2.2 6.8L12 15.6 6.3 19.7l2.2-6.8L2.8 8.8h7L12 2z"/></svg>
+      </span>
+    </div>
+
     <header class="app-nav">
       <div class="app-nav__inner">
         <a href="main.html" class="app-nav__brand" aria-label="DashNova 首页">
@@ -425,47 +636,102 @@
 
         <!-- Hero 右侧视觉区 -->
         <div class="hero__visual">
-          <!-- 背景装饰窗口 -->
+          <!-- 左侧背景面板：Scene Planner -->
           <div class="bg-panel bg-panel--left" aria-hidden="true">
-            <div class="bg-panel__bar"><span class="bg-panel__dot"></span><span class="bg-panel__dot"></span><span class="bg-panel__dot"></span></div>
-            <div class="bg-panel__line"></div>
-            <div class="bg-panel__line bg-panel__line--short"></div>
-            <div class="bg-panel__line bg-panel__line--mid"></div>
-            <div class="bg-panel__line"></div>
-            <div class="bg-panel__line bg-panel__line--short"></div>
+            <div class="bp-topbar">
+              <div class="bp-dots"><span class="bp-dot"></span><span class="bp-dot"></span><span class="bp-dot"></span></div>
+              <span class="bp-topbar-label">SCENE PLANNER</span>
+            </div>
+            <div class="bp-highlight">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+              <span class="bp-highlight-text">3场 街道夜景</span>
+            </div>
+            <div class="bp-script-list">
+              <div class="bp-script-row bp-script-row--active">
+                <span class="bp-script-num">1</span>
+                <div class="bp-script-lines">
+                  <div class="bp-bar" style="width:100%"></div>
+                  <div class="bp-bar" style="width:80%"></div>
+                  <div class="bp-bar bp-bar--faint" style="width:45%"></div>
+                </div>
+              </div>
+              <div class="bp-script-row">
+                <span class="bp-script-num">2</span>
+                <div class="bp-script-lines">
+                  <div class="bp-bar bp-bar--light" style="width:88%"></div>
+                  <div class="bp-bar bp-bar--light" style="width:60%"></div>
+                </div>
+              </div>
+              <div class="bp-script-row">
+                <span class="bp-script-num">3</span>
+                <div class="bp-script-lines">
+                  <div class="bp-bar bp-bar--light" style="width:100%"></div>
+                  <div class="bp-bar bp-bar--light" style="width:72%"></div>
+                </div>
+              </div>
+              <div class="bp-script-row">
+                <span class="bp-script-num">4</span>
+                <div class="bp-script-lines">
+                  <div class="bp-bar bp-bar--light" style="width:78%"></div>
+                </div>
+              </div>
+              <div class="bp-script-row">
+                <span class="bp-script-num">5</span>
+                <div class="bp-script-lines">
+                  <div class="bp-bar bp-bar--light" style="width:92%"></div>
+                  <div class="bp-bar bp-bar--light" style="width:50%"></div>
+                </div>
+              </div>
+            </div>
           </div>
+
+          <!-- 右侧背景面板：场景对话 -->
           <div class="bg-panel bg-panel--right" aria-hidden="true">
-            <div class="bg-panel__bar"><span class="bg-panel__dot"></span><span class="bg-panel__dot"></span><span class="bg-panel__dot"></span></div>
-            <div class="bg-panel__title">场景对话…</div>
-            <div class="bg-panel__line bg-panel__line--mid"></div>
-            <div class="bg-panel__line bg-panel__line--short"></div>
+            <div class="rp-topbar">
+              <div class="rp-dots"><span class="rp-dot rp-dot--r"></span><span class="rp-dot rp-dot--y"></span><span class="rp-dot rp-dot--g"></span></div>
+              <div class="rp-nav"><span class="rp-nav-btn">&lt;</span><span class="rp-nav-btn">&gt;</span></div>
+            </div>
+            <div class="rp-title">场景1：峡谷内，小交警与嫌疑人对峙...</div>
+            <div class="rp-body">
+              <div class="rp-row">
+                <span class="rp-num">1</span>
+                <div class="rp-lines"><div class="rp-bar" style="width:100%"></div><div class="rp-bar" style="width:80%"></div></div>
+              </div>
+              <div class="rp-row">
+                <span class="rp-num">2</span>
+                <div class="rp-lines"><div class="rp-bar" style="width:85%"></div><div class="rp-bar" style="width:100%"></div><div class="rp-bar" style="width:58%"></div></div>
+              </div>
+              <div class="rp-row">
+                <span class="rp-num">3</span>
+                <div class="rp-lines"><div class="rp-bar" style="width:75%"></div></div>
+              </div>
+            </div>
           </div>
 
-          <!-- 图片面板（ImagePanel） -->
+          <!-- 主图片面板 -->
           <div class="image-panel">
-            <div class="image-panel__bar">
-              <span class="image-panel__dot image-panel__dot--r"></span>
-              <span class="image-panel__dot image-panel__dot--y"></span>
-              <span class="image-panel__dot image-panel__dot--g"></span>
-              <span class="image-panel__label">3组 场景成果</span>
+            <div class="ip-topbar">
+              <div class="ip-dots"><span class="ip-dot ip-dot--r"></span><span class="ip-dot ip-dot--y"></span><span class="ip-dot ip-dot--g"></span></div>
+              <div class="ip-nav"><span class="ip-nav-btn">&lt;</span><span class="ip-nav-btn">&gt;</span></div>
+              <div class="ip-address"><span class="ip-address-dot"></span></div>
+              <div class="ip-actions"><span class="ip-action-btn"></span><span class="ip-action-btn"></span></div>
             </div>
-            <div class="image-panel__grid">
-              <img class="image-panel__img image-panel__img--main" src="pic1.png" alt="教室场景 — 女生写作业" />
-              <img class="image-panel__img" src="pic2.png" alt="AI对话 — 女生与机器人" />
-              <img class="image-panel__img" src="pic3.png" alt="校园场景 — 男女对话" />
+            <div class="ip-grid">
+              <div class="ip-img-wrap ip-img-wrap--main">
+                <img src="pic1.png" alt="AI对话 — 女生与机器人" />
+                <div class="ip-overlay-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="2.18"/><circle cx="13.5" cy="6.5" r="2.5"/><path d="M3 20l5.5-7.5L12 17l3.5-4.5L21 20"/></svg>
+                </div>
+              </div>
+              <div class="ip-img-wrap ip-img-wrap--right">
+                <img src="pic2.png" alt="教室场景 — 女生写作业" />
+              </div>
+              <div class="ip-img-wrap ip-img-wrap--right">
+                <img src="pic3.png" alt="校园场景 — 男女对话" />
+              </div>
             </div>
           </div>
 
-          <!-- 视频预览卡（VideoPreview） -->
-          <div class="video-card" aria-hidden="true">
-            <div class="video-card__play">
-              <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="6 3 20 12 6 21 6 3"/></svg>
-            </div>
-            <div class="video-card__bars">
-              <span class="video-card__time">0:12</span>
-              <div class="video-card__track"></div>
-            </div>
-          </div>
         </div>
       </section>
 
