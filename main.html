@@ -15,41 +15,50 @@
         overflow: hidden;
         display: flex;
         flex-direction: column;
-        background: linear-gradient(168deg, #eaefff 0%, #f2f4fb 35%, #ede8ff 65%, #f5f7ff 100%);
+        background: linear-gradient(168deg, #eaefff 0%, #f1f3fb 32%, #ede9ff 62%, #f5f6ff 100%);
         position: relative;
       }
 
-      /* ── 背景光弧 ── */
-      .bg-arcs { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
-      .bg-arcs svg { position: absolute; width: 100%; height: 100%; }
-      .app-nav { flex-shrink: 0; position: relative; z-index: 2; }
-      .hero, .features { position: relative; z-index: 1; }
+      .app-nav { flex-shrink: 0; position: relative; z-index: 10; }
 
-      /* ── Hero 区域 ── */
+      /* ── 页面主体 ── */
+      .page-body {
+        flex: 1;
+        min-height: 0;
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        z-index: 1;
+      }
+
+      /* ── Hero ── */
       .hero {
-        max-width: 1200px;
+        max-width: 1280px;
         width: 100%;
         margin: 0 auto;
-        padding: 0 40px;
+        padding: 0 80px;
         display: flex;
         align-items: center;
         flex: 1;
         min-height: 0;
-        gap: 32px;
+        gap: 56px;
         box-sizing: border-box;
       }
 
-      /* 左侧文案 */
-      .hero__text { flex: 0 0 380px; }
+      .hero__text {
+        flex: 0 0 380px;
+        position: relative;
+        z-index: 2;
+      }
 
       .hero__title {
-        font-size: 34px;
+        font-size: 36px;
         font-weight: 800;
-        line-height: 1.3;
+        line-height: 1.28;
+        white-space: nowrap;
         letter-spacing: -0.02em;
         color: var(--text-title);
-        margin: 0 0 14px;
-        white-space: nowrap;
+        margin: 0 0 16px;
       }
 
       .hero__title em {
@@ -61,400 +70,243 @@
       }
 
       .hero__desc {
-        font-size: 15px;
+        font-size: 16px;
         line-height: 1.7;
-        color: var(--text-muted);
-        margin: 0 0 24px;
+        color: #6b7280;
+        margin: 0 0 28px;
       }
 
       .hero__cta {
         display: inline-flex;
         align-items: center;
         gap: 8px;
-        padding: 12px 28px;
+        padding: 14px 32px;
         font-size: 15px;
         font-weight: 600;
         font-family: inherit;
         color: #fff;
         background: linear-gradient(135deg, #3651d3, #5b6fe6);
         border: none;
-        border-radius: 12px;
+        border-radius: 14px;
         cursor: pointer;
         text-decoration: none;
         box-shadow: 0 8px 24px -4px rgba(54,81,211,0.35);
-        transition: transform 0.15s, box-shadow 0.15s;
+        transition: transform 0.2s, box-shadow 0.2s;
       }
 
       .hero__cta:hover {
         transform: translateY(-2px);
-        box-shadow: 0 12px 32px -4px rgba(54,81,211,0.45);
+        box-shadow: 0 14px 36px -6px rgba(54,81,211,0.45);
       }
 
       .hero__cta:active { transform: translateY(0); }
 
-      .hero__cta-icon { width: 18px; height: 18px; }
-
-      /* ── 右侧视觉合成区：3 张能力卡片 ── */
+      /* ── 右侧视觉区 ── */
       .hero__visual {
         flex: 1;
         min-width: 0;
         position: relative;
-        height: clamp(320px, 56vh, 480px);
+        height: clamp(340px, 58vh, 500px);
       }
 
-      .visual-card {
+      /* 背景装饰窗口 */
+      .bg-panel {
         position: absolute;
-        overflow: hidden;
         border-radius: 16px;
-        background: rgba(255,255,255,0.92);
-        border: 1px solid rgba(255,255,255,0.7);
+        background: rgba(255,255,255,0.55);
+        border: 1px solid rgba(255,255,255,0.6);
+        box-shadow: 0 8px 32px -8px rgba(54,81,211,0.06);
+        backdrop-filter: blur(6px);
+      }
+
+      .bg-panel--left {
+        left: -20px;
+        top: 16px;
+        width: 160px;
+        height: 260px;
+        z-index: 0;
+        opacity: 0.5;
+      }
+
+      .bg-panel--right {
+        right: -8px;
+        top: -10px;
+        width: 220px;
+        height: 140px;
+        z-index: 0;
+        opacity: 0.45;
+      }
+
+      .bg-panel__bar {
+        display: flex;
+        gap: 4px;
+        padding: 10px 14px;
+        border-bottom: 1px solid rgba(0,0,0,0.04);
+      }
+
+      .bg-panel__dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: rgba(0,0,0,0.08);
+      }
+
+      .bg-panel__line {
+        margin: 10px 14px;
+        height: 5px;
+        border-radius: 3px;
+        background: rgba(0,0,0,0.04);
+      }
+
+      .bg-panel__line--short { width: 60%; }
+      .bg-panel__line--mid { width: 80%; }
+
+      .bg-panel--right .bg-panel__title {
+        padding: 10px 14px 6px;
+        font-size: 10px;
+        font-weight: 700;
+        color: rgba(0,0,0,0.12);
+      }
+
+      /* 主图片面板 */
+      .image-panel {
+        position: absolute;
+        left: 56px;
+        top: 28px;
+        right: 40px;
+        bottom: 60px;
+        background: #fff;
+        border-radius: 20px;
         box-shadow:
-          0 18px 42px -12px rgba(54,81,211,0.18),
-          0 0 0 1px rgba(255,255,255,0.55) inset;
-        backdrop-filter: blur(10px);
-      }
-
-      .visual-card::after {
-        content: "";
-        position: absolute;
-        inset: 0;
-        pointer-events: none;
-        background: linear-gradient(180deg, rgba(255,255,255,0.12), rgba(255,255,255,0));
-      }
-
-      .visual-card--scene {
-        left: 188px;
-        top: 8px;
-        width: 430px;
-        height: 92px;
-        z-index: 3;
-        animation: floatB 3.6s ease-in-out infinite;
-        padding: 14px 16px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        background:
-          radial-gradient(circle at 20% 50%, rgba(99,102,241,0.12), transparent 38%),
-          linear-gradient(135deg, rgba(255,255,255,0.98), rgba(245,247,255,0.9));
-      }
-
-      .visual-card--script {
-        left: 0;
-        bottom: 12px;
-        width: 208px;
-        height: 215px;
-        z-index: 2;
-        animation: floatA 4s ease-in-out infinite;
-        padding: 14px;
-        background:
-          linear-gradient(180deg, rgba(255,255,255,0.98), rgba(244,247,255,0.94));
-      }
-
-      .visual-card--browser {
-        left: 146px;
-        right: 6px;
-        top: 96px;
-        bottom: 18px;
-        z-index: 1;
-        padding: 12px;
-        background:
-          linear-gradient(180deg, rgba(255,255,255,0.98), rgba(244,247,255,0.94));
-      }
-
-      .visual-card__frame {
-        position: absolute;
-        inset: 0;
-        border-radius: inherit;
-        box-shadow: 0 1px 0 rgba(255,255,255,0.65) inset;
-      }
-
-      .cap-title {
-        position: relative;
+          0 24px 56px -12px rgba(54,81,211,0.16),
+          0 0 0 1px rgba(0,0,0,0.03);
+        overflow: hidden;
         z-index: 1;
         display: flex;
-        align-items: center;
-        gap: 8px;
-        margin-bottom: 10px;
+        flex-direction: column;
       }
 
-      .cap-title__icon {
-        width: 26px;
-        height: 26px;
-        border-radius: 8px;
-        display: inline-flex;
+      .image-panel__bar {
+        display: flex;
         align-items: center;
-        justify-content: center;
-        color: #3651d3;
-        background: rgba(54,81,211,0.10);
+        gap: 6px;
+        padding: 10px 16px;
+        background: #fafbfd;
+        border-bottom: 1px solid rgba(0,0,0,0.05);
         flex-shrink: 0;
       }
 
-      .cap-title__icon svg {
-        width: 14px;
-        height: 14px;
-      }
+      .image-panel__dot { width: 8px; height: 8px; border-radius: 50%; }
+      .image-panel__dot--r { background: #ff6b6b; }
+      .image-panel__dot--y { background: #feca57; }
+      .image-panel__dot--g { background: #48dbfb; }
 
-      .cap-title__text strong {
-        display: block;
-        font-size: 12px;
-        color: var(--text-title);
-      }
-
-      .cap-title__text span {
-        display: block;
-        font-size: 10px;
+      .image-panel__label {
+        margin-left: 10px;
+        font-size: 11px;
         color: #94a3b8;
-      }
-
-      .scene-card__meta {
-        position: relative;
-        z-index: 1;
-        display: flex;
-        align-items: center;
-        gap: 14px;
-      }
-
-      .scene-pill {
-        padding: 6px 10px;
-        border-radius: 999px;
-        background: rgba(54,81,211,0.08);
-        color: #3651d3;
-        font-size: 10px;
         font-weight: 600;
       }
 
-      .scene-lines {
-        position: relative;
-        z-index: 1;
+      .image-panel__grid {
         flex: 1;
-      }
-
-      .scene-lines strong {
-        display: block;
-        font-size: 12px;
-        color: var(--text-title);
-        margin-bottom: 4px;
-      }
-
-      .scene-lines span {
-        display: block;
-        font-size: 10px;
-        line-height: 1.5;
-        color: #94a3b8;
-      }
-
-      .script-tabs {
-        position: relative;
-        z-index: 1;
-        display: flex;
-        gap: 6px;
-        margin-bottom: 10px;
-      }
-
-      .script-tab {
-        font-size: 10px;
-        padding: 3px 8px;
-        border-radius: 999px;
-        font-weight: 600;
-      }
-
-      .script-tab--active {
-        background: #eef2ff;
-        color: #3651d3;
-      }
-
-      .script-tab--muted {
-        background: #f5f7fb;
-        color: #94a3b8;
-      }
-
-      .script-list {
-        position: relative;
-        z-index: 1;
-        display: flex;
-        flex-direction: column;
-        gap: 9px;
-      }
-
-      .script-item {
         display: grid;
-        grid-template-columns: 18px 1fr;
-        gap: 8px;
-        align-items: center;
-      }
-
-      .script-item__num {
-        font-size: 9px;
-        font-weight: 700;
-        color: #a5b4fc;
-        text-align: right;
-      }
-
-      .script-item__body {
-        display: flex;
-        flex-direction: column;
-        gap: 4px;
-      }
-
-      .script-item__line {
-        height: 5px;
-        border-radius: 999px;
-        background: #eef2f7;
-      }
-
-      .script-item__line--active {
-        background: linear-gradient(90deg, #3651d3, #7c5ce7);
-      }
-
-      .script-item__line--w80 { width: 80%; }
-      .script-item__line--w70 { width: 70%; }
-      .script-item__line--w60 { width: 60%; }
-      .script-item__line--w50 { width: 50%; }
-      .script-item__line--w40 { width: 40%; }
-
-      .browser-head {
-        position: relative;
-        z-index: 1;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        margin-bottom: 10px;
-      }
-
-      .browser-head__dots {
-        display: flex;
-        gap: 5px;
-      }
-
-      .browser-head__dots span {
-        width: 7px;
-        height: 7px;
-        border-radius: 50%;
-      }
-
-      .browser-head__dots span:nth-child(1) { background: #ff6b6b; }
-      .browser-head__dots span:nth-child(2) { background: #feca57; }
-      .browser-head__dots span:nth-child(3) { background: #48dbfb; }
-
-      .browser-head__label {
-        font-size: 10px;
-        color: #94a3b8;
-        font-weight: 600;
-      }
-
-      .shot-grid {
-        position: relative;
-        z-index: 1;
-        display: grid;
-        grid-template-columns: 1.5fr 1fr;
+        grid-template-columns: 1.4fr 1fr;
         grid-template-rows: 1fr 1fr;
         gap: 8px;
-        height: calc(100% - 58px);
-      }
-
-      .shot {
-        border-radius: 12px;
-        overflow: hidden;
-        position: relative;
+        padding: 10px;
         min-height: 0;
-        box-shadow: 0 6px 18px rgba(54,81,211,0.08) inset;
       }
 
-      .shot--lead {
+      .image-panel__img {
+        border-radius: 16px;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
+
+      .image-panel__img--main {
         grid-row: 1 / 3;
-        background:
-          radial-gradient(circle at 28% 28%, rgba(255,255,255,0.55), transparent 18%),
-          linear-gradient(145deg, #dbeafe 0%, #93c5fd 42%, #60a5fa 100%);
       }
 
-      .shot--dialogue {
-        background:
-          radial-gradient(circle at 74% 22%, rgba(255,255,255,0.38), transparent 20%),
-          linear-gradient(145deg, #fde68a 0%, #fbbf24 45%, #f59e0b 100%);
-      }
-
-      .shot--finale {
-        background:
-          radial-gradient(circle at 24% 20%, rgba(255,255,255,0.32), transparent 18%),
-          linear-gradient(145deg, #c4b5fd 0%, #818cf8 48%, #4f46e5 100%);
-      }
-
-      .shot__content {
+      /* 视频预览卡 */
+      .video-card {
         position: absolute;
-        inset: 0;
+        right: 0;
+        bottom: 10px;
+        width: 140px;
+        height: 100px;
+        background: linear-gradient(145deg, #1e293b, #334155);
+        border-radius: 16px;
+        box-shadow: 0 12px 32px -6px rgba(0,0,0,0.28);
+        z-index: 3;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        overflow: hidden;
+      }
+
+      .video-card__play {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        background: rgba(255,255,255,0.12);
         display: flex;
         align-items: center;
         justify-content: center;
-        flex-direction: column;
-        gap: 6px;
-        padding: 12px;
       }
 
-      .shot__content svg {
-        width: 34px;
-        height: 34px;
-        color: rgba(255,255,255,0.86);
-      }
-
-      .shot--lead .shot__content svg {
-        width: 44px;
-        height: 44px;
-      }
-
-      .shot__title {
-        font-size: 11px;
-        font-weight: 700;
+      .video-card__play svg {
+        width: 16px;
+        height: 16px;
         color: #fff;
-        text-shadow: 0 1px 3px rgba(0,0,0,0.18);
+        margin-left: 2px;
       }
 
-      .shot__sub {
-        font-size: 9px;
-        color: rgba(255,255,255,0.82);
-        text-align: center;
-      }
-
-      .browser-footer {
-        position: absolute;
-        left: 12px;
-        right: 12px;
-        bottom: 12px;
-        z-index: 2;
+      .video-card__bars {
         display: flex;
-        gap: 8px;
-      }
-
-      .browser-stat {
-        flex: 1;
-        border-radius: 10px;
-        padding: 8px 10px;
-        background: rgba(255,255,255,0.78);
-        border: 1px solid rgba(54,81,211,0.08);
-        backdrop-filter: blur(8px);
-      }
-
-      .browser-stat strong {
-        display: block;
-        font-size: 10px;
-        color: var(--text-title);
-        margin-bottom: 2px;
-      }
-
-      .browser-stat span {
-        display: block;
-        font-size: 9px;
-        color: #94a3b8;
-      }
-
-      @keyframes floatA { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-6px)} }
-      @keyframes floatB { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-5px)} }
-
-      /* ── 底部特性卡 ── */
-      .features {
-        max-width: 1200px;
+        align-items: center;
+        gap: 3px;
+        padding: 0 16px;
         width: 100%;
-        margin: 0 auto;
-        padding: 0 40px 24px;
+        box-sizing: border-box;
+      }
+
+      .video-card__track {
+        flex: 1;
+        height: 3px;
+        border-radius: 2px;
+        background: rgba(255,255,255,0.12);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .video-card__track::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 35%;
+        background: #60a5fa;
+        border-radius: 2px;
+      }
+
+      .video-card__time {
+        font-size: 9px;
+        color: rgba(255,255,255,0.5);
+        flex-shrink: 0;
+      }
+
+      /* ── 功能卡片 ── */
+      .features {
+        max-width: 1280px;
+        width: 100%;
+        margin: -10px auto 0;
+        padding: 0 80px 24px;
         display: grid;
         grid-template-columns: repeat(3, 1fr);
         gap: 24px;
@@ -493,32 +345,19 @@
         line-height: 1.5;
       }
 
-      /* ── 响应式 ── */
-      @media (max-width: 900px) {
-        .hero { flex-direction: column; text-align: center; gap: 24px; padding-top: 24px; }
-        .hero__text { flex: none; width: 100%; }
-        .hero__visual { width: 100%; height: 300px; }
-        .visual-card--script {
-          width: 170px;
-          height: 178px;
-        }
-        .visual-card--scene {
-          left: 140px;
-          width: 320px;
-          height: 74px;
-          padding: 10px 12px;
-        }
-        .visual-card--browser {
-          left: 110px;
-          right: 0;
-          top: 82px;
-        }
-        .features { grid-template-columns: 1fr; padding: 0 24px 16px; }
+      @media (max-width: 1100px) {
+        .hero { padding: 0 40px; gap: 32px; }
+        .hero__text { flex: 0 0 320px; }
+        .hero__title { font-size: 30px; }
+        .features { padding: 0 40px 20px; }
       }
 
-      @media (max-width: 640px) {
-        .hero__title { font-size: 26px; }
-        .visual-card--scene { display: none; }
+      @media (max-width: 900px) {
+        .hero { flex-direction: column; text-align: center; gap: 24px; padding: 24px 24px 0; }
+        .hero__text { flex: none; width: 100%; }
+        .hero__visual { width: 100%; height: 280px; }
+        .bg-panel { display: none; }
+        .features { grid-template-columns: 1fr; padding: 0 24px 16px; }
       }
     </style>
   </head>
@@ -575,164 +414,78 @@
       </div>
     </header>
 
-    <!-- 背景光弧装饰 -->
-    <div class="bg-arcs">
-      <svg viewBox="0 0 1440 900" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <linearGradient id="a1" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stop-color="rgba(54,81,211,0)"/><stop offset="35%" stop-color="rgba(54,81,211,0.06)"/><stop offset="70%" stop-color="rgba(124,92,231,0.04)"/><stop offset="100%" stop-color="rgba(168,148,255,0)"/>
-          </linearGradient>
-          <linearGradient id="a2" x1="100%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stop-color="rgba(124,92,231,0)"/><stop offset="45%" stop-color="rgba(124,92,231,0.05)"/><stop offset="100%" stop-color="rgba(54,81,211,0)"/>
-          </linearGradient>
-        </defs>
-        <path d="M-100 780 Q 400 180,900 80 T 1600 -60" stroke="url(#a1)" stroke-width="1.5" fill="none" opacity=".7"/>
-        <path d="M-50 880 Q 500 380,1000 220 T 1550 40" stroke="url(#a1)" stroke-width="1" fill="none" opacity=".45"/>
-        <path d="M1500 60 Q 1000 320,500 520 T -100 920" stroke="url(#a2)" stroke-width="1.2" fill="none" opacity=".45"/>
-        <path d="M-50 460 Q 360 360,720 390 T 1500 430" stroke="url(#a2)" stroke-width=".8" fill="none" opacity=".3"/>
-      </svg>
-    </div>
-
-    <section class="hero">
-      <!-- 左侧文案 -->
-      <div class="hero__text">
-        <h1 class="hero__title"><em>AI 漫剧</em>生成与智能编排平台</h1>
-        <p class="hero__desc">输入脚本，一键生成分镜、画面、配音与视频短片。从文字到动漫，全流程 AI 驱动。</p>
-        <a href="workspace.html" class="hero__cta">
-          <svg class="hero__cta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-          立即新建项目
-        </a>
-      </div>
-
-      <!-- 右侧视觉合成区 -->
-      <div class="hero__visual">
-        <div class="visual-card visual-card--scene" aria-hidden="true">
-          <div class="cap-title">
-            <span class="cap-title__icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
-            </span>
-            <span class="cap-title__text">
-              <strong>场景设定</strong>
-              <span>一键生成剧情场景说明</span>
-            </span>
-          </div>
-          <div class="scene-card__meta">
-            <span class="scene-pill">校园日常</span>
-            <div class="scene-lines">
-              <strong>场景 1：教学楼天台</strong>
-              <span>午后逆光、微风、双人对话、青春情绪递进</span>
-            </div>
-          </div>
-          <div class="visual-card__frame"></div>
+    <div class="page-body">
+      <section class="hero">
+        <!-- Hero 左侧文案 -->
+        <div class="hero__text">
+          <h1 class="hero__title"><em>AI漫剧</em>生成与智能编排平台</h1>
+          <p class="hero__desc">输入脚本，一键生成分镜、画面、配音与视频片段</p>
+          <a href="workspace.html" class="hero__cta">立即开始创作</a>
         </div>
-        <div class="visual-card visual-card--script" aria-hidden="true">
-          <div class="script-tabs">
-            <span class="script-tab script-tab--active">脚本拆解</span>
-            <span class="script-tab script-tab--muted">分镜节奏</span>
-          </div>
-          <div class="cap-title">
-            <span class="cap-title__icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-            </span>
-            <span class="cap-title__text">
-              <strong>脚本解析</strong>
-              <span>自动提取角色、情绪与镜头</span>
-            </span>
-          </div>
-          <div class="script-list">
-            <div class="script-item">
-              <span class="script-item__num">1</span>
-              <div class="script-item__body">
-                <span class="script-item__line script-item__line--active"></span>
-                <span class="script-item__line script-item__line--w70"></span>
-              </div>
-            </div>
-            <div class="script-item">
-              <span class="script-item__num">2</span>
-              <div class="script-item__body">
-                <span class="script-item__line script-item__line--w80"></span>
-                <span class="script-item__line script-item__line--w40"></span>
-              </div>
-            </div>
-            <div class="script-item">
-              <span class="script-item__num">3</span>
-              <div class="script-item__body">
-                <span class="script-item__line script-item__line--w60"></span>
-                <span class="script-item__line script-item__line--w50"></span>
-              </div>
-            </div>
-            <div class="script-item">
-              <span class="script-item__num">4</span>
-              <div class="script-item__body">
-                <span class="script-item__line script-item__line--w80"></span>
-                <span class="script-item__line script-item__line--w60"></span>
-              </div>
-            </div>
-          </div>
-          <div class="visual-card__frame"></div>
-        </div>
-        <div class="visual-card visual-card--browser" aria-hidden="true">
-          <div class="browser-head">
-            <div class="browser-head__dots">
-              <span></span>
-              <span></span>
-              <span></span>
-            </div>
-            <span class="browser-head__label">智能分镜生成</span>
-          </div>
-          <div class="shot-grid">
-            <div class="shot shot--lead">
-              <div class="shot__content">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-                <span class="shot__title">主角出场镜头</span>
-                <span class="shot__sub">角色立绘 + 情绪光影</span>
-              </div>
-            </div>
-            <div class="shot shot--dialogue">
-              <div class="shot__content">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-                <span class="shot__title">对话分镜</span>
-                <span class="shot__sub">对白与字幕同步</span>
-              </div>
-            </div>
-            <div class="shot shot--finale">
-              <div class="shot__content">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
-                <span class="shot__title">视频合成</span>
-                <span class="shot__sub">配音、字幕、转场输出</span>
-              </div>
-            </div>
-          </div>
-          <div class="browser-footer">
-            <div class="browser-stat">
-              <strong>角色一致性</strong>
-              <span>多镜头连续生成</span>
-            </div>
-            <div class="browser-stat">
-              <strong>音画同步</strong>
-              <span>台词、配音、字幕联动</span>
-            </div>
-          </div>
-          <div class="visual-card__frame"></div>
-        </div>
-      </div>
-    </section>
 
-    <div class="features">
-      <div class="feature-card">
-        <svg class="feature-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
-        <p class="feature-card__title">脚本驱动创作</p>
-        <p class="feature-card__desc">文本拆分，自动分镜</p>
-      </div>
-      <div class="feature-card">
-        <svg class="feature-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="2.18"/><circle cx="13.5" cy="6.5" r="2.5"/><path d="M3 20l5.5-7.5L12 17l3.5-4.5L21 20"/></svg>
-        <p class="feature-card__title">智能生成分镜</p>
-        <p class="feature-card__desc">生成画面、字幕、配音</p>
-      </div>
-      <div class="feature-card">
-        <svg class="feature-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
-        <p class="feature-card__title">多场景应用</p>
-        <p class="feature-card__desc">适用短剧动画等</p>
+        <!-- Hero 右侧视觉区 -->
+        <div class="hero__visual">
+          <!-- 背景装饰窗口 -->
+          <div class="bg-panel bg-panel--left" aria-hidden="true">
+            <div class="bg-panel__bar"><span class="bg-panel__dot"></span><span class="bg-panel__dot"></span><span class="bg-panel__dot"></span></div>
+            <div class="bg-panel__line"></div>
+            <div class="bg-panel__line bg-panel__line--short"></div>
+            <div class="bg-panel__line bg-panel__line--mid"></div>
+            <div class="bg-panel__line"></div>
+            <div class="bg-panel__line bg-panel__line--short"></div>
+          </div>
+          <div class="bg-panel bg-panel--right" aria-hidden="true">
+            <div class="bg-panel__bar"><span class="bg-panel__dot"></span><span class="bg-panel__dot"></span><span class="bg-panel__dot"></span></div>
+            <div class="bg-panel__title">场景对话…</div>
+            <div class="bg-panel__line bg-panel__line--mid"></div>
+            <div class="bg-panel__line bg-panel__line--short"></div>
+          </div>
+
+          <!-- 图片面板（ImagePanel） -->
+          <div class="image-panel">
+            <div class="image-panel__bar">
+              <span class="image-panel__dot image-panel__dot--r"></span>
+              <span class="image-panel__dot image-panel__dot--y"></span>
+              <span class="image-panel__dot image-panel__dot--g"></span>
+              <span class="image-panel__label">3组 场景成果</span>
+            </div>
+            <div class="image-panel__grid">
+              <img class="image-panel__img image-panel__img--main" src="pic1.png" alt="教室场景 — 女生写作业" />
+              <img class="image-panel__img" src="pic2.png" alt="AI对话 — 女生与机器人" />
+              <img class="image-panel__img" src="pic3.png" alt="校园场景 — 男女对话" />
+            </div>
+          </div>
+
+          <!-- 视频预览卡（VideoPreview） -->
+          <div class="video-card" aria-hidden="true">
+            <div class="video-card__play">
+              <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="6 3 20 12 6 21 6 3"/></svg>
+            </div>
+            <div class="video-card__bars">
+              <span class="video-card__time">0:12</span>
+              <div class="video-card__track"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 功能卡片（FeatureCards） -->
+      <div class="features">
+        <div class="feature-card">
+          <svg class="feature-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+          <p class="feature-card__title">脚本驱动创作</p>
+          <p class="feature-card__desc">文本拆分，自动分镜</p>
+        </div>
+        <div class="feature-card">
+          <svg class="feature-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="2.18"/><circle cx="13.5" cy="6.5" r="2.5"/><path d="M3 20l5.5-7.5L12 17l3.5-4.5L21 20"/></svg>
+          <p class="feature-card__title">智能生成分镜</p>
+          <p class="feature-card__desc">生成画面、字幕、配音</p>
+        </div>
+        <div class="feature-card">
+          <svg class="feature-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
+          <p class="feature-card__title">多场景应用</p>
+          <p class="feature-card__desc">适用短剧动画等</p>
+        </div>
       </div>
     </div>
 
