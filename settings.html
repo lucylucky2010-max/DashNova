@@ -1257,6 +1257,69 @@
         padding: 12px 28px 16px;
       }
 
+      /* 账户分配-Super：新建用户（视口内高宽平衡，页头/底栏固定，正文可纵向滚动） */
+      #user-create-modal .user-edit-modal__dialog {
+        width: min(780px, 92vw);
+        max-width: min(780px, 92vw);
+        max-height: min(85vh, calc(100vh - 48px));
+        overflow: hidden;
+      }
+
+      @media (max-height: 720px) {
+        #user-create-modal .user-edit-modal__dialog {
+          max-height: calc(100vh - 32px);
+        }
+      }
+
+      #user-create-modal .user-edit-modal__form {
+        flex: 1 1 auto;
+        min-height: 0;
+        display: flex;
+        flex-direction: column;
+      }
+
+      #user-create-modal .user-edit-modal__header {
+        flex-shrink: 0;
+        padding: 18px 28px 12px;
+      }
+
+      #user-create-modal .user-edit-modal__footer {
+        flex-shrink: 0;
+        padding: 16px 28px 20px;
+      }
+
+      #user-create-modal .user-edit-modal__scroll {
+        flex: 1 1 auto;
+        min-height: 0;
+        overflow-x: hidden;
+        overflow-y: auto;
+        padding: 12px 28px 16px;
+        scrollbar-gutter: stable;
+      }
+
+      #user-create-modal .user-edit-modal__field {
+        gap: 14px;
+        margin-bottom: 14px;
+      }
+
+      #user-create-modal .user-edit-modal__field:last-child {
+        margin-bottom: 0;
+      }
+
+      #user-create-modal .user-edit-modal__field--textarea .user-edit-modal__label {
+        padding-top: 10px;
+      }
+
+      #user-create-modal .user-edit-modal__textarea {
+        min-height: 80px;
+        max-height: 120px;
+        line-height: 1.5;
+      }
+
+      #user-create-modal .user-edit-modal__label {
+        flex: 0 0 132px;
+      }
+
       /* 编辑用户：仅用户名 + 备注，收窄宽度、高度随内容 */
       #admin-user-edit-modal .admin-user-edit-modal__dialog {
         width: min(520px, 92vw);
