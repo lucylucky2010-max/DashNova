@@ -475,7 +475,7 @@
           </button>
           <div class="user-dropdown" role="menu">
             <div class="user-dropdown__header">Super</div>
-            <a href="#" class="user-dropdown__item" role="menuitem">
+            <a href="#" class="user-dropdown__item" id="user-menu-open-change-password" role="menuitem">
               <svg class="user-dropdown__item-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
               修改密码
             </a>
@@ -560,18 +560,83 @@
       </div>
     </div>
 
+    <div
+      id="self-change-password-modal"
+      class="new-project-modal"
+      role="presentation"
+      aria-hidden="true"
+    >
+      <div class="new-project-modal__backdrop" aria-hidden="true"></div>
+      <div
+        class="new-project-modal__dialog"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="self-change-password-title"
+      >
+        <h2 id="self-change-password-title" class="new-project-modal__title">修改密码</h2>
+        <form id="self-change-password-form" action="#" novalidate>
+          <div class="new-project-modal__field">
+            <label class="new-project-modal__label" for="self-change-pwd-current">旧密码<span class="new-project-modal__req">*</span></label>
+            <input
+              type="password"
+              class="new-project-modal__input"
+              id="self-change-pwd-current"
+              name="current_password"
+              required
+              autocomplete="current-password"
+              placeholder="请输入旧密码"
+            />
+          </div>
+          <div class="new-project-modal__field">
+            <label class="new-project-modal__label" for="self-change-pwd-new">新密码<span class="new-project-modal__req">*</span></label>
+            <input
+              type="password"
+              class="new-project-modal__input"
+              id="self-change-pwd-new"
+              name="new_password"
+              required
+              minlength="6"
+              autocomplete="new-password"
+              placeholder="至少 6 位"
+            />
+          </div>
+          <div class="new-project-modal__field">
+            <label class="new-project-modal__label" for="self-change-pwd-new2">确认新密码<span class="new-project-modal__req">*</span></label>
+            <input
+              type="password"
+              class="new-project-modal__input"
+              id="self-change-pwd-new2"
+              name="new_password_confirm"
+              required
+              minlength="6"
+              autocomplete="new-password"
+              placeholder="请再次输入新密码"
+            />
+          </div>
+          <div class="new-project-modal__footer">
+            <button type="button" class="new-project-modal__btn new-project-modal__btn--secondary" id="self-change-pwd-cancel">取消</button>
+            <button type="submit" class="new-project-modal__btn new-project-modal__btn--primary">保存</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
     <script>
       (function () {
         var STORAGE_KEY = "dashnova_workspace_projects_v1";
 
         var menu = document.getElementById("user-menu");
         var trigger = document.getElementById("user-trigger");
-        trigger.addEventListener("click", function (e) {
-          e.stopPropagation();
-          var open = menu.classList.toggle("open");
-          trigger.setAttribute("aria-expanded", String(open));
-        });
-        document.addEventListener("click", function () {
+        if (trigger && menu) {
+          trigger.addEventListener("click", function (e) {
+            e.stopPropagation();
+            var open = menu.classList.toggle("open");
+            trigger.setAttribute("aria-expanded", String(open));
+          });
+        }
+        document.addEventListener("click", function (e) {
+          if (!menu || !trigger) return;
+          if (e.target && menu.contains(e.target)) return;
           menu.classList.remove("open");
           trigger.setAttribute("aria-expanded", "false");
         });
@@ -803,10 +868,68 @@
 
         document.addEventListener("keydown", function (e) {
           if (e.key !== "Escape") return;
+          var pwdM = document.getElementById("self-change-password-modal");
+          if (pwdM && pwdM.classList.contains("new-project-modal--open")) {
+            pwdM.classList.remove("new-project-modal--open");
+            pwdM.setAttribute("aria-hidden", "true");
+            var pf = document.getElementById("self-change-password-form");
+            if (pf) pf.reset();
+            return;
+          }
           if (modal && modal.classList.contains("new-project-modal--open")) {
             closeNewProjectModal();
           }
         });
+
+        (function () {
+          var pwdModal = document.getElementById("self-change-password-modal");
+          var pwdForm = document.getElementById("self-change-password-form");
+          var changePwdLink = document.getElementById("user-menu-open-change-password");
+          if (!pwdModal || !pwdForm) return;
+          var pwdBackdrop = pwdModal.querySelector(".new-project-modal__backdrop");
+          var pwdCancel = document.getElementById("self-change-pwd-cancel");
+          var pwdNew = document.getElementById("self-change-pwd-new");
+          var pwdNew2 = document.getElementById("self-change-pwd-new2");
+          function closePwdModal() {
+            pwdModal.classList.remove("new-project-modal--open");
+            pwdModal.setAttribute("aria-hidden", "true");
+            pwdForm.reset();
+            if (pwdNew2) pwdNew2.setCustomValidity("");
+          }
+          function openPwdModal() {
+            pwdForm.reset();
+            if (pwdNew2) pwdNew2.setCustomValidity("");
+            pwdModal.classList.add("new-project-modal--open");
+            pwdModal.setAttribute("aria-hidden", "false");
+            var cur = document.getElementById("self-change-pwd-current");
+            if (cur) cur.focus();
+          }
+          if (changePwdLink && menu && trigger) {
+            changePwdLink.addEventListener("click", function (e) {
+              e.preventDefault();
+              e.stopPropagation();
+              menu.classList.remove("open");
+              trigger.setAttribute("aria-expanded", "false");
+              openPwdModal();
+            });
+          }
+          if (pwdBackdrop) pwdBackdrop.addEventListener("click", closePwdModal);
+          if (pwdCancel) pwdCancel.addEventListener("click", closePwdModal);
+          pwdForm.addEventListener("submit", function (e) {
+            e.preventDefault();
+            if (pwdNew2) pwdNew2.setCustomValidity("");
+            if (pwdNew && pwdNew2 && pwdNew.value !== pwdNew2.value) {
+              pwdNew2.setCustomValidity("两次输入的新密码不一致");
+              pwdNew2.reportValidity();
+              return;
+            }
+            if (!pwdForm.checkValidity()) {
+              pwdForm.reportValidity();
+              return;
+            }
+            closePwdModal();
+          });
+        })();
 
         renderProjects();
       })();

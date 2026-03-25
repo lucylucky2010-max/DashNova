@@ -2937,12 +2937,16 @@
         // 用户下拉菜单
         var menu = document.getElementById("user-menu");
         var trigger = document.getElementById("user-trigger");
-        trigger.addEventListener("click", function (e) {
-          e.stopPropagation();
-          var open = menu.classList.toggle("open");
-          trigger.setAttribute("aria-expanded", String(open));
-        });
-        document.addEventListener("click", function () {
+        if (trigger && menu) {
+          trigger.addEventListener("click", function (e) {
+            e.stopPropagation();
+            var open = menu.classList.toggle("open");
+            trigger.setAttribute("aria-expanded", String(open));
+          });
+        }
+        document.addEventListener("click", function (e) {
+          if (!menu || !trigger) return;
+          if (e.target && menu.contains(e.target)) return;
           menu.classList.remove("open");
           trigger.setAttribute("aria-expanded", "false");
         });
