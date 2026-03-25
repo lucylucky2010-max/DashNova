@@ -328,7 +328,7 @@
         color: #3651d3;
       }
 
-      /* ===== 自定义模型面板 ===== */
+      /* ===== 厂商模型资源池面板 ===== */
       .vendor-header {
         display: flex;
         align-items: flex-start;
@@ -616,6 +616,830 @@
         color: #9ca3af;
       }
 
+      /* ===== 账户分配用户列表（Super） ===== */
+      .user-list-card {
+        background: #fff;
+        border: 1px solid var(--input-border);
+        border-radius: 14px;
+        overflow: hidden;
+      }
+
+      .user-list-table-wrap {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      .user-list-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 13px;
+      }
+
+      .user-list-table thead th {
+        padding: 12px 14px;
+        text-align: left;
+        font-weight: 600;
+        font-size: 13px;
+        color: var(--text-muted);
+        background: var(--bg-page);
+        border-bottom: 1px solid var(--input-border);
+        white-space: nowrap;
+      }
+
+      .user-list-table tbody td {
+        padding: 14px;
+        vertical-align: middle;
+        color: var(--text-title);
+        border-bottom: 1px solid #f3f4f6;
+      }
+
+      .user-list-table tbody tr:last-child td {
+        border-bottom: none;
+      }
+
+      .user-list-table .col-index {
+        width: 48px;
+        text-align: center;
+        color: var(--text-muted);
+        font-variant-numeric: tabular-nums;
+      }
+
+      .user-list-table .col-name {
+        max-width: 120px;
+      }
+
+      .user-list-name {
+        display: inline-block;
+        max-width: 10ch;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        vertical-align: bottom;
+      }
+
+      .auth-models-cell {
+        min-width: 220px;
+      }
+
+      .auth-model-row {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 12px;
+        line-height: 1.5;
+        color: var(--text-title);
+      }
+
+      .auth-model-row + .auth-model-row {
+        margin-top: 4px;
+      }
+
+      .auth-dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        flex-shrink: 0;
+      }
+
+      .auth-dot--ok {
+        background: #22c55e;
+        box-shadow: 0 0 0 2px rgba(34, 197, 94, 0.2);
+      }
+
+      .auth-dot--fail {
+        background: #ef4444;
+        box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.2);
+      }
+
+      .auth-model-label {
+        flex-shrink: 0;
+        color: var(--text-muted);
+        font-size: 11px;
+        width: 52px;
+      }
+
+      .auth-model-name {
+        min-width: 0;
+        word-break: break-all;
+      }
+
+      .user-list-toggle {
+        display: inline-flex;
+        vertical-align: middle;
+        cursor: pointer;
+      }
+
+      .user-list-time {
+        font-size: 12px;
+        color: var(--text-muted);
+        font-variant-numeric: tabular-nums;
+        white-space: nowrap;
+      }
+
+      .user-list-actions {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 12px;
+        font-size: 13px;
+      }
+
+      .user-list-action {
+        color: #3651d3;
+        text-decoration: none;
+        font-weight: 500;
+        transition: color 0.12s ease, text-decoration 0.12s ease;
+      }
+
+      button.user-list-action,
+      button.user-list-reset-pwd-btn {
+        cursor: pointer;
+        border: none;
+        background: none;
+        padding: 0;
+        font-family: inherit;
+        font-size: inherit;
+      }
+
+      .user-list-action:hover {
+        color: #2b42b0;
+        text-decoration: underline;
+      }
+
+      .user-list-action--danger {
+        color: #ef4444;
+      }
+
+      .user-list-action--danger:hover {
+        color: #dc2626;
+      }
+
+      /* 账户状态切换确认弹框 */
+      .user-status-modal {
+        position: fixed;
+        inset: 0;
+        z-index: 1000;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        padding: 24px;
+        box-sizing: border-box;
+      }
+
+      .user-status-modal--open {
+        display: flex;
+      }
+
+      .user-status-modal__backdrop {
+        position: absolute;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.45);
+      }
+
+      .user-status-modal__dialog {
+        position: relative;
+        width: 100%;
+        max-width: 420px;
+        background: #fff;
+        border-radius: 12px;
+        box-shadow: 0 20px 50px -12px rgba(0, 0, 0, 0.2),
+          0 8px 24px -8px rgba(0, 0, 0, 0.12);
+        overflow: hidden;
+      }
+
+      .user-status-modal__header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 20px 20px 0;
+      }
+
+      .user-status-modal__title {
+        margin: 0;
+        font-size: 17px;
+        font-weight: 700;
+        color: var(--text-title);
+      }
+
+      .user-status-modal__close {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 32px;
+        height: 32px;
+        margin: -4px -6px 0 0;
+        padding: 0;
+        border: none;
+        border-radius: 8px;
+        background: transparent;
+        color: #9ca3af;
+        font-size: 22px;
+        line-height: 1;
+        cursor: pointer;
+        transition: color 0.15s ease, background 0.15s ease;
+      }
+
+      .user-status-modal__close:hover {
+        color: var(--text-title);
+        background: rgba(0, 0, 0, 0.05);
+      }
+
+      .user-status-modal__body {
+        display: flex;
+        align-items: flex-start;
+        gap: 14px;
+        padding: 18px 20px 8px;
+      }
+
+      .user-status-modal__icon {
+        flex-shrink: 0;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: #f97316;
+        color: #fff;
+        font-size: 22px;
+        font-weight: 700;
+        line-height: 40px;
+        text-align: center;
+      }
+
+      .user-status-modal__message {
+        margin: 8px 0 0;
+        font-size: 15px;
+        line-height: 1.55;
+        color: var(--text-title);
+      }
+
+      .user-status-modal__footer {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        gap: 12px;
+        padding: 16px 20px 20px;
+        border-bottom-left-radius: 12px;
+        border-bottom-right-radius: 12px;
+      }
+
+      .user-status-modal__btn {
+        min-width: 88px;
+        padding: 8px 20px;
+        font-size: 14px;
+        font-weight: 500;
+        font-family: inherit;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+      }
+
+      .user-status-modal__btn--secondary {
+        color: #6b7280;
+        background: #fff;
+        border: 1px solid #e5e7eb;
+      }
+
+      .user-status-modal__btn--secondary:hover {
+        border-color: #d1d5db;
+        color: var(--text-title);
+        background: #f9fafb;
+      }
+
+      .user-status-modal__btn--primary {
+        color: #fff;
+        background: #3651d3;
+        border: 1px solid #3651d3;
+      }
+
+      .user-status-modal__btn--primary:hover {
+        background: #2b42b0;
+        border-color: #2b42b0;
+      }
+
+      .user-status-modal__btn--danger {
+        color: #fff;
+        background: #ef4444;
+        border: 1px solid #ef4444;
+      }
+
+      .user-status-modal__btn--danger:hover {
+        background: #dc2626;
+        border-color: #dc2626;
+      }
+
+      /* 重置密码弹框：提示 + 普通文本输入新密码 */
+      #user-reset-pwd-confirm .user-status-modal__dialog {
+        max-width: 480px;
+      }
+
+      #user-reset-pwd-confirm .user-reset-pwd-modal__body {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 14px;
+        padding: 18px 20px 12px;
+      }
+
+      #user-reset-pwd-confirm .user-reset-pwd-modal__row {
+        display: flex;
+        align-items: flex-start;
+        gap: 14px;
+      }
+
+      #user-reset-pwd-confirm .user-reset-pwd-modal__row .user-status-modal__message {
+        margin: 8px 0 0;
+        flex: 1;
+        min-width: 0;
+      }
+
+      #user-reset-pwd-confirm .user-reset-pwd-modal__input {
+        box-sizing: border-box;
+        width: 100%;
+        padding: 10px 14px;
+        font-size: 14px;
+        font-family: inherit;
+        color: var(--text-title);
+        border: 1px solid #e5e7eb;
+        border-radius: 999px;
+        background: #fff;
+        outline: none;
+        transition: border-color 0.15s ease, box-shadow 0.15s ease;
+      }
+
+      #user-reset-pwd-confirm .user-reset-pwd-modal__input:focus {
+        border-color: #3651d3;
+        box-shadow: 0 0 0 3px rgba(54, 81, 211, 0.2);
+      }
+
+      #user-reset-pwd-confirm .user-reset-pwd-modal__input::placeholder {
+        color: #9ca3af;
+      }
+
+      /* 用户信息编辑弹框（参考新建角色风格） */
+      .user-edit-modal {
+        position: fixed;
+        inset: 0;
+        z-index: 1010;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        padding: 24px;
+        box-sizing: border-box;
+      }
+
+      .user-edit-modal--open {
+        display: flex;
+      }
+
+      .user-edit-modal__backdrop {
+        position: absolute;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.45);
+      }
+
+      .user-edit-modal__dialog {
+        position: relative;
+        width: 100%;
+        max-width: 920px;
+        background: #fff;
+        border-radius: 22px;
+        box-shadow: 0 24px 56px -12px rgba(0, 0, 0, 0.22),
+          0 12px 28px -8px rgba(0, 0, 0, 0.1);
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+      }
+
+      .user-edit-modal__header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-shrink: 0;
+        padding: 18px 28px 10px;
+      }
+
+      .user-edit-modal__title {
+        margin: 0;
+        font-size: 18px;
+        font-weight: 700;
+        color: #111827;
+      }
+
+      .user-edit-modal__close {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 36px;
+        height: 36px;
+        margin: -6px -8px 0 0;
+        padding: 0;
+        border: none;
+        border-radius: 50%;
+        background: transparent;
+        color: #9ca3af;
+        font-size: 24px;
+        line-height: 1;
+        cursor: pointer;
+        transition: color 0.15s ease, background 0.15s ease;
+      }
+
+      .user-edit-modal__close:hover {
+        color: #111827;
+        background: rgba(0, 0, 0, 0.06);
+      }
+
+      .user-edit-modal__form {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .user-edit-modal__scroll {
+        overflow: visible;
+        padding: 0 28px 6px;
+      }
+
+      .user-edit-modal__field {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 8px;
+      }
+
+      .user-edit-modal__field--textarea {
+        align-items: flex-start;
+      }
+
+      .user-edit-modal__field--textarea .user-edit-modal__label {
+        padding-top: 8px;
+      }
+
+      .user-edit-modal__field:last-child {
+        margin-bottom: 6px;
+      }
+
+      .user-edit-modal__label {
+        flex: 0 0 158px;
+        margin-bottom: 0;
+        font-size: 13px;
+        font-weight: 600;
+        color: #111827;
+        line-height: 1.35;
+        text-align: right;
+      }
+
+      .user-edit-modal__req {
+        color: #ef4444;
+        font-weight: 600;
+        margin-left: 2px;
+      }
+
+      .user-edit-modal__input,
+      .user-edit-modal__select,
+      .user-edit-modal__textarea {
+        box-sizing: border-box;
+        font-size: 13px;
+        font-family: inherit;
+        color: var(--text-title);
+        border: 1px solid #e5e7eb;
+        background: #fff;
+        transition: border-color 0.15s ease, box-shadow 0.15s ease;
+        flex: 1 1 0;
+        min-width: 0;
+        width: auto;
+      }
+
+      .user-edit-modal__input,
+      .user-edit-modal__select {
+        padding: 7px 14px;
+        border-radius: 999px;
+      }
+
+      .user-edit-modal__select {
+        cursor: pointer;
+        appearance: none;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%239ca3af' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: right 14px center;
+        padding-right: 40px;
+      }
+
+      .user-edit-modal__textarea {
+        padding: 8px 14px;
+        border-radius: 12px;
+        min-height: 52px;
+        max-height: 72px;
+        resize: none;
+        line-height: 1.45;
+      }
+
+      .user-edit-modal__input::placeholder,
+      .user-edit-modal__textarea::placeholder {
+        color: #9ca3af;
+      }
+
+      .user-edit-modal__input:hover,
+      .user-edit-modal__select:hover,
+      .user-edit-modal__textarea:hover {
+        border-color: #d1d5db;
+      }
+
+      .user-edit-modal__input:focus,
+      .user-edit-modal__select:focus,
+      .user-edit-modal__textarea:focus {
+        outline: none;
+        border-color: #3651d3;
+        box-shadow: 0 0 0 3px rgba(54, 81, 211, 0.12);
+      }
+
+      .user-edit-modal__section-title {
+        font-size: 13px;
+        font-weight: 700;
+        color: #111827;
+        margin: 2px 0 6px;
+      }
+
+      .user-edit-modal__group {
+        border: 1px solid #e5e7eb;
+        border-radius: 12px;
+        padding: 10px 12px 6px;
+        margin-bottom: 10px;
+        background: #fafbfc;
+      }
+
+      .user-edit-modal__group .user-edit-modal__field:last-child {
+        margin-bottom: 8px;
+      }
+
+      .user-edit-modal__footer {
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        gap: 20px;
+        padding: 12px 28px 18px;
+        border-top: 1px solid #f3f4f6;
+        background: #fff;
+        border-bottom-left-radius: 22px;
+        border-bottom-right-radius: 22px;
+      }
+
+      .user-edit-modal__link-btn {
+        padding: 0;
+        border: none;
+        background: none;
+        font-size: 14px;
+        font-weight: 500;
+        font-family: inherit;
+        color: #6b7280;
+        cursor: pointer;
+        transition: color 0.15s ease;
+      }
+
+      .user-edit-modal__link-btn:hover {
+        color: #3651d3;
+      }
+
+      .user-edit-modal__submit {
+        min-width: 120px;
+        padding: 10px 24px;
+        font-size: 14px;
+        font-weight: 600;
+        font-family: inherit;
+        color: #fff;
+        border: none;
+        border-radius: 999px;
+        cursor: pointer;
+        background: linear-gradient(90deg, #3651d3 0%, #6b95f0 100%);
+        box-shadow: 0 4px 14px -2px rgba(54, 81, 211, 0.45);
+        transition: filter 0.15s ease, transform 0.1s ease;
+      }
+
+      .user-edit-modal__submit:hover {
+        filter: brightness(1.05);
+      }
+
+      .user-edit-modal__submit:active {
+        transform: scale(0.98);
+      }
+
+      @media (max-height: 680px) {
+        .user-edit-modal__dialog {
+          max-height: calc(100vh - 24px);
+          overflow-x: hidden;
+          overflow-y: auto;
+        }
+      }
+
+      /* 账户分配-Admin：新建用户（16:9、统一行距与备注；密码可见切换） */
+      #admin-user-create-modal .admin-user-create-modal__dialog {
+        width: min(800px, 92vw, calc((min(90vh, 100vh - 24px)) * 16 / 9));
+        max-width: min(800px, 92vw, calc((min(90vh, 100vh - 24px)) * 16 / 9));
+        max-height: min(90vh, calc(100vh - 24px));
+        aspect-ratio: 16 / 9;
+        overflow: hidden;
+      }
+
+      @media (max-height: 680px) {
+        #admin-user-create-modal .admin-user-create-modal__dialog {
+          max-height: calc(100vh - 24px);
+          overflow: hidden;
+        }
+      }
+
+      #admin-user-create-modal .admin-user-create-modal__dialog .user-edit-modal__form {
+        flex: 1;
+        min-height: 0;
+      }
+
+      #admin-user-create-modal .admin-user-create-modal__dialog .user-edit-modal__scroll {
+        flex: 1;
+        min-height: 0;
+        overflow-y: auto;
+        padding: 12px 28px 16px;
+      }
+
+      /* 编辑用户：仅用户名 + 备注，收窄宽度、高度随内容 */
+      #admin-user-edit-modal .admin-user-edit-modal__dialog {
+        width: min(520px, 92vw);
+        max-width: min(520px, 92vw);
+        max-height: min(90vh, calc(100vh - 24px));
+        overflow: hidden;
+      }
+
+      @media (max-height: 680px) {
+        #admin-user-edit-modal .admin-user-edit-modal__dialog {
+          max-height: calc(100vh - 24px);
+        }
+      }
+
+      #admin-user-edit-modal .admin-user-edit-modal__dialog .user-edit-modal__form {
+        flex: 0 1 auto;
+        min-height: 0;
+      }
+
+      #admin-user-edit-modal .admin-user-edit-modal__dialog .user-edit-modal__scroll {
+        flex: 0 1 auto;
+        overflow-y: auto;
+        padding: 12px 28px 16px;
+      }
+
+      #admin-user-create-modal .admin-user-create-modal__dialog .user-edit-modal__header,
+      #admin-user-edit-modal .admin-user-edit-modal__dialog .user-edit-modal__header {
+        padding: 18px 28px 12px;
+      }
+
+      #admin-user-create-modal .admin-user-create-modal__dialog .user-edit-modal__footer,
+      #admin-user-edit-modal .admin-user-edit-modal__dialog .user-edit-modal__footer {
+        padding: 16px 28px 20px;
+      }
+
+      #admin-user-create-modal .admin-user-create-modal__dialog .user-edit-modal__field,
+      #admin-user-edit-modal .admin-user-edit-modal__dialog .user-edit-modal__field {
+        gap: 14px;
+        margin-bottom: 14px;
+      }
+
+      #admin-user-create-modal .admin-user-create-modal__dialog .user-edit-modal__field:last-child,
+      #admin-user-edit-modal .admin-user-edit-modal__dialog .user-edit-modal__field:last-child {
+        margin-bottom: 0;
+      }
+
+      #admin-user-create-modal .admin-user-create-modal__dialog .user-edit-modal__field--textarea .user-edit-modal__label,
+      #admin-user-edit-modal .admin-user-edit-modal__dialog .user-edit-modal__field--textarea .user-edit-modal__label {
+        padding-top: 10px;
+      }
+
+      #admin-user-create-modal .admin-user-create-modal__dialog .user-edit-modal__textarea {
+        min-height: 92px;
+        max-height: 140px;
+        line-height: 1.5;
+      }
+
+      #admin-user-edit-modal .admin-user-edit-modal__dialog .user-edit-modal__textarea {
+        min-height: 80px;
+        max-height: 120px;
+        line-height: 1.5;
+      }
+
+      #admin-user-create-modal .admin-user-create-modal__dialog .user-edit-modal__label,
+      #admin-user-edit-modal .admin-user-edit-modal__dialog .user-edit-modal__label {
+        flex: 0 0 132px;
+      }
+
+      #admin-user-create-modal .admin-user-create-modal__dialog .admin-pwd-input-wrap .user-edit-modal__input,
+      #user-create-modal .user-edit-modal__dialog .admin-pwd-input-wrap .user-edit-modal__input,
+      #self-change-password-modal .self-change-pwd-modal__dialog .admin-pwd-input-wrap .user-edit-modal__input {
+        width: 100%;
+        box-sizing: border-box;
+        padding-right: 40px;
+      }
+
+      #admin-user-create-modal .admin-pwd-input-wrap,
+      #user-create-modal .admin-pwd-input-wrap,
+      #self-change-password-modal .admin-pwd-input-wrap {
+        position: relative;
+        flex: 1 1 0;
+        min-width: 0;
+      }
+
+      #admin-user-create-modal .admin-pwd-toggle,
+      #user-create-modal .admin-pwd-toggle,
+      #self-change-password-modal .admin-pwd-toggle {
+        position: absolute;
+        right: 6px;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 28px;
+        height: 28px;
+        border: none;
+        border-radius: 50%;
+        background: transparent;
+        color: #9ca3af;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+        transition: color 0.15s ease, background 0.15s ease;
+      }
+
+      #admin-user-create-modal .admin-pwd-toggle:hover,
+      #user-create-modal .admin-pwd-toggle:hover,
+      #self-change-password-modal .admin-pwd-toggle:hover {
+        color: #3651d3;
+        background: rgba(0, 0, 0, 0.05);
+      }
+
+      /* 默认密码隐藏：显示带斜线「闭眼」；明文时显示睁眼（Admin / Super 新建 / 顶部修改密码） */
+      #admin-user-create-modal .admin-pwd-toggle .admin-pwd-toggle__icon--show,
+      #user-create-modal .admin-pwd-toggle .admin-pwd-toggle__icon--show,
+      #self-change-password-modal .admin-pwd-toggle .admin-pwd-toggle__icon--show {
+        display: none;
+      }
+
+      #admin-user-create-modal .admin-pwd-toggle .admin-pwd-toggle__icon--hide,
+      #user-create-modal .admin-pwd-toggle .admin-pwd-toggle__icon--hide,
+      #self-change-password-modal .admin-pwd-toggle .admin-pwd-toggle__icon--hide {
+        display: block;
+      }
+
+      #admin-user-create-modal .admin-pwd-toggle.is-visible .admin-pwd-toggle__icon--show,
+      #user-create-modal .admin-pwd-toggle.is-visible .admin-pwd-toggle__icon--show,
+      #self-change-password-modal .admin-pwd-toggle.is-visible .admin-pwd-toggle__icon--show {
+        display: block;
+      }
+
+      #admin-user-create-modal .admin-pwd-toggle.is-visible .admin-pwd-toggle__icon--hide,
+      #user-create-modal .admin-pwd-toggle.is-visible .admin-pwd-toggle__icon--hide,
+      #self-change-password-modal .admin-pwd-toggle.is-visible .admin-pwd-toggle__icon--hide {
+        display: none;
+      }
+
+      /* 顶部用户菜单：修改密码弹框（与设置内 user-edit-modal 一致） */
+      #self-change-password-modal .self-change-pwd-modal__dialog {
+        width: min(520px, 92vw);
+        max-width: min(520px, 92vw);
+        max-height: min(90vh, calc(100vh - 24px));
+        overflow: hidden;
+      }
+
+      @media (max-height: 680px) {
+        #self-change-password-modal .self-change-pwd-modal__dialog {
+          max-height: calc(100vh - 24px);
+        }
+      }
+
+      #self-change-password-modal .self-change-pwd-modal__dialog .user-edit-modal__form {
+        flex: 0 1 auto;
+        min-height: 0;
+      }
+
+      #self-change-password-modal .self-change-pwd-modal__dialog .user-edit-modal__scroll {
+        flex: 0 1 auto;
+        overflow-y: auto;
+        padding: 12px 28px 16px;
+      }
+
+      #self-change-password-modal .self-change-pwd-modal__dialog .user-edit-modal__header {
+        padding: 18px 28px 12px;
+      }
+
+      #self-change-password-modal .self-change-pwd-modal__dialog .user-edit-modal__footer {
+        padding: 16px 28px 20px;
+      }
+
+      #self-change-password-modal .self-change-pwd-modal__dialog .user-edit-modal__field {
+        gap: 14px;
+        margin-bottom: 14px;
+      }
+
+      #self-change-password-modal .self-change-pwd-modal__dialog .user-edit-modal__field:last-child {
+        margin-bottom: 0;
+      }
+
+      #self-change-password-modal .self-change-pwd-modal__dialog .user-edit-modal__label {
+        flex: 0 0 132px;
+      }
+
       /* 开关 */
       .toggle {
         position: relative;
@@ -733,17 +1557,13 @@
 
         <div class="app-nav__user" id="user-menu">
           <button class="user-trigger" id="user-trigger" aria-haspopup="true" aria-expanded="false">
-            <span class="user-avatar">A</span>
-            <span class="user-trigger__name">Admin</span>
+            <span class="user-avatar">S</span>
+            <span class="user-trigger__name">Super</span>
             <svg class="user-trigger__arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
           </button>
           <div class="user-dropdown" role="menu">
-            <div class="user-dropdown__header">Admin</div>
-            <a href="#" class="user-dropdown__item" role="menuitem">
-              <svg class="user-dropdown__item-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-              账户分配
-            </a>
-            <a href="#" class="user-dropdown__item" role="menuitem">
+            <div class="user-dropdown__header">Super</div>
+            <a href="#" class="user-dropdown__item" id="user-menu-open-change-password" role="menuitem">
               <svg class="user-dropdown__item-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
               修改密码
             </a>
@@ -767,7 +1587,15 @@
           </button>
           <button class="sidebar-nav__item" data-panel="custom-model">
             <svg class="sidebar-nav__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
-            自定义模型
+            厂商模型资源池
+          </button>
+          <button class="sidebar-nav__item" data-panel="account-super">
+            <svg class="sidebar-nav__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            账户分配-Super
+          </button>
+          <button class="sidebar-nav__item" data-panel="account-admin">
+            <svg class="sidebar-nav__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            账户分配-Admin
           </button>
         </nav>
       </aside>
@@ -915,11 +1743,11 @@
           </div>
         </div>
 
-        <!-- ====== 面板二：自定义模型 ====== -->
+        <!-- ====== 面板二：厂商模型资源池 ====== -->
         <div id="panel-custom-model" class="settings-panel">
           <div class="vendor-header">
             <div>
-              <h1 class="panel-title" style="margin-bottom:4px;">自定义模型</h1>
+              <h1 class="panel-title" style="margin-bottom:4px;">厂商模型资源池</h1>
               <p class="vendor-header__desc">在此使用来自全球丰富的模型配置，按住左上角拖拽手柄，可调节厂商顺序</p>
             </div>
             <button class="btn-add-vendor">新增模型服务商</button>
@@ -1084,7 +1912,1024 @@
           </div>
         </div>
 
+        <!-- ====== 面板：账户分配-Super ====== -->
+        <div id="panel-account-super" class="settings-panel">
+          <div class="vendor-header">
+            <div>
+              <h1 class="panel-title" style="margin-bottom:4px;">账户分配-Super</h1>
+              <p class="vendor-header__desc">管理下属用户及其模型授权，支持新建、修改、删除与重置密码</p>
+            </div>
+            <button type="button" class="btn-add-vendor" id="btn-super-new-user">新建用户</button>
+          </div>
+
+          <div class="user-list-card">
+            <div class="user-list-table-wrap">
+              <table class="user-list-table">
+                <thead>
+                  <tr>
+                    <th class="col-index">序号</th>
+                    <th class="col-name">用户名</th>
+                    <th>已授权模型</th>
+                    <th>状态</th>
+                    <th>授权时间</th>
+                    <th>操作</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="col-index">1</td>
+                    <td class="col-name"><span class="user-list-name" title="流光小张">流光小张</span></td>
+                    <td class="auth-models-cell">
+                      <div class="auth-model-row">
+                        <span class="auth-dot auth-dot--ok" aria-hidden="true"></span>
+                        <span class="auth-model-label">文本分析</span>
+                        <span class="auth-model-name">Doubao Seed 2.0 Pro</span>
+                      </div>
+                      <div class="auth-model-row">
+                        <span class="auth-dot auth-dot--ok" aria-hidden="true"></span>
+                        <span class="auth-model-label">图像生成</span>
+                        <span class="auth-model-name">Gemini 3 Pro Image</span>
+                      </div>
+                      <div class="auth-model-row">
+                        <span class="auth-dot auth-dot--ok" aria-hidden="true"></span>
+                        <span class="auth-model-label">视频生成</span>
+                        <span class="auth-model-name">可灵 Kling 2.1</span>
+                      </div>
+                    </td>
+                    <td>
+                      <label class="toggle user-list-toggle" title="启用/停用账户">
+                        <input type="checkbox" checked aria-label="启用/停用账户" />
+                        <span class="toggle__track"></span>
+                      </label>
+                    </td>
+                    <td><span class="user-list-time">2025-03-18 09:15:22</span></td>
+                    <td>
+                      <div class="user-list-actions">
+                        <button type="button" class="user-list-action user-list-edit-btn">修改</button>
+                        <button type="button" class="user-list-action user-list-action--danger user-list-delete-btn">删除</button>
+                        <button type="button" class="user-list-action user-list-reset-pwd-btn">重置密码</button>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="col-index">2</td>
+                    <td class="col-name"><span class="user-list-name" title="chenwei_z">chenwei_z</span></td>
+                    <td class="auth-models-cell">
+                      <div class="auth-model-row">
+                        <span class="auth-dot auth-dot--ok" aria-hidden="true"></span>
+                        <span class="auth-model-label">文本分析</span>
+                        <span class="auth-model-name">Gemini 3 Flash</span>
+                      </div>
+                      <div class="auth-model-row">
+                        <span class="auth-dot auth-dot--fail" aria-hidden="true"></span>
+                        <span class="auth-model-label">图像生成</span>
+                        <span class="auth-model-name">Imagen 3 Fast</span>
+                      </div>
+                      <div class="auth-model-row">
+                        <span class="auth-dot auth-dot--ok" aria-hidden="true"></span>
+                        <span class="auth-model-label">视频生成</span>
+                        <span class="auth-model-name">Runway Gen-3 Alpha</span>
+                      </div>
+                    </td>
+                    <td>
+                      <label class="toggle user-list-toggle" title="启用/停用账户">
+                        <input type="checkbox" checked aria-label="启用/停用账户" />
+                        <span class="toggle__track"></span>
+                      </label>
+                    </td>
+                    <td><span class="user-list-time">2025-03-19 16:40:00</span></td>
+                    <td>
+                      <div class="user-list-actions">
+                        <button type="button" class="user-list-action user-list-edit-btn">修改</button>
+                        <button type="button" class="user-list-action user-list-action--danger user-list-delete-btn">删除</button>
+                        <button type="button" class="user-list-action user-list-reset-pwd-btn">重置密码</button>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="col-index">3</td>
+                    <td class="col-name"><span class="user-list-name" title="zhang_yi_m">zhang_yi_m</span></td>
+                    <td class="auth-models-cell">
+                      <div class="auth-model-row">
+                        <span class="auth-dot auth-dot--fail" aria-hidden="true"></span>
+                        <span class="auth-model-label">文本分析</span>
+                        <span class="auth-model-name">GPT-4.1 Mini</span>
+                      </div>
+                      <div class="auth-model-row">
+                        <span class="auth-dot auth-dot--ok" aria-hidden="true"></span>
+                        <span class="auth-model-label">图像生成</span>
+                        <span class="auth-model-name">DALL·E 3</span>
+                      </div>
+                      <div class="auth-model-row">
+                        <span class="auth-dot auth-dot--ok" aria-hidden="true"></span>
+                        <span class="auth-model-label">视频生成</span>
+                        <span class="auth-model-name">海螺 MiniMax 视频</span>
+                      </div>
+                    </td>
+                    <td>
+                      <label class="toggle user-list-toggle" title="启用/停用账户">
+                        <input type="checkbox" aria-label="启用/停用账户" />
+                        <span class="toggle__track"></span>
+                      </label>
+                    </td>
+                    <td><span class="user-list-time">2025-02-28 11:08:33</span></td>
+                    <td>
+                      <div class="user-list-actions">
+                        <button type="button" class="user-list-action user-list-edit-btn">修改</button>
+                        <button type="button" class="user-list-action user-list-action--danger user-list-delete-btn">删除</button>
+                        <button type="button" class="user-list-action user-list-reset-pwd-btn">重置密码</button>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- ====== 面板：账户分配-Admin ====== -->
+        <div id="panel-account-admin" class="settings-panel">
+          <div class="vendor-header">
+            <div>
+              <h1 class="panel-title" style="margin-bottom:4px;">账户分配-Admin</h1>
+              <p class="vendor-header__desc">管理所辖用户账号，支持新建、修改、删除；密码请在操作列通过「重置密码」设置。</p>
+            </div>
+            <button type="button" class="btn-add-vendor" id="btn-admin-new-user">新建用户</button>
+          </div>
+
+          <div class="user-list-card">
+            <div class="user-list-table-wrap">
+              <table class="user-list-table">
+                <thead>
+                  <tr>
+                    <th class="col-index">序号</th>
+                    <th class="col-name">用户名</th>
+                    <th>状态</th>
+                    <th>创建时间</th>
+                    <th>操作</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr data-remark="运营组负责人，可访问全部项目。">
+                    <td class="col-index">1</td>
+                    <td class="col-name"><span class="user-list-name" title="运营小李">运营小李</span></td>
+                    <td>
+                      <label class="toggle user-list-toggle" title="启用/停用账户">
+                        <input type="checkbox" checked aria-label="启用/停用账户" />
+                        <span class="toggle__track"></span>
+                      </label>
+                    </td>
+                    <td><span class="user-list-time">2025-01-08 10:20:00</span></td>
+                    <td>
+                      <div class="user-list-actions">
+                        <button type="button" class="user-list-action user-list-edit-btn-admin">修改</button>
+                        <button type="button" class="user-list-action user-list-action--danger user-list-delete-btn-admin">删除</button>
+                        <button type="button" class="user-list-action user-list-reset-pwd-btn">重置密码</button>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr data-remark="后期剪辑，仅分配剪辑类项目。">
+                    <td class="col-index">2</td>
+                    <td class="col-name"><span class="user-list-name" title="剪辑阿伟">剪辑阿伟</span></td>
+                    <td>
+                      <label class="toggle user-list-toggle" title="启用/停用账户">
+                        <input type="checkbox" checked aria-label="启用/停用账户" />
+                        <span class="toggle__track"></span>
+                      </label>
+                    </td>
+                    <td><span class="user-list-time">2025-02-14 15:06:18</span></td>
+                    <td>
+                      <div class="user-list-actions">
+                        <button type="button" class="user-list-action user-list-edit-btn-admin">修改</button>
+                        <button type="button" class="user-list-action user-list-action--danger user-list-delete-btn-admin">删除</button>
+                        <button type="button" class="user-list-action user-list-reset-pwd-btn">重置密码</button>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr data-remark="实习账号，权限受限。">
+                    <td class="col-index">3</td>
+                    <td class="col-name"><span class="user-list-name" title="实习生小周">实习生小周</span></td>
+                    <td>
+                      <label class="toggle user-list-toggle" title="启用/停用账户">
+                        <input type="checkbox" aria-label="启用/停用账户" />
+                        <span class="toggle__track"></span>
+                      </label>
+                    </td>
+                    <td><span class="user-list-time">2024-12-01 09:00:05</span></td>
+                    <td>
+                      <div class="user-list-actions">
+                        <button type="button" class="user-list-action user-list-edit-btn-admin">修改</button>
+                        <button type="button" class="user-list-action user-list-action--danger user-list-delete-btn-admin">删除</button>
+                        <button type="button" class="user-list-action user-list-reset-pwd-btn">重置密码</button>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
       </main>
+    </div>
+
+    <div
+      id="user-status-confirm"
+      class="user-status-modal"
+      role="presentation"
+      aria-hidden="true"
+    >
+      <div class="user-status-modal__backdrop" aria-hidden="true"></div>
+      <div
+        class="user-status-modal__dialog"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="user-status-modal-title"
+        aria-describedby="user-status-modal-msg"
+      >
+        <div class="user-status-modal__header">
+          <h2 id="user-status-modal-title" class="user-status-modal__title">系统提示</h2>
+          <button type="button" class="user-status-modal__close" aria-label="关闭">&times;</button>
+        </div>
+        <div class="user-status-modal__body">
+          <div class="user-status-modal__icon" aria-hidden="true">!</div>
+          <p id="user-status-modal-msg" class="user-status-modal__message"></p>
+        </div>
+        <div class="user-status-modal__footer">
+          <button type="button" class="user-status-modal__btn user-status-modal__btn--secondary user-status-modal__cancel">
+            取消
+          </button>
+          <button type="button" class="user-status-modal__btn user-status-modal__btn--primary user-status-modal__confirm">
+            确定
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div
+      id="user-delete-confirm"
+      class="user-status-modal"
+      role="presentation"
+      aria-hidden="true"
+    >
+      <div class="user-status-modal__backdrop" aria-hidden="true"></div>
+      <div
+        class="user-status-modal__dialog"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="user-delete-modal-title"
+        aria-describedby="user-delete-modal-msg"
+      >
+        <div class="user-status-modal__header">
+          <h2 id="user-delete-modal-title" class="user-status-modal__title">系统提示</h2>
+          <button type="button" class="user-status-modal__close user-delete-modal__close" aria-label="关闭">&times;</button>
+        </div>
+        <div class="user-status-modal__body">
+          <div class="user-status-modal__icon" aria-hidden="true">!</div>
+          <p id="user-delete-modal-msg" class="user-status-modal__message"></p>
+        </div>
+        <div class="user-status-modal__footer">
+          <button type="button" class="user-status-modal__btn user-status-modal__btn--secondary user-delete-modal__cancel">
+            取消
+          </button>
+          <button type="button" class="user-status-modal__btn user-status-modal__btn--danger user-delete-modal__confirm">
+            确定
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div
+      id="user-edit-modal"
+      class="user-edit-modal"
+      role="presentation"
+      aria-hidden="true"
+    >
+      <div class="user-edit-modal__backdrop" aria-hidden="true"></div>
+      <div
+        class="user-edit-modal__dialog"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="user-edit-modal-title"
+      >
+        <div class="user-edit-modal__header">
+          <h2 id="user-edit-modal-title" class="user-edit-modal__title">编辑用户</h2>
+          <button type="button" class="user-edit-modal__close" aria-label="关闭">&times;</button>
+        </div>
+        <form class="user-edit-modal__form" id="user-edit-form" action="#" novalidate>
+          <div class="user-edit-modal__scroll">
+            <div class="user-edit-modal__field">
+              <label class="user-edit-modal__label" for="user-edit-username">用户名<span class="user-edit-modal__req">*</span></label>
+              <input
+                type="text"
+                class="user-edit-modal__input"
+                id="user-edit-username"
+                name="username"
+                maxlength="10"
+                placeholder="请输入用户名（不超过10个字符）"
+                autocomplete="username"
+              />
+            </div>
+
+            <div class="user-edit-modal__section-title">已授权模型</div>
+
+            <div class="user-edit-modal__group">
+              <div class="user-edit-modal__field">
+                <label class="user-edit-modal__label" for="user-edit-model-text">文本分析模型<span class="user-edit-modal__req">*</span></label>
+                <select class="user-edit-modal__select" id="user-edit-model-text" name="model_text" required>
+                  <option value="">请选择文本分析模型</option>
+                  <option value="Doubao Seed 2.0 Pro">Doubao Seed 2.0 Pro</option>
+                  <option value="Gemini 3 Flash">Gemini 3 Flash</option>
+                  <option value="GPT-4.1 Mini">GPT-4.1 Mini</option>
+                  <option value="Claude 3.5 Sonnet">Claude 3.5 Sonnet</option>
+                </select>
+              </div>
+              <div class="user-edit-modal__field">
+                <label class="user-edit-modal__label" for="user-edit-text-base-url">Base URL</label>
+                <input
+                  type="text"
+                  class="user-edit-modal__input"
+                  id="user-edit-text-base-url"
+                  name="text_base_url"
+                  placeholder="https://api.example.com/v1"
+                />
+              </div>
+              <div class="user-edit-modal__field">
+                <label class="user-edit-modal__label" for="user-edit-text-api-key">API Key</label>
+                <input
+                  type="text"
+                  class="user-edit-modal__input"
+                  id="user-edit-text-api-key"
+                  name="text_api_key"
+                  placeholder="请输入 API Key"
+                  autocomplete="off"
+                />
+              </div>
+            </div>
+
+            <div class="user-edit-modal__group">
+              <div class="user-edit-modal__field">
+                <label class="user-edit-modal__label" for="user-edit-model-image">图像生成模型<span class="user-edit-modal__req">*</span></label>
+                <select class="user-edit-modal__select" id="user-edit-model-image" name="model_image" required>
+                  <option value="">请选择图像生成模型</option>
+                  <option value="Gemini 3 Pro Image">Gemini 3 Pro Image</option>
+                  <option value="Imagen 3 Fast">Imagen 3 Fast</option>
+                  <option value="DALL·E 3">DALL·E 3</option>
+                  <option value="Midjourney V6">Midjourney V6</option>
+                </select>
+              </div>
+              <div class="user-edit-modal__field">
+                <label class="user-edit-modal__label" for="user-edit-image-base-url">Base URL</label>
+                <input
+                  type="text"
+                  class="user-edit-modal__input"
+                  id="user-edit-image-base-url"
+                  name="image_base_url"
+                  placeholder="https://api.example.com/v1"
+                />
+              </div>
+              <div class="user-edit-modal__field">
+                <label class="user-edit-modal__label" for="user-edit-image-api-key">API Key</label>
+                <input
+                  type="text"
+                  class="user-edit-modal__input"
+                  id="user-edit-image-api-key"
+                  name="image_api_key"
+                  placeholder="请输入 API Key"
+                  autocomplete="off"
+                />
+              </div>
+            </div>
+
+            <div class="user-edit-modal__group">
+              <div class="user-edit-modal__field">
+                <label class="user-edit-modal__label" for="user-edit-model-video">视频生成模型<span class="user-edit-modal__req">*</span></label>
+                <select class="user-edit-modal__select" id="user-edit-model-video" name="model_video" required>
+                  <option value="">请选择视频生成模型</option>
+                  <option value="可灵 Kling 2.1">可灵 Kling 2.1</option>
+                  <option value="Runway Gen-3 Alpha">Runway Gen-3 Alpha</option>
+                  <option value="海螺 MiniMax 视频">海螺 MiniMax 视频</option>
+                  <option value="Sora 2">Sora 2</option>
+                </select>
+              </div>
+              <div class="user-edit-modal__field">
+                <label class="user-edit-modal__label" for="user-edit-video-base-url">Base URL</label>
+                <input
+                  type="text"
+                  class="user-edit-modal__input"
+                  id="user-edit-video-base-url"
+                  name="video_base_url"
+                  placeholder="https://api.example.com/v1"
+                />
+              </div>
+              <div class="user-edit-modal__field">
+                <label class="user-edit-modal__label" for="user-edit-video-api-key">API Key</label>
+                <input
+                  type="text"
+                  class="user-edit-modal__input"
+                  id="user-edit-video-api-key"
+                  name="video_api_key"
+                  placeholder="请输入 API Key"
+                  autocomplete="off"
+                />
+              </div>
+            </div>
+
+            <div class="user-edit-modal__field user-edit-modal__field--textarea">
+              <label class="user-edit-modal__label" for="user-edit-remark">备注</label>
+              <textarea
+                class="user-edit-modal__textarea"
+                id="user-edit-remark"
+                name="remark"
+                rows="2"
+                placeholder="选填，可填写该用户的补充说明"
+              ></textarea>
+            </div>
+          </div>
+          <div class="user-edit-modal__footer">
+            <button type="button" class="user-edit-modal__link-btn user-edit-modal__cancel-edit">取消</button>
+            <button type="submit" class="user-edit-modal__submit">保存</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div
+      id="user-create-modal"
+      class="user-edit-modal"
+      role="presentation"
+      aria-hidden="true"
+    >
+      <div class="user-edit-modal__backdrop" aria-hidden="true"></div>
+      <div
+        class="user-edit-modal__dialog"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="user-create-modal-title"
+      >
+        <div class="user-edit-modal__header">
+          <h2 id="user-create-modal-title" class="user-edit-modal__title">新建用户</h2>
+          <button type="button" class="user-edit-modal__close user-create-modal__close" aria-label="关闭">&times;</button>
+        </div>
+        <form class="user-edit-modal__form" id="user-create-form" action="#" novalidate>
+          <div class="user-edit-modal__scroll">
+            <div class="user-edit-modal__field">
+              <label class="user-edit-modal__label" for="user-create-username">用户名<span class="user-edit-modal__req">*</span></label>
+              <input
+                type="text"
+                class="user-edit-modal__input"
+                id="user-create-username"
+                name="username"
+                maxlength="10"
+                required
+                placeholder="请输入用户名（不超过10个字符）"
+                autocomplete="username"
+              />
+            </div>
+            <div class="user-edit-modal__field">
+              <label class="user-edit-modal__label" for="user-create-password">密码<span class="user-edit-modal__req">*</span></label>
+              <div class="admin-pwd-input-wrap">
+                <input
+                  type="password"
+                  class="user-edit-modal__input"
+                  id="user-create-password"
+                  name="password"
+                  required
+                  minlength="6"
+                  placeholder="至少 6 位"
+                  autocomplete="new-password"
+                />
+                <button
+                  type="button"
+                  class="admin-pwd-toggle"
+                  aria-label="显示密码"
+                  aria-pressed="false"
+                  tabindex="0"
+                >
+                  <svg class="admin-pwd-toggle__icon admin-pwd-toggle__icon--show" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                    <circle cx="12" cy="12" r="3" />
+                  </svg>
+                  <svg class="admin-pwd-toggle__icon admin-pwd-toggle__icon--hide" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                    <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24" />
+                    <line x1="1" y1="1" x2="23" y2="23" />
+                  </svg>
+                </button>
+              </div>
+            </div>
+            <div class="user-edit-modal__field">
+              <label class="user-edit-modal__label" for="user-create-password2">确认密码<span class="user-edit-modal__req">*</span></label>
+              <div class="admin-pwd-input-wrap">
+                <input
+                  type="password"
+                  class="user-edit-modal__input"
+                  id="user-create-password2"
+                  name="password_confirm"
+                  required
+                  minlength="6"
+                  placeholder="请再次输入密码"
+                  autocomplete="new-password"
+                />
+                <button
+                  type="button"
+                  class="admin-pwd-toggle"
+                  aria-label="显示密码"
+                  aria-pressed="false"
+                  tabindex="0"
+                >
+                  <svg class="admin-pwd-toggle__icon admin-pwd-toggle__icon--show" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                    <circle cx="12" cy="12" r="3" />
+                  </svg>
+                  <svg class="admin-pwd-toggle__icon admin-pwd-toggle__icon--hide" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                    <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24" />
+                    <line x1="1" y1="1" x2="23" y2="23" />
+                  </svg>
+                </button>
+              </div>
+            </div>
+
+            <div class="user-edit-modal__section-title">已授权模型</div>
+
+            <div class="user-edit-modal__group">
+              <div class="user-edit-modal__field">
+                <label class="user-edit-modal__label" for="user-create-model-text">文本分析模型<span class="user-edit-modal__req">*</span></label>
+                <select class="user-edit-modal__select" id="user-create-model-text" name="model_text" required>
+                  <option value="">请选择文本分析模型</option>
+                  <option value="Doubao Seed 2.0 Pro">Doubao Seed 2.0 Pro</option>
+                  <option value="Gemini 3 Flash">Gemini 3 Flash</option>
+                  <option value="GPT-4.1 Mini">GPT-4.1 Mini</option>
+                  <option value="Claude 3.5 Sonnet">Claude 3.5 Sonnet</option>
+                </select>
+              </div>
+              <div class="user-edit-modal__field">
+                <label class="user-edit-modal__label" for="user-create-text-base-url">Base URL</label>
+                <input
+                  type="text"
+                  class="user-edit-modal__input"
+                  id="user-create-text-base-url"
+                  name="text_base_url"
+                  placeholder="https://api.example.com/v1"
+                />
+              </div>
+              <div class="user-edit-modal__field">
+                <label class="user-edit-modal__label" for="user-create-text-api-key">API Key</label>
+                <input
+                  type="text"
+                  class="user-edit-modal__input"
+                  id="user-create-text-api-key"
+                  name="text_api_key"
+                  placeholder="请输入 API Key"
+                  autocomplete="off"
+                />
+              </div>
+            </div>
+
+            <div class="user-edit-modal__group">
+              <div class="user-edit-modal__field">
+                <label class="user-edit-modal__label" for="user-create-model-image">图像生成模型<span class="user-edit-modal__req">*</span></label>
+                <select class="user-edit-modal__select" id="user-create-model-image" name="model_image" required>
+                  <option value="">请选择图像生成模型</option>
+                  <option value="Gemini 3 Pro Image">Gemini 3 Pro Image</option>
+                  <option value="Imagen 3 Fast">Imagen 3 Fast</option>
+                  <option value="DALL·E 3">DALL·E 3</option>
+                  <option value="Midjourney V6">Midjourney V6</option>
+                </select>
+              </div>
+              <div class="user-edit-modal__field">
+                <label class="user-edit-modal__label" for="user-create-image-base-url">Base URL</label>
+                <input
+                  type="text"
+                  class="user-edit-modal__input"
+                  id="user-create-image-base-url"
+                  name="image_base_url"
+                  placeholder="https://api.example.com/v1"
+                />
+              </div>
+              <div class="user-edit-modal__field">
+                <label class="user-edit-modal__label" for="user-create-image-api-key">API Key</label>
+                <input
+                  type="text"
+                  class="user-edit-modal__input"
+                  id="user-create-image-api-key"
+                  name="image_api_key"
+                  placeholder="请输入 API Key"
+                  autocomplete="off"
+                />
+              </div>
+            </div>
+
+            <div class="user-edit-modal__group">
+              <div class="user-edit-modal__field">
+                <label class="user-edit-modal__label" for="user-create-model-video">视频生成模型<span class="user-edit-modal__req">*</span></label>
+                <select class="user-edit-modal__select" id="user-create-model-video" name="model_video" required>
+                  <option value="">请选择视频生成模型</option>
+                  <option value="可灵 Kling 2.1">可灵 Kling 2.1</option>
+                  <option value="Runway Gen-3 Alpha">Runway Gen-3 Alpha</option>
+                  <option value="海螺 MiniMax 视频">海螺 MiniMax 视频</option>
+                  <option value="Sora 2">Sora 2</option>
+                </select>
+              </div>
+              <div class="user-edit-modal__field">
+                <label class="user-edit-modal__label" for="user-create-video-base-url">Base URL</label>
+                <input
+                  type="text"
+                  class="user-edit-modal__input"
+                  id="user-create-video-base-url"
+                  name="video_base_url"
+                  placeholder="https://api.example.com/v1"
+                />
+              </div>
+              <div class="user-edit-modal__field">
+                <label class="user-edit-modal__label" for="user-create-video-api-key">API Key</label>
+                <input
+                  type="text"
+                  class="user-edit-modal__input"
+                  id="user-create-video-api-key"
+                  name="video_api_key"
+                  placeholder="请输入 API Key"
+                  autocomplete="off"
+                />
+              </div>
+            </div>
+
+            <div class="user-edit-modal__field user-edit-modal__field--textarea">
+              <label class="user-edit-modal__label" for="user-create-remark">备注</label>
+              <textarea
+                class="user-edit-modal__textarea"
+                id="user-create-remark"
+                name="remark"
+                rows="2"
+                placeholder="选填，可填写该用户的补充说明"
+              ></textarea>
+            </div>
+          </div>
+          <div class="user-edit-modal__footer">
+            <button type="button" class="user-edit-modal__link-btn user-create-modal__cancel">取消</button>
+            <button type="submit" class="user-edit-modal__submit">创建</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div
+      id="user-status-confirm-admin"
+      class="user-status-modal"
+      role="presentation"
+      aria-hidden="true"
+    >
+      <div class="user-status-modal__backdrop" aria-hidden="true"></div>
+      <div
+        class="user-status-modal__dialog"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="user-status-admin-modal-title"
+        aria-describedby="user-status-admin-modal-msg"
+      >
+        <div class="user-status-modal__header">
+          <h2 id="user-status-admin-modal-title" class="user-status-modal__title">系统提示</h2>
+          <button type="button" class="user-status-modal__close user-status-admin-modal__close" aria-label="关闭">&times;</button>
+        </div>
+        <div class="user-status-modal__body">
+          <div class="user-status-modal__icon" aria-hidden="true">!</div>
+          <p id="user-status-admin-modal-msg" class="user-status-modal__message"></p>
+        </div>
+        <div class="user-status-modal__footer">
+          <button type="button" class="user-status-modal__btn user-status-modal__btn--secondary user-status-admin-modal__cancel">取消</button>
+          <button type="button" class="user-status-modal__btn user-status-modal__btn--primary user-status-admin-modal__confirm">确定</button>
+        </div>
+      </div>
+    </div>
+
+    <div
+      id="user-delete-confirm-admin"
+      class="user-status-modal"
+      role="presentation"
+      aria-hidden="true"
+    >
+      <div class="user-status-modal__backdrop" aria-hidden="true"></div>
+      <div
+        class="user-status-modal__dialog"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="user-delete-admin-modal-title"
+        aria-describedby="user-delete-admin-modal-msg"
+      >
+        <div class="user-status-modal__header">
+          <h2 id="user-delete-admin-modal-title" class="user-status-modal__title">系统提示</h2>
+          <button type="button" class="user-status-modal__close user-delete-admin-modal__close" aria-label="关闭">&times;</button>
+        </div>
+        <div class="user-status-modal__body">
+          <div class="user-status-modal__icon" aria-hidden="true">!</div>
+          <p id="user-delete-admin-modal-msg" class="user-status-modal__message"></p>
+        </div>
+        <div class="user-status-modal__footer">
+          <button type="button" class="user-status-modal__btn user-status-modal__btn--secondary user-delete-admin-modal__cancel">取消</button>
+          <button type="button" class="user-status-modal__btn user-status-modal__btn--danger user-delete-admin-modal__confirm">确定</button>
+        </div>
+      </div>
+    </div>
+
+    <div
+      id="user-reset-pwd-confirm"
+      class="user-status-modal"
+      role="presentation"
+      aria-hidden="true"
+    >
+      <div class="user-status-modal__backdrop" aria-hidden="true"></div>
+      <div
+        class="user-status-modal__dialog"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="user-reset-pwd-modal-title"
+        aria-describedby="user-reset-pwd-modal-msg"
+      >
+        <div class="user-status-modal__header">
+          <h2 id="user-reset-pwd-modal-title" class="user-status-modal__title">提示</h2>
+          <button type="button" class="user-status-modal__close user-reset-pwd-modal__close" aria-label="关闭">&times;</button>
+        </div>
+        <div class="user-status-modal__body user-reset-pwd-modal__body">
+          <div class="user-reset-pwd-modal__row">
+            <div class="user-status-modal__icon" aria-hidden="true">!</div>
+            <p id="user-reset-pwd-modal-msg" class="user-status-modal__message"></p>
+          </div>
+          <input
+            type="text"
+            id="user-reset-pwd-input"
+            class="user-reset-pwd-modal__input"
+            name="new_password"
+            minlength="6"
+            required
+            placeholder="至少 6 位"
+            autocomplete="off"
+            autocapitalize="off"
+            spellcheck="false"
+            aria-label="新密码"
+          />
+        </div>
+        <div class="user-status-modal__footer">
+          <button type="button" class="user-status-modal__btn user-status-modal__btn--secondary user-reset-pwd-modal__cancel">取消</button>
+          <button type="button" class="user-status-modal__btn user-status-modal__btn--primary user-reset-pwd-modal__confirm">确定</button>
+        </div>
+      </div>
+    </div>
+
+    <div
+      id="admin-user-edit-modal"
+      class="user-edit-modal"
+      role="presentation"
+      aria-hidden="true"
+    >
+      <div class="user-edit-modal__backdrop" aria-hidden="true"></div>
+      <div
+        class="user-edit-modal__dialog admin-user-edit-modal__dialog"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="admin-user-edit-modal-title"
+      >
+        <div class="user-edit-modal__header">
+          <h2 id="admin-user-edit-modal-title" class="user-edit-modal__title">编辑用户</h2>
+          <button type="button" class="user-edit-modal__close admin-user-edit-modal__close" aria-label="关闭">&times;</button>
+        </div>
+        <form class="user-edit-modal__form" id="admin-user-edit-form" action="#" novalidate>
+          <div class="user-edit-modal__scroll">
+            <div class="user-edit-modal__field">
+              <label class="user-edit-modal__label" for="admin-user-edit-username">用户名<span class="user-edit-modal__req">*</span></label>
+              <input
+                type="text"
+                class="user-edit-modal__input"
+                id="admin-user-edit-username"
+                name="username"
+                maxlength="10"
+                required
+                placeholder="请输入用户名（不超过10个字符）"
+                autocomplete="username"
+              />
+            </div>
+            <div class="user-edit-modal__field user-edit-modal__field--textarea">
+              <label class="user-edit-modal__label" for="admin-user-edit-remark">备注</label>
+              <textarea
+                class="user-edit-modal__textarea"
+                id="admin-user-edit-remark"
+                name="remark"
+                rows="3"
+                placeholder="选填，可填写该用户的补充说明"
+              ></textarea>
+            </div>
+          </div>
+          <div class="user-edit-modal__footer">
+            <button type="button" class="user-edit-modal__link-btn admin-user-edit-modal__cancel">取消</button>
+            <button type="submit" class="user-edit-modal__submit">保存</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+
+    <div
+      id="admin-user-create-modal"
+      class="user-edit-modal"
+      role="presentation"
+      aria-hidden="true"
+    >
+      <div class="user-edit-modal__backdrop" aria-hidden="true"></div>
+      <div
+        class="user-edit-modal__dialog admin-user-create-modal__dialog"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="admin-user-create-modal-title"
+      >
+        <div class="user-edit-modal__header">
+          <h2 id="admin-user-create-modal-title" class="user-edit-modal__title">新建用户</h2>
+          <button type="button" class="user-edit-modal__close admin-user-create-modal__close" aria-label="关闭">&times;</button>
+        </div>
+        <form class="user-edit-modal__form" id="admin-user-create-form" action="#" novalidate>
+          <div class="user-edit-modal__scroll">
+            <div class="user-edit-modal__field">
+              <label class="user-edit-modal__label" for="admin-user-create-username">用户名<span class="user-edit-modal__req">*</span></label>
+              <input
+                type="text"
+                class="user-edit-modal__input"
+                id="admin-user-create-username"
+                name="username"
+                maxlength="10"
+                required
+                placeholder="请输入用户名（不超过10个字符）"
+                autocomplete="username"
+              />
+            </div>
+            <div class="user-edit-modal__field">
+              <label class="user-edit-modal__label" for="admin-user-create-password">密码<span class="user-edit-modal__req">*</span></label>
+              <div class="admin-pwd-input-wrap">
+                <input
+                  type="password"
+                  class="user-edit-modal__input"
+                  id="admin-user-create-password"
+                  name="password"
+                  required
+                  minlength="6"
+                  placeholder="至少 6 位"
+                  autocomplete="new-password"
+                />
+                <button
+                  type="button"
+                  class="admin-pwd-toggle"
+                  aria-label="显示密码"
+                  aria-pressed="false"
+                  tabindex="0"
+                >
+                  <svg class="admin-pwd-toggle__icon admin-pwd-toggle__icon--show" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                    <circle cx="12" cy="12" r="3" />
+                  </svg>
+                  <svg class="admin-pwd-toggle__icon admin-pwd-toggle__icon--hide" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                    <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24" />
+                    <line x1="1" y1="1" x2="23" y2="23" />
+                  </svg>
+                </button>
+              </div>
+            </div>
+            <div class="user-edit-modal__field">
+              <label class="user-edit-modal__label" for="admin-user-create-password2">确认密码<span class="user-edit-modal__req">*</span></label>
+              <div class="admin-pwd-input-wrap">
+                <input
+                  type="password"
+                  class="user-edit-modal__input"
+                  id="admin-user-create-password2"
+                  name="password_confirm"
+                  required
+                  minlength="6"
+                  placeholder="请再次输入密码"
+                  autocomplete="new-password"
+                />
+                <button
+                  type="button"
+                  class="admin-pwd-toggle"
+                  aria-label="显示密码"
+                  aria-pressed="false"
+                  tabindex="0"
+                >
+                  <svg class="admin-pwd-toggle__icon admin-pwd-toggle__icon--show" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                    <circle cx="12" cy="12" r="3" />
+                  </svg>
+                  <svg class="admin-pwd-toggle__icon admin-pwd-toggle__icon--hide" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                    <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24" />
+                    <line x1="1" y1="1" x2="23" y2="23" />
+                  </svg>
+                </button>
+              </div>
+            </div>
+            <div class="user-edit-modal__field user-edit-modal__field--textarea">
+              <label class="user-edit-modal__label" for="admin-user-create-remark">备注</label>
+              <textarea
+                class="user-edit-modal__textarea"
+                id="admin-user-create-remark"
+                name="remark"
+                rows="4"
+                placeholder="选填，可填写该用户的补充说明"
+              ></textarea>
+            </div>
+          </div>
+          <div class="user-edit-modal__footer">
+            <button type="button" class="user-edit-modal__link-btn admin-user-create-modal__cancel">取消</button>
+            <button type="submit" class="user-edit-modal__submit">创建</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div
+      id="self-change-password-modal"
+      class="user-edit-modal"
+      role="presentation"
+      aria-hidden="true"
+    >
+      <div class="user-edit-modal__backdrop" aria-hidden="true"></div>
+      <div
+        class="user-edit-modal__dialog self-change-pwd-modal__dialog"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="self-change-password-title"
+      >
+        <div class="user-edit-modal__header">
+          <h2 id="self-change-password-title" class="user-edit-modal__title">修改密码</h2>
+          <button type="button" class="user-edit-modal__close self-change-pwd-modal__close" aria-label="关闭">&times;</button>
+        </div>
+        <form class="user-edit-modal__form" id="self-change-password-form" action="#" novalidate>
+          <div class="user-edit-modal__scroll">
+            <div class="user-edit-modal__field">
+              <label class="user-edit-modal__label" for="self-change-pwd-current">旧密码<span class="user-edit-modal__req">*</span></label>
+              <input
+                type="text"
+                class="user-edit-modal__input"
+                id="self-change-pwd-current"
+                name="current_password"
+                required
+                placeholder="请输入旧密码"
+                autocomplete="off"
+                autocapitalize="off"
+                spellcheck="false"
+                aria-label="旧密码"
+              />
+            </div>
+            <div class="user-edit-modal__field">
+              <label class="user-edit-modal__label" for="self-change-pwd-new">新密码<span class="user-edit-modal__req">*</span></label>
+              <div class="admin-pwd-input-wrap">
+                <input
+                  type="password"
+                  class="user-edit-modal__input"
+                  id="self-change-pwd-new"
+                  name="new_password"
+                  required
+                  minlength="6"
+                  placeholder="至少 6 位"
+                  autocomplete="new-password"
+                />
+                <button type="button" class="admin-pwd-toggle" aria-label="显示密码" aria-pressed="false" tabindex="0">
+                  <svg class="admin-pwd-toggle__icon admin-pwd-toggle__icon--show" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                    <circle cx="12" cy="12" r="3" />
+                  </svg>
+                  <svg class="admin-pwd-toggle__icon admin-pwd-toggle__icon--hide" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                    <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24" />
+                    <line x1="1" y1="1" x2="23" y2="23" />
+                  </svg>
+                </button>
+              </div>
+            </div>
+            <div class="user-edit-modal__field">
+              <label class="user-edit-modal__label" for="self-change-pwd-new2">确认新密码<span class="user-edit-modal__req">*</span></label>
+              <div class="admin-pwd-input-wrap">
+                <input
+                  type="password"
+                  class="user-edit-modal__input"
+                  id="self-change-pwd-new2"
+                  name="new_password_confirm"
+                  required
+                  minlength="6"
+                  placeholder="请再次输入新密码"
+                  autocomplete="new-password"
+                />
+                <button type="button" class="admin-pwd-toggle" aria-label="显示密码" aria-pressed="false" tabindex="0">
+                  <svg class="admin-pwd-toggle__icon admin-pwd-toggle__icon--show" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                    <circle cx="12" cy="12" r="3" />
+                  </svg>
+                  <svg class="admin-pwd-toggle__icon admin-pwd-toggle__icon--hide" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                    <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24" />
+                    <line x1="1" y1="1" x2="23" y2="23" />
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="user-edit-modal__footer">
+            <button type="button" class="user-edit-modal__link-btn self-change-pwd-modal__cancel">取消</button>
+            <button type="submit" class="user-edit-modal__submit">保存</button>
+          </div>
+        </form>
+      </div>
     </div>
 
     <script>
@@ -1101,6 +2946,102 @@
           menu.classList.remove("open");
           trigger.setAttribute("aria-expanded", "false");
         });
+
+        // 顶部用户菜单：修改密码弹框
+        (function () {
+          var modal = document.getElementById("self-change-password-modal");
+          var form = document.getElementById("self-change-password-form");
+          var changePwdLink = document.getElementById("user-menu-open-change-password");
+          if (!modal || !form) return;
+
+          var backdrop = modal.querySelector(".user-edit-modal__backdrop");
+          var btnClose = modal.querySelector(".self-change-pwd-modal__close");
+          var btnCancel = modal.querySelector(".self-change-pwd-modal__cancel");
+          var pwdNew = document.getElementById("self-change-pwd-new");
+          var pwdNew2 = document.getElementById("self-change-pwd-new2");
+
+          function resetPwdVisibility() {
+            modal.querySelectorAll(".admin-pwd-toggle").forEach(function (btn) {
+              btn.classList.remove("is-visible");
+              btn.setAttribute("aria-label", "显示密码");
+              btn.setAttribute("aria-pressed", "false");
+            });
+            modal.querySelectorAll(".admin-pwd-input-wrap input").forEach(function (inp) {
+              inp.type = "password";
+            });
+          }
+
+          function closeModal() {
+            modal.classList.remove("user-edit-modal--open");
+            modal.setAttribute("aria-hidden", "true");
+            form.reset();
+            if (pwdNew2) pwdNew2.setCustomValidity("");
+            resetPwdVisibility();
+          }
+
+          function openModal() {
+            form.reset();
+            if (pwdNew2) pwdNew2.setCustomValidity("");
+            resetPwdVisibility();
+            modal.classList.add("user-edit-modal--open");
+            modal.setAttribute("aria-hidden", "false");
+            var cur = document.getElementById("self-change-pwd-current");
+            if (cur) cur.focus();
+          }
+
+          if (changePwdLink && menu && trigger) {
+            changePwdLink.addEventListener("click", function (e) {
+              e.preventDefault();
+              e.stopPropagation();
+              menu.classList.remove("open");
+              trigger.setAttribute("aria-expanded", "false");
+              openModal();
+            });
+          }
+
+          modal.addEventListener("click", function (e) {
+            var btn = e.target.closest(".admin-pwd-toggle");
+            if (!btn || !modal.contains(btn)) return;
+            var wrap = btn.closest(".admin-pwd-input-wrap");
+            var input = wrap && wrap.querySelector("input");
+            if (!input) return;
+            var visible = input.type === "text";
+            if (visible) {
+              input.type = "password";
+              btn.classList.remove("is-visible");
+              btn.setAttribute("aria-label", "显示密码");
+              btn.setAttribute("aria-pressed", "false");
+            } else {
+              input.type = "text";
+              btn.classList.add("is-visible");
+              btn.setAttribute("aria-label", "隐藏密码");
+              btn.setAttribute("aria-pressed", "true");
+            }
+          });
+
+          function onClose() {
+            closeModal();
+          }
+
+          backdrop.addEventListener("click", onClose);
+          btnClose.addEventListener("click", onClose);
+          btnCancel.addEventListener("click", onClose);
+
+          form.addEventListener("submit", function (e) {
+            e.preventDefault();
+            if (pwdNew2) pwdNew2.setCustomValidity("");
+            if (pwdNew && pwdNew2 && pwdNew.value !== pwdNew2.value) {
+              pwdNew2.setCustomValidity("两次输入的新密码不一致");
+              pwdNew2.reportValidity();
+              return;
+            }
+            if (!form.checkValidity()) {
+              form.reportValidity();
+              return;
+            }
+            closeModal();
+          });
+        })();
 
         // 左侧二级导航切换
         var sideItems = document.querySelectorAll(".sidebar-nav__item");
@@ -1124,6 +3065,676 @@
               btn.classList.add("vendor-tab--active");
             });
           });
+        });
+
+        // 账户分配-Super：状态开关切换需确认
+        (function () {
+          var modal = document.getElementById("user-status-confirm");
+          if (!modal) return;
+
+          var msgEl = document.getElementById("user-status-modal-msg");
+          var btnCancel = modal.querySelector(".user-status-modal__cancel");
+          var btnConfirm = modal.querySelector(".user-status-modal__confirm");
+          var btnClose = modal.querySelector(".user-status-modal__close");
+          var backdrop = modal.querySelector(".user-status-modal__backdrop");
+          var pendingInput = null;
+          var pendingChecked = null;
+
+          function openModal() {
+            modal.classList.add("user-status-modal--open");
+            modal.setAttribute("aria-hidden", "false");
+          }
+
+          function closeModal() {
+            modal.classList.remove("user-status-modal--open");
+            modal.setAttribute("aria-hidden", "true");
+            pendingInput = null;
+            pendingChecked = null;
+          }
+
+          function confirmPending() {
+            if (pendingInput) pendingInput.checked = pendingChecked;
+            closeModal();
+          }
+
+          function cancelPending() {
+            closeModal();
+          }
+
+          document.querySelectorAll("#panel-account-super .user-list-toggle input").forEach(function (input) {
+            input.addEventListener("change", function () {
+              var wantOn = input.checked;
+              input.checked = !wantOn;
+              var row = input.closest("tr");
+              var nameEl = row ? row.querySelector(".user-list-name") : null;
+              var userName = nameEl ? nameEl.textContent.trim() : "该用户";
+              pendingInput = input;
+              pendingChecked = wantOn;
+              msgEl.textContent = wantOn
+                ? "是否确认启用" + userName + "?"
+                : "是否确认停用" + userName + "?";
+              openModal();
+            });
+          });
+
+          btnCancel.addEventListener("click", cancelPending);
+          btnClose.addEventListener("click", cancelPending);
+          backdrop.addEventListener("click", cancelPending);
+          btnConfirm.addEventListener("click", confirmPending);
+        })();
+
+        // 账户分配-Super：编辑用户弹框
+        (function () {
+          var modal = document.getElementById("user-edit-modal");
+          var form = document.getElementById("user-edit-form");
+          if (!modal || !form) return;
+
+          var backdrop = modal.querySelector(".user-edit-modal__backdrop");
+          var btnClose = modal.querySelector(".user-edit-modal__close");
+          var btnCancel = modal.querySelector(".user-edit-modal__cancel-edit");
+
+          function closeUserEditModal() {
+            modal.classList.remove("user-edit-modal--open");
+            modal.setAttribute("aria-hidden", "true");
+          }
+
+          function openUserEditModal() {
+            modal.classList.add("user-edit-modal--open");
+            modal.setAttribute("aria-hidden", "false");
+          }
+
+          function setSelectByModelName(select, name) {
+            if (!select || !name) {
+              if (select) select.value = "";
+              return;
+            }
+            var opts = select.options;
+            for (var i = 0; i < opts.length; i++) {
+              if (opts[i].value === name) {
+                select.selectedIndex = i;
+                return;
+              }
+            }
+            select.value = "";
+          }
+
+          var panel = document.getElementById("panel-account-super");
+          if (panel) {
+            panel.addEventListener("click", function (e) {
+              var btn = e.target.closest(".user-list-edit-btn");
+              if (!btn) return;
+              e.preventDefault();
+              var row = btn.closest("tr");
+              if (!row) return;
+
+              var nameEl = row.querySelector(".user-list-name");
+              var usernameInput = document.getElementById("user-edit-username");
+              if (usernameInput) usernameInput.value = nameEl ? nameEl.textContent.trim() : "";
+
+              var modelNames = row.querySelectorAll(".auth-models-cell .auth-model-name");
+              setSelectByModelName(document.getElementById("user-edit-model-text"), modelNames[0] ? modelNames[0].textContent.trim() : "");
+              setSelectByModelName(document.getElementById("user-edit-model-image"), modelNames[1] ? modelNames[1].textContent.trim() : "");
+              setSelectByModelName(document.getElementById("user-edit-model-video"), modelNames[2] ? modelNames[2].textContent.trim() : "");
+
+              document.getElementById("user-edit-text-base-url").value = "";
+              document.getElementById("user-edit-text-api-key").value = "";
+              document.getElementById("user-edit-image-base-url").value = "";
+              document.getElementById("user-edit-image-api-key").value = "";
+              document.getElementById("user-edit-video-base-url").value = "";
+              document.getElementById("user-edit-video-api-key").value = "";
+              document.getElementById("user-edit-remark").value = "";
+
+              openUserEditModal();
+            });
+          }
+
+          function onClose() {
+            closeUserEditModal();
+          }
+
+          backdrop.addEventListener("click", onClose);
+          btnClose.addEventListener("click", onClose);
+          btnCancel.addEventListener("click", onClose);
+
+          form.addEventListener("submit", function (e) {
+            e.preventDefault();
+            if (!form.checkValidity()) {
+              form.reportValidity();
+              return;
+            }
+            closeUserEditModal();
+          });
+        })();
+
+        // 账户分配-Super：新建用户弹框（含与 Admin 一致的密码 + 眼睛切换）
+        (function () {
+          var modal = document.getElementById("user-create-modal");
+          var form = document.getElementById("user-create-form");
+          var btnNew = document.getElementById("btn-super-new-user");
+          if (!modal || !form) return;
+
+          var backdrop = modal.querySelector(".user-edit-modal__backdrop");
+          var btnClose = modal.querySelector(".user-create-modal__close");
+          var btnCancel = modal.querySelector(".user-create-modal__cancel");
+          var pwd = document.getElementById("user-create-password");
+          var pwd2 = document.getElementById("user-create-password2");
+
+          function resetCreateForm() {
+            form.reset();
+          }
+
+          function resetPwdVisibility() {
+            modal.querySelectorAll(".admin-pwd-toggle").forEach(function (btn) {
+              btn.classList.remove("is-visible");
+              btn.setAttribute("aria-label", "显示密码");
+              btn.setAttribute("aria-pressed", "false");
+            });
+            modal.querySelectorAll(".admin-pwd-input-wrap input").forEach(function (inp) {
+              inp.type = "password";
+            });
+          }
+
+          function closeUserCreateModal() {
+            modal.classList.remove("user-edit-modal--open");
+            modal.setAttribute("aria-hidden", "true");
+          }
+
+          function openUserCreateModal() {
+            resetCreateForm();
+            resetPwdVisibility();
+            modal.classList.add("user-edit-modal--open");
+            modal.setAttribute("aria-hidden", "false");
+          }
+
+          if (btnNew) {
+            btnNew.addEventListener("click", function () {
+              openUserCreateModal();
+            });
+          }
+
+          function onClose() {
+            closeUserCreateModal();
+          }
+
+          backdrop.addEventListener("click", onClose);
+          btnClose.addEventListener("click", onClose);
+          btnCancel.addEventListener("click", onClose);
+
+          modal.addEventListener("click", function (e) {
+            var btn = e.target.closest(".admin-pwd-toggle");
+            if (!btn || !modal.contains(btn)) return;
+            var wrap = btn.closest(".admin-pwd-input-wrap");
+            var input = wrap && wrap.querySelector("input");
+            if (!input) return;
+            var visible = input.type === "text";
+            if (visible) {
+              input.type = "password";
+              btn.classList.remove("is-visible");
+              btn.setAttribute("aria-label", "显示密码");
+              btn.setAttribute("aria-pressed", "false");
+            } else {
+              input.type = "text";
+              btn.classList.add("is-visible");
+              btn.setAttribute("aria-label", "隐藏密码");
+              btn.setAttribute("aria-pressed", "true");
+            }
+          });
+
+          form.addEventListener("submit", function (e) {
+            e.preventDefault();
+            if (pwd2) pwd2.setCustomValidity("");
+            if (pwd && pwd2 && pwd.value !== pwd2.value) {
+              pwd2.setCustomValidity("两次输入的密码不一致");
+              pwd2.reportValidity();
+              return;
+            }
+            if (!form.checkValidity()) {
+              form.reportValidity();
+              return;
+            }
+            closeUserCreateModal();
+          });
+        })();
+
+        // 账户分配-Super：删除用户确认
+        (function () {
+          var modal = document.getElementById("user-delete-confirm");
+          if (!modal) return;
+
+          var msgEl = document.getElementById("user-delete-modal-msg");
+          var btnCancel = modal.querySelector(".user-delete-modal__cancel");
+          var btnConfirm = modal.querySelector(".user-delete-modal__confirm");
+          var btnClose = modal.querySelector(".user-delete-modal__close");
+          var backdrop = modal.querySelector(".user-status-modal__backdrop");
+          var pendingRow = null;
+
+          function openDeleteModal() {
+            modal.classList.add("user-status-modal--open");
+            modal.setAttribute("aria-hidden", "false");
+          }
+
+          function closeDeleteModal() {
+            modal.classList.remove("user-status-modal--open");
+            modal.setAttribute("aria-hidden", "true");
+            pendingRow = null;
+          }
+
+          function confirmDelete() {
+            if (pendingRow && pendingRow.parentNode) pendingRow.remove();
+            closeDeleteModal();
+          }
+
+          var panel = document.getElementById("panel-account-super");
+          if (panel) {
+            panel.addEventListener("click", function (e) {
+              var delBtn = e.target.closest(".user-list-delete-btn");
+              if (!delBtn) return;
+              e.preventDefault();
+              var row = delBtn.closest("tr");
+              if (!row) return;
+              var nameEl = row.querySelector(".user-list-name");
+              var userName = nameEl ? nameEl.textContent.trim() : "该用户";
+              pendingRow = row;
+              msgEl.textContent =
+                "是否确认删除用户「" +
+                userName +
+                "」？删除后，该用户账号将被移除，其在平台上的相关项目数据也会一并永久删除，且无法恢复。请确认后再操作。";
+              openDeleteModal();
+            });
+          }
+
+          btnCancel.addEventListener("click", closeDeleteModal);
+          btnClose.addEventListener("click", closeDeleteModal);
+          backdrop.addEventListener("click", closeDeleteModal);
+          btnConfirm.addEventListener("click", confirmDelete);
+        })();
+
+        // 账户分配-Admin：状态开关切换需确认
+        (function () {
+          var modal = document.getElementById("user-status-confirm-admin");
+          if (!modal) return;
+
+          var msgEl = document.getElementById("user-status-admin-modal-msg");
+          var btnCancel = modal.querySelector(".user-status-admin-modal__cancel");
+          var btnConfirm = modal.querySelector(".user-status-admin-modal__confirm");
+          var btnClose = modal.querySelector(".user-status-admin-modal__close");
+          var backdrop = modal.querySelector(".user-status-modal__backdrop");
+          var pendingInput = null;
+          var pendingChecked = null;
+
+          function openModal() {
+            modal.classList.add("user-status-modal--open");
+            modal.setAttribute("aria-hidden", "false");
+          }
+
+          function closeModal() {
+            modal.classList.remove("user-status-modal--open");
+            modal.setAttribute("aria-hidden", "true");
+            pendingInput = null;
+            pendingChecked = null;
+          }
+
+          function confirmPending() {
+            if (pendingInput) pendingInput.checked = pendingChecked;
+            closeModal();
+          }
+
+          document.querySelectorAll("#panel-account-admin .user-list-toggle input").forEach(function (input) {
+            input.addEventListener("change", function () {
+              var wantOn = input.checked;
+              input.checked = !wantOn;
+              var row = input.closest("tr");
+              var nameEl = row ? row.querySelector(".user-list-name") : null;
+              var userName = nameEl ? nameEl.textContent.trim() : "该用户";
+              pendingInput = input;
+              pendingChecked = wantOn;
+              msgEl.textContent = wantOn
+                ? "是否确认启用" + userName + "?"
+                : "是否确认停用" + userName + "?";
+              openModal();
+            });
+          });
+
+          btnCancel.addEventListener("click", closeModal);
+          btnClose.addEventListener("click", closeModal);
+          backdrop.addEventListener("click", closeModal);
+          btnConfirm.addEventListener("click", confirmPending);
+        })();
+
+        // 账户分配-Admin：编辑用户弹框（用户名、备注）
+        (function () {
+          var modal = document.getElementById("admin-user-edit-modal");
+          var form = document.getElementById("admin-user-edit-form");
+          if (!modal || !form) return;
+
+          var backdrop = modal.querySelector(".user-edit-modal__backdrop");
+          var btnClose = modal.querySelector(".admin-user-edit-modal__close");
+          var btnCancel = modal.querySelector(".admin-user-edit-modal__cancel");
+
+          function closeAdminEditModal() {
+            modal.classList.remove("user-edit-modal--open");
+            modal.setAttribute("aria-hidden", "true");
+          }
+
+          function openAdminEditModal() {
+            modal.classList.add("user-edit-modal--open");
+            modal.setAttribute("aria-hidden", "false");
+          }
+
+          var panel = document.getElementById("panel-account-admin");
+          if (panel) {
+            panel.addEventListener("click", function (e) {
+              var btn = e.target.closest(".user-list-edit-btn-admin");
+              if (!btn) return;
+              e.preventDefault();
+              var row = btn.closest("tr");
+              if (!row) return;
+
+              var nameEl = row.querySelector(".user-list-name");
+              var usernameInput = document.getElementById("admin-user-edit-username");
+              if (usernameInput) usernameInput.value = nameEl ? nameEl.textContent.trim() : "";
+
+              var remarkEl = document.getElementById("admin-user-edit-remark");
+              if (remarkEl) remarkEl.value = row.getAttribute("data-remark") || "";
+
+              openAdminEditModal();
+            });
+          }
+
+          function onClose() {
+            closeAdminEditModal();
+          }
+
+          backdrop.addEventListener("click", onClose);
+          btnClose.addEventListener("click", onClose);
+          btnCancel.addEventListener("click", onClose);
+
+          form.addEventListener("submit", function (e) {
+            e.preventDefault();
+            if (!form.checkValidity()) {
+              form.reportValidity();
+              return;
+            }
+            closeAdminEditModal();
+          });
+        })();
+
+        // 账户分配-Admin：新建用户弹框
+        (function () {
+          var modal = document.getElementById("admin-user-create-modal");
+          var form = document.getElementById("admin-user-create-form");
+          var btnNew = document.getElementById("btn-admin-new-user");
+          if (!modal || !form) return;
+
+          var backdrop = modal.querySelector(".user-edit-modal__backdrop");
+          var btnClose = modal.querySelector(".admin-user-create-modal__close");
+          var btnCancel = modal.querySelector(".admin-user-create-modal__cancel");
+
+          function resetForm() {
+            form.reset();
+          }
+
+          function resetPwdVisibility() {
+            modal.querySelectorAll(".admin-pwd-toggle").forEach(function (btn) {
+              btn.classList.remove("is-visible");
+              btn.setAttribute("aria-label", "显示密码");
+              btn.setAttribute("aria-pressed", "false");
+            });
+            modal.querySelectorAll(".admin-pwd-input-wrap input").forEach(function (inp) {
+              inp.type = "password";
+            });
+          }
+
+          function closeAdminCreateModal() {
+            modal.classList.remove("user-edit-modal--open");
+            modal.setAttribute("aria-hidden", "true");
+          }
+
+          function openAdminCreateModal() {
+            resetForm();
+            resetPwdVisibility();
+            modal.classList.add("user-edit-modal--open");
+            modal.setAttribute("aria-hidden", "false");
+          }
+
+          if (btnNew) {
+            btnNew.addEventListener("click", function () {
+              openAdminCreateModal();
+            });
+          }
+
+          function onClose() {
+            closeAdminCreateModal();
+          }
+
+          backdrop.addEventListener("click", onClose);
+          btnClose.addEventListener("click", onClose);
+          btnCancel.addEventListener("click", onClose);
+
+          modal.addEventListener("click", function (e) {
+            var btn = e.target.closest(".admin-pwd-toggle");
+            if (!btn || !modal.contains(btn)) return;
+            var wrap = btn.closest(".admin-pwd-input-wrap");
+            var input = wrap && wrap.querySelector("input");
+            if (!input) return;
+            var visible = input.type === "text";
+            if (visible) {
+              input.type = "password";
+              btn.classList.remove("is-visible");
+              btn.setAttribute("aria-label", "显示密码");
+              btn.setAttribute("aria-pressed", "false");
+            } else {
+              input.type = "text";
+              btn.classList.add("is-visible");
+              btn.setAttribute("aria-label", "隐藏密码");
+              btn.setAttribute("aria-pressed", "true");
+            }
+          });
+
+          var pwd = document.getElementById("admin-user-create-password");
+          var pwd2 = document.getElementById("admin-user-create-password2");
+
+          form.addEventListener("submit", function (e) {
+            e.preventDefault();
+            if (pwd2) pwd2.setCustomValidity("");
+            if (pwd && pwd2 && pwd.value !== pwd2.value) {
+              pwd2.setCustomValidity("两次输入的密码不一致");
+              pwd2.reportValidity();
+              return;
+            }
+            if (!form.checkValidity()) {
+              form.reportValidity();
+              return;
+            }
+            closeAdminCreateModal();
+          });
+        })();
+
+        // 账户分配-Admin：删除用户确认
+        (function () {
+          var modal = document.getElementById("user-delete-confirm-admin");
+          if (!modal) return;
+
+          var msgEl = document.getElementById("user-delete-admin-modal-msg");
+          var btnCancel = modal.querySelector(".user-delete-admin-modal__cancel");
+          var btnConfirm = modal.querySelector(".user-delete-admin-modal__confirm");
+          var btnClose = modal.querySelector(".user-delete-admin-modal__close");
+          var backdrop = modal.querySelector(".user-status-modal__backdrop");
+          var pendingRow = null;
+
+          function openDeleteModal() {
+            modal.classList.add("user-status-modal--open");
+            modal.setAttribute("aria-hidden", "false");
+          }
+
+          function closeDeleteModal() {
+            modal.classList.remove("user-status-modal--open");
+            modal.setAttribute("aria-hidden", "true");
+            pendingRow = null;
+          }
+
+          function confirmDelete() {
+            if (pendingRow && pendingRow.parentNode) pendingRow.remove();
+            closeDeleteModal();
+          }
+
+          var panel = document.getElementById("panel-account-admin");
+          if (panel) {
+            panel.addEventListener("click", function (e) {
+              var delBtn = e.target.closest(".user-list-delete-btn-admin");
+              if (!delBtn) return;
+              e.preventDefault();
+              var row = delBtn.closest("tr");
+              if (!row) return;
+              var nameEl = row.querySelector(".user-list-name");
+              var userName = nameEl ? nameEl.textContent.trim() : "该用户";
+              pendingRow = row;
+              msgEl.textContent =
+                "是否确认删除用户「" +
+                userName +
+                "」？删除后，该用户账号将被移除，其在平台上的相关项目数据也会一并永久删除，且无法恢复。请确认后再操作。";
+              openDeleteModal();
+            });
+          }
+
+          btnCancel.addEventListener("click", closeDeleteModal);
+          btnClose.addEventListener("click", closeDeleteModal);
+          backdrop.addEventListener("click", closeDeleteModal);
+          btnConfirm.addEventListener("click", confirmDelete);
+        })();
+
+        // 账户分配-Super / Admin：重置密码（共用弹框，普通文本输入新密码）
+        (function () {
+          var modal = document.getElementById("user-reset-pwd-confirm");
+          if (!modal) return;
+
+          var msgEl = document.getElementById("user-reset-pwd-modal-msg");
+          var pwdInput = document.getElementById("user-reset-pwd-input");
+          var btnCancel = modal.querySelector(".user-reset-pwd-modal__cancel");
+          var btnConfirm = modal.querySelector(".user-reset-pwd-modal__confirm");
+          var btnClose = modal.querySelector(".user-reset-pwd-modal__close");
+          var backdrop = modal.querySelector(".user-status-modal__backdrop");
+
+          function resetPwdField() {
+            if (pwdInput) {
+              pwdInput.value = "";
+              pwdInput.setCustomValidity("");
+            }
+          }
+
+          function openModal() {
+            resetPwdField();
+            modal.classList.add("user-status-modal--open");
+            modal.setAttribute("aria-hidden", "false");
+            if (pwdInput) {
+              pwdInput.focus();
+            }
+          }
+
+          function closeModal() {
+            modal.classList.remove("user-status-modal--open");
+            modal.setAttribute("aria-hidden", "true");
+            resetPwdField();
+          }
+
+          function confirmReset() {
+            if (!pwdInput) {
+              closeModal();
+              return;
+            }
+            pwdInput.setCustomValidity("");
+            if (!pwdInput.checkValidity()) {
+              pwdInput.reportValidity();
+              return;
+            }
+            closeModal();
+          }
+
+          function onPanelResetPwdClick(e) {
+            var btn = e.target.closest(".user-list-reset-pwd-btn");
+            if (!btn) return;
+            e.preventDefault();
+            var row = btn.closest("tr");
+            if (!row) return;
+            var nameEl = row.querySelector(".user-list-name");
+            var userName = nameEl ? nameEl.textContent.trim() : "该用户";
+            msgEl.textContent = "请输入新密码「" + userName + "」";
+            openModal();
+          }
+
+          var panelAdmin = document.getElementById("panel-account-admin");
+          var panelSuper = document.getElementById("panel-account-super");
+          if (panelAdmin) panelAdmin.addEventListener("click", onPanelResetPwdClick);
+          if (panelSuper) panelSuper.addEventListener("click", onPanelResetPwdClick);
+
+          btnCancel.addEventListener("click", closeModal);
+          btnClose.addEventListener("click", closeModal);
+          backdrop.addEventListener("click", closeModal);
+          btnConfirm.addEventListener("click", confirmReset);
+        })();
+
+        // Esc：修改密码 → Admin/Super 新建与表单 → 重置密码 → 删除确认 → 状态确认
+        document.addEventListener("keydown", function (e) {
+          if (e.key !== "Escape") return;
+          var selfChangePwd = document.getElementById("self-change-password-modal");
+          if (selfChangePwd && selfChangePwd.classList.contains("user-edit-modal--open")) {
+            var sc = selfChangePwd.querySelector(".self-change-pwd-modal__cancel");
+            if (sc) sc.click();
+            return;
+          }
+          var adminCreate = document.getElementById("admin-user-create-modal");
+          if (adminCreate && adminCreate.classList.contains("user-edit-modal--open")) {
+            adminCreate.classList.remove("user-edit-modal--open");
+            adminCreate.setAttribute("aria-hidden", "true");
+            return;
+          }
+          var adminEdit = document.getElementById("admin-user-edit-modal");
+          if (adminEdit && adminEdit.classList.contains("user-edit-modal--open")) {
+            adminEdit.classList.remove("user-edit-modal--open");
+            adminEdit.setAttribute("aria-hidden", "true");
+            return;
+          }
+          var createModal = document.getElementById("user-create-modal");
+          if (createModal && createModal.classList.contains("user-edit-modal--open")) {
+            createModal.classList.remove("user-edit-modal--open");
+            createModal.setAttribute("aria-hidden", "true");
+            return;
+          }
+          var editModal = document.getElementById("user-edit-modal");
+          if (editModal && editModal.classList.contains("user-edit-modal--open")) {
+            editModal.classList.remove("user-edit-modal--open");
+            editModal.setAttribute("aria-hidden", "true");
+            return;
+          }
+          var resetModal = document.getElementById("user-reset-pwd-confirm");
+          if (resetModal && resetModal.classList.contains("user-status-modal--open")) {
+            var rc = resetModal.querySelector(".user-reset-pwd-modal__cancel");
+            if (rc) rc.click();
+            return;
+          }
+          var delModal = document.getElementById("user-delete-confirm");
+          if (delModal && delModal.classList.contains("user-status-modal--open")) {
+            var delCancel = delModal.querySelector(".user-delete-modal__cancel");
+            if (delCancel) delCancel.click();
+            return;
+          }
+          var delAdmin = document.getElementById("user-delete-confirm-admin");
+          if (delAdmin && delAdmin.classList.contains("user-status-modal--open")) {
+            var dac = delAdmin.querySelector(".user-delete-admin-modal__cancel");
+            if (dac) dac.click();
+            return;
+          }
+          var stModal = document.getElementById("user-status-confirm");
+          if (stModal && stModal.classList.contains("user-status-modal--open")) {
+            var cancelBtn = stModal.querySelector(".user-status-modal__cancel");
+            if (cancelBtn) cancelBtn.click();
+            return;
+          }
+          var stAdmin = document.getElementById("user-status-confirm-admin");
+          if (stAdmin && stAdmin.classList.contains("user-status-modal--open")) {
+            var c2 = stAdmin.querySelector(".user-status-admin-modal__cancel");
+            if (c2) c2.click();
+          }
         });
       })();
     </script>

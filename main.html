@@ -319,22 +319,32 @@
         background: #f3f4f6;
       }
 
-      /* ── 主图片面板 ── */
+      /* ── 主图片面板：外层固定阴影不随 transform 变形，内层浮动+圆角裁切，减轻插图区方块阴影 ── */
       .image-panel {
         position: absolute;
         left: 56px;
         top: 28px;
         right: 40px;
         bottom: 60px;
-        background: rgba(255,255,255,0.95);
-        border: 1px solid #fff;
         border-radius: 20px;
-        box-shadow: 0 8px 24px rgba(28,42,79,0.06);
-        backdrop-filter: blur(20px);
-        overflow: hidden;
         z-index: 1;
+        overflow: visible;
+        box-shadow: 0 8px 24px rgba(28,42,79,0.06);
+      }
+
+      .image-panel__motion {
+        width: 100%;
+        height: 100%;
+        border-radius: 20px;
+        overflow: hidden;
         display: flex;
         flex-direction: column;
+        background: rgba(255,255,255,0.95);
+        border: 1px solid #fff;
+        backdrop-filter: blur(20px);
+        transform: translateZ(0);
+        -webkit-backface-visibility: hidden;
+        backface-visibility: hidden;
       }
 
       .ip-topbar {
@@ -498,8 +508,8 @@
       }
 
       @keyframes floatCenter {
-        0%, 100% { transform: translate(0, 0) rotate(0deg); }
-        50%      { transform: translate(-2px, -4px) rotate(0.2deg); }
+        0%, 100% { transform: translateZ(0) translate(0, 0) rotate(0deg); }
+        50%      { transform: translateZ(0) translate(-2px, -4px) rotate(0.2deg); }
       }
 
       @keyframes floatRight {
@@ -511,7 +521,7 @@
         animation: floatLeft 6s ease-in-out infinite;
       }
 
-      .image-panel {
+      .image-panel__motion {
         animation: floatCenter 7s ease-in-out 0.8s infinite;
       }
 
@@ -532,6 +542,137 @@
         .hero__visual { width: 100%; height: 280px; }
         .bg-panel { display: none; }
         .features { grid-template-columns: 1fr; padding: 0 24px 16px; }
+      }
+
+      /* 新建项目弹框（与设置页弹窗风格一致） */
+      .new-project-modal {
+        position: fixed;
+        inset: 0;
+        z-index: 3000;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        padding: 24px;
+        box-sizing: border-box;
+      }
+
+      .new-project-modal--open {
+        display: flex;
+      }
+
+      .new-project-modal__backdrop {
+        position: absolute;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.45);
+      }
+
+      .new-project-modal__dialog {
+        position: relative;
+        width: 100%;
+        max-width: 440px;
+        background: #fff;
+        border-radius: 28px;
+        box-shadow: 0 24px 56px -12px rgba(0, 0, 0, 0.22),
+          0 12px 28px -8px rgba(0, 0, 0, 0.1);
+        padding: 26px 28px 22px;
+        overflow: hidden;
+      }
+
+      .new-project-modal__title {
+        margin: 0 0 22px;
+        font-size: 20px;
+        font-weight: 700;
+        color: #111827;
+      }
+
+      .new-project-modal__field {
+        margin-bottom: 18px;
+      }
+
+      .new-project-modal__label {
+        display: block;
+        font-size: 14px;
+        font-weight: 600;
+        color: #111827;
+        margin-bottom: 8px;
+      }
+
+      .new-project-modal__req {
+        color: #ef4444;
+        margin-left: 2px;
+      }
+
+      .new-project-modal__input,
+      .new-project-modal__textarea {
+        width: 100%;
+        box-sizing: border-box;
+        font-size: 14px;
+        font-family: inherit;
+        color: #111827;
+        border: 1px solid #e5e7eb;
+        border-radius: 12px;
+        padding: 11px 14px;
+        outline: none;
+        transition: border-color 0.15s ease, box-shadow 0.15s ease;
+      }
+
+      .new-project-modal__textarea {
+        min-height: 108px;
+        resize: vertical;
+        line-height: 1.5;
+      }
+
+      .new-project-modal__input:focus,
+      .new-project-modal__textarea:focus {
+        border-color: #3651d3;
+        box-shadow: 0 0 0 3px rgba(54, 81, 211, 0.18);
+      }
+
+      .new-project-modal__input::placeholder,
+      .new-project-modal__textarea::placeholder {
+        color: #9ca3af;
+      }
+
+      .new-project-modal__footer {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        gap: 12px;
+        margin-top: 26px;
+      }
+
+      .new-project-modal__btn {
+        min-width: 96px;
+        padding: 10px 22px;
+        font-size: 15px;
+        font-weight: 600;
+        font-family: inherit;
+        border-radius: 999px;
+        cursor: pointer;
+        transition: background 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+      }
+
+      .new-project-modal__btn--secondary {
+        color: #111827;
+        background: #fff;
+        border: 1px solid #e5e7eb;
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+      }
+
+      .new-project-modal__btn--secondary:hover {
+        background: #f9fafb;
+        border-color: #d1d5db;
+      }
+
+      .new-project-modal__btn--primary {
+        color: #fff;
+        background: linear-gradient(90deg, #3651d3 0%, #6b95f0 100%);
+        border: none;
+        box-shadow: 0 4px 14px -2px rgba(54, 81, 211, 0.45);
+      }
+
+      .new-project-modal__btn--primary:hover {
+        filter: brightness(1.05);
       }
     </style>
   </head>
@@ -601,16 +742,12 @@
 
         <div class="app-nav__user" id="user-menu">
           <button class="user-trigger" id="user-trigger" aria-haspopup="true" aria-expanded="false">
-            <span class="user-avatar">A</span>
-            <span class="user-trigger__name">Admin</span>
+            <span class="user-avatar">S</span>
+            <span class="user-trigger__name">Super</span>
             <svg class="user-trigger__arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
           </button>
           <div class="user-dropdown" role="menu">
-            <div class="user-dropdown__header">Admin</div>
-            <a href="#" class="user-dropdown__item" role="menuitem">
-              <svg class="user-dropdown__item-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-              账户分配
-            </a>
+            <div class="user-dropdown__header">Super</div>
             <a href="#" class="user-dropdown__item" role="menuitem">
               <svg class="user-dropdown__item-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
               修改密码
@@ -631,7 +768,7 @@
         <div class="hero__text">
           <h1 class="hero__title"><em>AI漫剧</em>生成与智能编排平台</h1>
           <p class="hero__desc">输入脚本，一键生成分镜、画面、配音与视频片段</p>
-          <a href="workspace.html" class="hero__cta">立即开始创作</a>
+          <button type="button" class="hero__cta" id="hero-open-new-project">立即开始创作</button>
         </div>
 
         <!-- Hero 右侧视觉区 -->
@@ -710,6 +847,7 @@
 
           <!-- 主图片面板 -->
           <div class="image-panel">
+            <div class="image-panel__motion">
             <div class="ip-topbar">
               <div class="ip-dots"><span class="ip-dot ip-dot--r"></span><span class="ip-dot ip-dot--y"></span><span class="ip-dot ip-dot--g"></span></div>
               <div class="ip-nav"><span class="ip-nav-btn">&lt;</span><span class="ip-nav-btn">&gt;</span></div>
@@ -729,6 +867,7 @@
               <div class="ip-img-wrap ip-img-wrap--right">
                 <img src="pic3.png" alt="校园场景 — 男女对话" />
               </div>
+            </div>
             </div>
           </div>
 
@@ -755,8 +894,56 @@
       </div>
     </div>
 
+    <div
+      id="new-project-modal"
+      class="new-project-modal"
+      role="presentation"
+      aria-hidden="true"
+    >
+      <div class="new-project-modal__backdrop" aria-hidden="true"></div>
+      <div
+        class="new-project-modal__dialog"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="new-project-modal-title"
+      >
+        <h2 id="new-project-modal-title" class="new-project-modal__title">新建项目</h2>
+        <form id="new-project-form" action="#" novalidate>
+          <div class="new-project-modal__field">
+            <label class="new-project-modal__label" for="new-project-name">项目名称<span class="new-project-modal__req">*</span></label>
+            <input
+              type="text"
+              id="new-project-name"
+              class="new-project-modal__input"
+              name="name"
+              required
+              maxlength="80"
+              placeholder="输入项目名称"
+              autocomplete="off"
+            />
+          </div>
+          <div class="new-project-modal__field">
+            <label class="new-project-modal__label" for="new-project-desc">项目描述（可选）</label>
+            <textarea
+              id="new-project-desc"
+              class="new-project-modal__textarea"
+              name="description"
+              rows="4"
+              placeholder="输入项目描述"
+            ></textarea>
+          </div>
+          <div class="new-project-modal__footer">
+            <button type="button" class="new-project-modal__btn new-project-modal__btn--secondary" id="new-project-cancel">取消</button>
+            <button type="submit" class="new-project-modal__btn new-project-modal__btn--primary">新建项目</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
     <script>
       (function () {
+        var STORAGE_KEY = "dashnova_workspace_projects_v1";
+
         var menu = document.getElementById("user-menu");
         var trigger = document.getElementById("user-trigger");
         trigger.addEventListener("click", function (e) {
@@ -767,6 +954,82 @@
         document.addEventListener("click", function () {
           menu.classList.remove("open");
           trigger.setAttribute("aria-expanded", "false");
+        });
+
+        var modal = document.getElementById("new-project-modal");
+        var form = document.getElementById("new-project-form");
+        var nameInput = document.getElementById("new-project-name");
+        var descInput = document.getElementById("new-project-desc");
+        var heroBtn = document.getElementById("hero-open-new-project");
+        var backdrop = modal && modal.querySelector(".new-project-modal__backdrop");
+        var btnCancel = document.getElementById("new-project-cancel");
+
+        function loadProjects() {
+          try {
+            var raw = localStorage.getItem(STORAGE_KEY);
+            if (raw) {
+              var j = JSON.parse(raw);
+              return Array.isArray(j) ? j : [];
+            }
+          } catch (e) {}
+          return [];
+        }
+
+        function saveProjects(arr) {
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(arr));
+        }
+
+        function openNewProjectModal() {
+          if (!modal || !form) return;
+          form.reset();
+          modal.classList.add("new-project-modal--open");
+          modal.setAttribute("aria-hidden", "false");
+          if (nameInput) nameInput.focus();
+        }
+
+        function closeNewProjectModal() {
+          if (!modal) return;
+          modal.classList.remove("new-project-modal--open");
+          modal.setAttribute("aria-hidden", "true");
+        }
+
+        if (heroBtn) {
+          heroBtn.addEventListener("click", function () {
+            openNewProjectModal();
+          });
+        }
+
+        if (btnCancel) btnCancel.addEventListener("click", closeNewProjectModal);
+        if (backdrop) backdrop.addEventListener("click", closeNewProjectModal);
+
+        if (form) {
+          form.addEventListener("submit", function (e) {
+            e.preventDefault();
+            if (!nameInput || !nameInput.value.trim()) {
+              if (nameInput) nameInput.reportValidity();
+              return;
+            }
+            var list = loadProjects();
+            list.unshift({
+              id: "p" + Date.now(),
+              name: nameInput.value.trim(),
+              desc: descInput ? descInput.value.trim() : "",
+              scenes: 1,
+              images: 0,
+              videos: 0,
+              updatedAt: new Date().toISOString(),
+            });
+            saveProjects(list);
+            closeNewProjectModal();
+            window.location.href = "workspace.html";
+          });
+        }
+
+        document.addEventListener("keydown", function (e) {
+          if (e.key !== "Escape") return;
+          if (modal && modal.classList.contains("new-project-modal--open")) {
+            closeNewProjectModal();
+          }
         });
       })();
     </script>

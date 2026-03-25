@@ -11,14 +11,14 @@
       .app-content {
         max-width: 1200px;
         margin: 0 auto;
-        padding: 36px 24px 48px;
+        padding: 36px 24px 40px;
       }
 
       .page-header {
         display: flex;
         align-items: flex-start;
         justify-content: space-between;
-        margin-bottom: 32px;
+        margin-bottom: 28px;
         gap: 16px;
       }
 
@@ -33,6 +33,13 @@
         font-size: 14px;
         color: var(--text-muted);
         margin: 0;
+      }
+
+      .page-header__actions {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        flex-shrink: 0;
       }
 
       .search-box {
@@ -73,11 +80,120 @@
         color: var(--text-placeholder);
       }
 
+      .search-box__submit {
+        padding: 8px 18px;
+        font-size: 14px;
+        font-weight: 600;
+        font-family: inherit;
+        color: #fff;
+        background: var(--nav-active);
+        border: none;
+        border-radius: var(--radius-input);
+        cursor: pointer;
+        flex-shrink: 0;
+        transition: background 0.15s ease, filter 0.15s ease;
+      }
+
+      .search-box__submit:hover {
+        filter: brightness(1.06);
+      }
+
       .project-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
         gap: 20px;
         margin-bottom: 48px;
+      }
+
+      .project-card {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        padding: 18px 18px 14px;
+        background: #fff;
+        border: 1px solid var(--input-border);
+        border-radius: 16px;
+        text-decoration: none;
+        color: inherit;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+        transition: border-color 0.15s ease, box-shadow 0.15s ease;
+        min-height: 220px;
+      }
+
+      .project-card:hover {
+        border-color: rgba(54, 81, 211, 0.35);
+        box-shadow: 0 8px 24px -8px rgba(54, 81, 211, 0.2);
+      }
+
+      .project-card__title {
+        margin: 0 0 10px;
+        font-size: 16px;
+        font-weight: 700;
+        color: var(--text-title);
+        line-height: 1.35;
+      }
+
+      .project-card__desc {
+        display: flex;
+        align-items: flex-start;
+        gap: 8px;
+        margin: 0 0 14px;
+        font-size: 13px;
+        line-height: 1.5;
+        color: var(--text-muted);
+        flex: 1;
+        min-height: 0;
+      }
+
+      .project-card__desc-icon {
+        width: 16px;
+        height: 16px;
+        flex-shrink: 0;
+        margin-top: 2px;
+        color: var(--nav-active);
+        opacity: 0.85;
+      }
+
+      .project-card__stats {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 14px 16px;
+        margin-bottom: 12px;
+      }
+
+      .project-card__stat {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        font-size: 13px;
+        font-weight: 500;
+        color: var(--nav-active);
+      }
+
+      .project-card__stat svg {
+        width: 16px;
+        height: 16px;
+        flex-shrink: 0;
+        opacity: 0.9;
+      }
+
+      .project-card__time {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        margin-top: auto;
+        padding-top: 10px;
+        border-top: 1px solid #f3f4f6;
+        font-size: 12px;
+        color: var(--text-muted);
+      }
+
+      .project-card__time svg {
+        width: 14px;
+        height: 14px;
+        flex-shrink: 0;
+        opacity: 0.75;
       }
 
       .project-new {
@@ -86,12 +202,14 @@
         align-items: center;
         justify-content: center;
         gap: 12px;
-        min-height: 160px;
+        min-height: 220px;
+        width: 100%;
         background: #fff;
         border: 2px dashed var(--input-border);
         border-radius: 16px;
         cursor: pointer;
         text-decoration: none;
+        font-family: inherit;
         color: var(--text-muted);
         transition: border-color 0.15s ease, background 0.15s ease;
       }
@@ -121,8 +239,8 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        justify-content: center;
-        padding: 80px 20px;
+        justify-content: flex-start;
+        padding: 40px 20px 48px;
         text-align: center;
       }
 
@@ -168,9 +286,144 @@
         box-shadow: 0 4px 14px rgba(54, 81, 211, 0.3);
       }
 
+      .workspace-empty-hidden {
+        display: none !important;
+      }
+
+      /* 新建项目弹框（与首页 / 设置弹窗风格一致） */
+      .new-project-modal {
+        position: fixed;
+        inset: 0;
+        z-index: 3000;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        padding: 24px;
+        box-sizing: border-box;
+      }
+
+      .new-project-modal--open {
+        display: flex;
+      }
+
+      .new-project-modal__backdrop {
+        position: absolute;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.45);
+      }
+
+      .new-project-modal__dialog {
+        position: relative;
+        width: 100%;
+        max-width: 440px;
+        background: #fff;
+        border-radius: 28px;
+        box-shadow: 0 24px 56px -12px rgba(0, 0, 0, 0.22),
+          0 12px 28px -8px rgba(0, 0, 0, 0.1);
+        padding: 26px 28px 22px;
+        overflow: hidden;
+      }
+
+      .new-project-modal__title {
+        margin: 0 0 22px;
+        font-size: 20px;
+        font-weight: 700;
+        color: #111827;
+      }
+
+      .new-project-modal__field {
+        margin-bottom: 18px;
+      }
+
+      .new-project-modal__label {
+        display: block;
+        font-size: 14px;
+        font-weight: 600;
+        color: #111827;
+        margin-bottom: 8px;
+      }
+
+      .new-project-modal__req {
+        color: #ef4444;
+        margin-left: 2px;
+      }
+
+      .new-project-modal__input,
+      .new-project-modal__textarea {
+        width: 100%;
+        box-sizing: border-box;
+        font-size: 14px;
+        font-family: inherit;
+        color: #111827;
+        border: 1px solid #e5e7eb;
+        border-radius: 12px;
+        padding: 11px 14px;
+        outline: none;
+        transition: border-color 0.15s ease, box-shadow 0.15s ease;
+      }
+
+      .new-project-modal__textarea {
+        min-height: 108px;
+        resize: vertical;
+        line-height: 1.5;
+      }
+
+      .new-project-modal__input:focus,
+      .new-project-modal__textarea:focus {
+        border-color: #3651d3;
+        box-shadow: 0 0 0 3px rgba(54, 81, 211, 0.18);
+      }
+
+      .new-project-modal__input::placeholder,
+      .new-project-modal__textarea::placeholder {
+        color: #9ca3af;
+      }
+
+      .new-project-modal__footer {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        gap: 12px;
+        margin-top: 26px;
+      }
+
+      .new-project-modal__btn {
+        min-width: 96px;
+        padding: 10px 22px;
+        font-size: 15px;
+        font-weight: 600;
+        font-family: inherit;
+        border-radius: 999px;
+        cursor: pointer;
+        transition: background 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+      }
+
+      .new-project-modal__btn--secondary {
+        color: #111827;
+        background: #fff;
+        border: 1px solid #e5e7eb;
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+      }
+
+      .new-project-modal__btn--secondary:hover {
+        background: #f9fafb;
+        border-color: #d1d5db;
+      }
+
+      .new-project-modal__btn--primary {
+        color: #fff;
+        background: linear-gradient(90deg, #3651d3 0%, #6b95f0 100%);
+        border: none;
+        box-shadow: 0 4px 14px -2px rgba(54, 81, 211, 0.45);
+      }
+
+      .new-project-modal__btn--primary:hover {
+        filter: brightness(1.05);
+      }
+
       @media (max-width: 640px) {
         .app-content {
-          padding: 24px 16px 40px;
+          padding: 28px 16px 36px;
         }
 
         .page-header {
@@ -216,16 +469,12 @@
 
         <div class="app-nav__user" id="user-menu">
           <button class="user-trigger" id="user-trigger" aria-haspopup="true" aria-expanded="false">
-            <span class="user-avatar">A</span>
-            <span class="user-trigger__name">Admin</span>
+            <span class="user-avatar">S</span>
+            <span class="user-trigger__name">Super</span>
             <svg class="user-trigger__arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
           </button>
           <div class="user-dropdown" role="menu">
-            <div class="user-dropdown__header">Admin</div>
-            <a href="#" class="user-dropdown__item" role="menuitem">
-              <svg class="user-dropdown__item-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-              账户分配
-            </a>
+            <div class="user-dropdown__header">Super</div>
             <a href="#" class="user-dropdown__item" role="menuitem">
               <svg class="user-dropdown__item-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
               修改密码
@@ -243,24 +492,78 @@
     <main class="app-content">
       <div class="page-header">
         <div>
-          <h1 class="page-header__title">工作台</h1>
+          <h1 class="page-header__title">我的项目</h1>
           <p class="page-header__desc">管理您的AI漫剧创作项目</p>
         </div>
-        <div class="search-box">
-          <svg class="search-box__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-          <input type="text" class="search-box__input" placeholder="搜索项目名称或描述..." />
+        <div class="page-header__actions">
+          <div class="search-box">
+            <svg class="search-box__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <input type="text" class="search-box__input" id="workspace-search-input" placeholder="搜索项目名称或描述..." />
+          </div>
+          <button type="button" class="search-box__submit" id="workspace-search-btn">搜索</button>
         </div>
       </div>
 
-      <div class="empty-state" style="min-height:calc(100vh - 220px);">
+      <div id="workspace-project-grid" class="project-grid workspace-empty-hidden" aria-label="项目列表"></div>
+
+      <div id="workspace-empty" class="empty-state">
         <svg class="empty-state__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
         <p class="empty-state__title">还没有项目</p>
         <p class="empty-state__desc">创建您的第一个AI漫剧创作项目</p>
-        <a href="#" class="btn-primary">新建项目</a>
+        <button type="button" class="btn-primary" id="workspace-empty-new-btn">新建项目</button>
       </div>
     </main>
+
+    <div
+      id="new-project-modal"
+      class="new-project-modal"
+      role="presentation"
+      aria-hidden="true"
+    >
+      <div class="new-project-modal__backdrop" aria-hidden="true"></div>
+      <div
+        class="new-project-modal__dialog"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="new-project-modal-title"
+      >
+        <h2 id="new-project-modal-title" class="new-project-modal__title">新建项目</h2>
+        <form id="new-project-form" action="#" novalidate>
+          <div class="new-project-modal__field">
+            <label class="new-project-modal__label" for="new-project-name">项目名称<span class="new-project-modal__req">*</span></label>
+            <input
+              type="text"
+              id="new-project-name"
+              class="new-project-modal__input"
+              name="name"
+              required
+              maxlength="80"
+              placeholder="输入项目名称"
+              autocomplete="off"
+            />
+          </div>
+          <div class="new-project-modal__field">
+            <label class="new-project-modal__label" for="new-project-desc">项目描述（可选）</label>
+            <textarea
+              id="new-project-desc"
+              class="new-project-modal__textarea"
+              name="description"
+              rows="4"
+              placeholder="输入项目描述"
+            ></textarea>
+          </div>
+          <div class="new-project-modal__footer">
+            <button type="button" class="new-project-modal__btn new-project-modal__btn--secondary" id="new-project-cancel">取消</button>
+            <button type="submit" class="new-project-modal__btn new-project-modal__btn--primary">新建项目</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
     <script>
       (function () {
+        var STORAGE_KEY = "dashnova_workspace_projects_v1";
+
         var menu = document.getElementById("user-menu");
         var trigger = document.getElementById("user-trigger");
         trigger.addEventListener("click", function (e) {
@@ -272,6 +575,240 @@
           menu.classList.remove("open");
           trigger.setAttribute("aria-expanded", "false");
         });
+
+        function loadProjects() {
+          try {
+            var raw = localStorage.getItem(STORAGE_KEY);
+            if (raw) {
+              var j = JSON.parse(raw);
+              return Array.isArray(j) ? j : [];
+            }
+          } catch (e) {}
+          return [];
+        }
+
+        function saveProjects(arr) {
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(arr));
+        }
+
+        function formatZhTime(iso) {
+          var d = new Date(iso);
+          if (isNaN(d.getTime())) return "";
+          return (
+            d.getFullYear() +
+            "年" +
+            (d.getMonth() + 1) +
+            "月" +
+            d.getDate() +
+            "日 " +
+            String(d.getHours()).padStart(2, "0") +
+            ":" +
+            String(d.getMinutes()).padStart(2, "0")
+          );
+        }
+
+        function statSvgBars() {
+          return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>';
+        }
+        function statSvgUser() {
+          return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>';
+        }
+        function statSvgImage() {
+          return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>';
+        }
+        function statSvgVideo() {
+          return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>';
+        }
+        function statSvgClock() {
+          return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>';
+        }
+
+        function createProjectCard(p) {
+          var a = document.createElement("a");
+          a.href = "#";
+          a.className = "project-card";
+          a.setAttribute("data-project-id", p.id);
+
+          var h = document.createElement("h3");
+          h.className = "project-card__title";
+          h.textContent = p.name || "未命名项目";
+
+          var descP = document.createElement("p");
+          descP.className = "project-card__desc";
+          descP.innerHTML =
+            '<svg class="project-card__desc-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>';
+          var descSpan = document.createElement("span");
+          descSpan.textContent = p.desc ? p.desc : "暂无描述";
+          descP.appendChild(descSpan);
+
+          var scenes = p.scenes != null ? p.scenes : 0;
+          var images = p.images != null ? p.images : 0;
+          var videos = p.videos != null ? p.videos : 0;
+
+          var stats = document.createElement("div");
+          stats.className = "project-card__stats";
+          stats.innerHTML =
+            '<span class="project-card__stat">' +
+            statSvgBars() +
+            "</span>" +
+            '<span class="project-card__stat">' +
+            statSvgUser() +
+            scenes +
+            "</span>" +
+            '<span class="project-card__stat">' +
+            statSvgImage() +
+            images +
+            "</span>" +
+            '<span class="project-card__stat">' +
+            statSvgVideo() +
+            videos +
+            "</span>";
+
+          var timeRow = document.createElement("div");
+          timeRow.className = "project-card__time";
+          timeRow.innerHTML = statSvgClock();
+          var timeText = document.createTextNode(formatZhTime(p.updatedAt) || formatZhTime(new Date().toISOString()));
+          timeRow.appendChild(timeText);
+
+          a.appendChild(h);
+          a.appendChild(descP);
+          a.appendChild(stats);
+          a.appendChild(timeRow);
+
+          a.addEventListener("click", function (e) {
+            e.preventDefault();
+          });
+
+          return a;
+        }
+
+        var modal = document.getElementById("new-project-modal");
+        var form = document.getElementById("new-project-form");
+        var nameInput = document.getElementById("new-project-name");
+        var descInput = document.getElementById("new-project-desc");
+        var backdrop = modal && modal.querySelector(".new-project-modal__backdrop");
+        var btnCancel = document.getElementById("new-project-cancel");
+
+        function openNewProjectModal() {
+          if (!modal || !form) return;
+          form.reset();
+          modal.classList.add("new-project-modal--open");
+          modal.setAttribute("aria-hidden", "false");
+          if (nameInput) nameInput.focus();
+        }
+
+        function closeNewProjectModal() {
+          if (!modal) return;
+          modal.classList.remove("new-project-modal--open");
+          modal.setAttribute("aria-hidden", "true");
+        }
+
+        function getSearchQuery() {
+          var inp = document.getElementById("workspace-search-input");
+          return inp ? inp.value : "";
+        }
+
+        function renderProjects() {
+          var list = loadProjects();
+          var grid = document.getElementById("workspace-project-grid");
+          var empty = document.getElementById("workspace-empty");
+          if (!grid || !empty) return;
+
+          var q = getSearchQuery().trim().toLowerCase();
+          var filtered = q
+            ? list.filter(function (p) {
+                var n = (p.name || "").toLowerCase();
+                var d = (p.desc || "").toLowerCase();
+                return n.indexOf(q) !== -1 || d.indexOf(q) !== -1;
+              })
+            : list;
+
+          if (!list.length) {
+            grid.innerHTML = "";
+            grid.classList.add("workspace-empty-hidden");
+            empty.classList.remove("workspace-empty-hidden");
+            return;
+          }
+
+          empty.classList.add("workspace-empty-hidden");
+          grid.classList.remove("workspace-empty-hidden");
+          grid.innerHTML = "";
+
+          var newBtn = document.createElement("button");
+          newBtn.type = "button";
+          newBtn.className = "project-new";
+          newBtn.innerHTML =
+            '<span class="project-new__icon"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span><span class="project-new__label">新建项目</span>';
+          newBtn.addEventListener("click", openNewProjectModal);
+          grid.appendChild(newBtn);
+
+          if (!filtered.length) {
+            var hint = document.createElement("div");
+            hint.className = "project-card";
+            hint.style.justifyContent = "center";
+            hint.style.alignItems = "center";
+            hint.style.textAlign = "center";
+            hint.style.color = "var(--text-muted)";
+            hint.style.fontSize = "14px";
+            hint.textContent = "没有符合搜索条件的项目";
+            grid.appendChild(hint);
+            return;
+          }
+
+          filtered.forEach(function (p) {
+            grid.appendChild(createProjectCard(p));
+          });
+        }
+
+        if (btnCancel) btnCancel.addEventListener("click", closeNewProjectModal);
+        if (backdrop) backdrop.addEventListener("click", closeNewProjectModal);
+
+        if (form) {
+          form.addEventListener("submit", function (e) {
+            e.preventDefault();
+            if (!nameInput || !nameInput.value.trim()) {
+              if (nameInput) nameInput.reportValidity();
+              return;
+            }
+            var list = loadProjects();
+            list.unshift({
+              id: "p" + Date.now(),
+              name: nameInput.value.trim(),
+              desc: descInput ? descInput.value.trim() : "",
+              scenes: 1,
+              images: 0,
+              videos: 0,
+              updatedAt: new Date().toISOString(),
+            });
+            saveProjects(list);
+            closeNewProjectModal();
+            renderProjects();
+          });
+        }
+
+        var emptyNewBtn = document.getElementById("workspace-empty-new-btn");
+        if (emptyNewBtn) emptyNewBtn.addEventListener("click", openNewProjectModal);
+
+        var searchBtn = document.getElementById("workspace-search-btn");
+        var searchInput = document.getElementById("workspace-search-input");
+        if (searchBtn) searchBtn.addEventListener("click", renderProjects);
+        if (searchInput) {
+          searchInput.addEventListener("keydown", function (e) {
+            if (e.key === "Enter") {
+              e.preventDefault();
+              renderProjects();
+            }
+          });
+        }
+
+        document.addEventListener("keydown", function (e) {
+          if (e.key !== "Escape") return;
+          if (modal && modal.classList.contains("new-project-modal--open")) {
+            closeNewProjectModal();
+          }
+        });
+
+        renderProjects();
       })();
     </script>
   </body>
