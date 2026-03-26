@@ -5,12 +5,25 @@
     try {
       var v = sessionStorage.getItem(KEY);
       if (v === "Super" || v === "Admin") return v;
+      if (v === "user") return "user";
     } catch (e) {}
     return "Super";
   }
 
-  function avatarLetter(name) {
-    return name === "Admin" ? "A" : "S";
+  function avatarLetter(displayName) {
+    if (displayName === "Admin") return "A";
+    if (displayName === "user") return "U";
+    return "S";
+  }
+
+  function toggleSettingsTabForRole() {
+    try {
+      var raw = sessionStorage.getItem(KEY);
+      var hide = raw === "user";
+      document.querySelectorAll('a.app-nav__link[data-page="settings"]').forEach(function (el) {
+        el.style.display = hide ? "none" : "";
+      });
+    } catch (e) {}
   }
 
   function applyToNav() {
@@ -22,6 +35,7 @@
     if (avatar) avatar.textContent = letter;
     if (triggerName) triggerName.textContent = name;
     if (header) header.textContent = name;
+    toggleSettingsTabForRole();
   }
 
   if (document.readyState === "loading") {

@@ -4,7 +4,7 @@
   function loginRole() {
     try {
       var v = sessionStorage.getItem(KEY);
-      if (v === "Super" || v === "Admin") return v;
+      if (v === "Super" || v === "Admin" || v === "user") return v;
     } catch (e) {}
     return "Super";
   }

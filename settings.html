@@ -1229,32 +1229,51 @@
         }
       }
 
-      /* 账户分配-Admin：新建用户（16:9、统一行距与备注；密码可见切换） */
+      /* 账户分配-Admin：新建用户（纵向内容多：偏高弹框、去 16:9，正文可滚动） */
       #admin-user-create-modal .admin-user-create-modal__dialog {
-        width: min(800px, 92vw, calc((min(90vh, 100vh - 24px)) * 16 / 9));
-        max-width: min(800px, 92vw, calc((min(90vh, 100vh - 24px)) * 16 / 9));
-        max-height: min(90vh, calc(100vh - 24px));
-        aspect-ratio: 16 / 9;
+        width: min(600px, 92vw);
+        max-width: min(600px, 92vw);
+        max-height: min(94vh, calc(100vh - 40px));
+        min-height: min(700px, 86vh);
         overflow: hidden;
       }
 
-      @media (max-height: 680px) {
+      @media (max-height: 760px) {
         #admin-user-create-modal .admin-user-create-modal__dialog {
+          min-height: min(560px, calc(100vh - 48px));
+          max-height: calc(100vh - 32px);
+        }
+      }
+
+      @media (max-height: 600px) {
+        #admin-user-create-modal .admin-user-create-modal__dialog {
+          min-height: unset;
           max-height: calc(100vh - 24px);
-          overflow: hidden;
         }
       }
 
       #admin-user-create-modal .admin-user-create-modal__dialog .user-edit-modal__form {
         flex: 1;
         min-height: 0;
+        display: flex;
+        flex-direction: column;
+      }
+
+      #admin-user-create-modal .admin-user-create-modal__dialog .user-edit-modal__header {
+        flex-shrink: 0;
+      }
+
+      #admin-user-create-modal .admin-user-create-modal__dialog .user-edit-modal__footer {
+        flex-shrink: 0;
       }
 
       #admin-user-create-modal .admin-user-create-modal__dialog .user-edit-modal__scroll {
-        flex: 1;
+        flex: 1 1 auto;
         min-height: 0;
+        overflow-x: hidden;
         overflow-y: auto;
-        padding: 12px 28px 16px;
+        padding: 14px 28px 22px;
+        scrollbar-gutter: stable;
       }
 
       /* 账户分配-Super：新建用户（视口内高宽平衡，页头/底栏固定，正文可纵向滚动） */
@@ -1320,29 +1339,51 @@
         flex: 0 0 132px;
       }
 
-      /* 编辑用户：仅用户名 + 备注，收窄宽度、高度随内容 */
+      /* 账户分配-Admin：编辑用户（与新建用户一致的已授权模型区 + 弹框比例） */
       #admin-user-edit-modal .admin-user-edit-modal__dialog {
-        width: min(520px, 92vw);
-        max-width: min(520px, 92vw);
-        max-height: min(90vh, calc(100vh - 24px));
+        width: min(600px, 92vw);
+        max-width: min(600px, 92vw);
+        max-height: min(94vh, calc(100vh - 40px));
+        min-height: min(640px, 84vh);
         overflow: hidden;
       }
 
-      @media (max-height: 680px) {
+      @media (max-height: 760px) {
         #admin-user-edit-modal .admin-user-edit-modal__dialog {
+          min-height: min(520px, calc(100vh - 48px));
+          max-height: calc(100vh - 32px);
+        }
+      }
+
+      @media (max-height: 600px) {
+        #admin-user-edit-modal .admin-user-edit-modal__dialog {
+          min-height: unset;
           max-height: calc(100vh - 24px);
         }
       }
 
       #admin-user-edit-modal .admin-user-edit-modal__dialog .user-edit-modal__form {
-        flex: 0 1 auto;
+        flex: 1;
         min-height: 0;
+        display: flex;
+        flex-direction: column;
+      }
+
+      #admin-user-edit-modal .admin-user-edit-modal__dialog .user-edit-modal__header {
+        flex-shrink: 0;
+      }
+
+      #admin-user-edit-modal .admin-user-edit-modal__dialog .user-edit-modal__footer {
+        flex-shrink: 0;
       }
 
       #admin-user-edit-modal .admin-user-edit-modal__dialog .user-edit-modal__scroll {
-        flex: 0 1 auto;
+        flex: 1 1 auto;
+        min-height: 0;
+        overflow-x: hidden;
         overflow-y: auto;
-        padding: 12px 28px 16px;
+        padding: 14px 28px 22px;
+        scrollbar-gutter: stable;
       }
 
       #admin-user-create-modal .admin-user-create-modal__dialog .user-edit-modal__header,
@@ -1372,20 +1413,43 @@
       }
 
       #admin-user-create-modal .admin-user-create-modal__dialog .user-edit-modal__textarea {
-        min-height: 92px;
-        max-height: 140px;
+        min-height: 104px;
+        max-height: 160px;
         line-height: 1.5;
       }
 
       #admin-user-edit-modal .admin-user-edit-modal__dialog .user-edit-modal__textarea {
-        min-height: 80px;
-        max-height: 120px;
+        min-height: 96px;
+        max-height: 140px;
         line-height: 1.5;
       }
 
       #admin-user-create-modal .admin-user-create-modal__dialog .user-edit-modal__label,
       #admin-user-edit-modal .admin-user-edit-modal__dialog .user-edit-modal__label {
         flex: 0 0 132px;
+      }
+
+      #admin-user-create-modal .admin-user-create-modal__dialog .user-edit-modal__section-title,
+      #admin-user-edit-modal .admin-user-edit-modal__dialog .user-edit-modal__section-title {
+        margin-top: 6px;
+        margin-bottom: 8px;
+      }
+
+      #admin-user-create-modal .admin-user-create-modal__dialog .user-edit-modal__group .user-edit-modal__field,
+      #admin-user-edit-modal .admin-user-edit-modal__dialog .user-edit-modal__group .user-edit-modal__field {
+        margin-bottom: 12px;
+      }
+
+      #admin-user-create-modal .admin-user-create-modal__dialog .user-edit-modal__group .user-edit-modal__field:last-child,
+      #admin-user-edit-modal .admin-user-edit-modal__dialog .user-edit-modal__group .user-edit-modal__field:last-child {
+        margin-bottom: 6px;
+      }
+
+      #admin-user-create-modal .admin-user-create-modal__dialog .user-edit-modal__group .user-edit-modal__select,
+      #admin-user-edit-modal .admin-user-edit-modal__dialog .user-edit-modal__group .user-edit-modal__select {
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
       }
 
       #admin-user-create-modal .admin-user-create-modal__dialog .admin-pwd-input-wrap .user-edit-modal__input,
@@ -1654,11 +1718,11 @@
           </button>
           <button class="sidebar-nav__item" data-panel="account-super">
             <svg class="sidebar-nav__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-            账户分配-Super
+            账户分配
           </button>
           <button class="sidebar-nav__item" data-panel="account-admin">
             <svg class="sidebar-nav__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-            账户分配-Admin
+            账户分配
           </button>
         </nav>
       </aside>
@@ -1975,11 +2039,11 @@
           </div>
         </div>
 
-        <!-- ====== 面板：账户分配-Super ====== -->
+        <!-- ====== 面板：账户分配（Super 数据与能力） ====== -->
         <div id="panel-account-super" class="settings-panel">
           <div class="vendor-header">
             <div>
-              <h1 class="panel-title" style="margin-bottom:4px;">账户分配-Super</h1>
+              <h1 class="panel-title" style="margin-bottom:4px;">账户分配</h1>
               <p class="vendor-header__desc">管理下属用户及其模型授权，支持新建、修改、删除与重置密码</p>
             </div>
             <button type="button" class="btn-add-vendor" id="btn-super-new-user">新建用户</button>
@@ -2110,11 +2174,11 @@
           </div>
         </div>
 
-        <!-- ====== 面板：账户分配-Admin ====== -->
+        <!-- ====== 面板：账户分配（Admin 数据与能力） ====== -->
         <div id="panel-account-admin" class="settings-panel">
           <div class="vendor-header">
             <div>
-              <h1 class="panel-title" style="margin-bottom:4px;">账户分配-Admin</h1>
+              <h1 class="panel-title" style="margin-bottom:4px;">账户分配</h1>
               <p class="vendor-header__desc">管理所辖用户账号，支持新建、修改、删除；密码请在操作列通过「重置密码」设置。</p>
             </div>
             <button type="button" class="btn-add-vendor" id="btn-admin-new-user">新建用户</button>
@@ -2127,15 +2191,38 @@
                   <tr>
                     <th class="col-index">序号</th>
                     <th class="col-name">用户名</th>
+                    <th>已授权模型</th>
                     <th>状态</th>
                     <th>创建时间</th>
                     <th>操作</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr data-remark="运营组负责人，可访问全部项目。">
+                  <tr
+                    data-remark="运营组负责人，可访问全部项目。"
+                    data-text-concurrency="5"
+                    data-image-concurrency="5"
+                    data-video-concurrency="5"
+                  >
                     <td class="col-index">1</td>
                     <td class="col-name"><span class="user-list-name" title="运营小李">运营小李</span></td>
+                    <td class="auth-models-cell">
+                      <div class="auth-model-row">
+                        <span class="auth-dot auth-dot--ok" aria-hidden="true"></span>
+                        <span class="auth-model-label">文本分析</span>
+                        <span class="auth-model-name">Doubao Seed 2.0 Pro</span>
+                      </div>
+                      <div class="auth-model-row">
+                        <span class="auth-dot auth-dot--ok" aria-hidden="true"></span>
+                        <span class="auth-model-label">图像生成</span>
+                        <span class="auth-model-name">Gemini 3 Pro Image</span>
+                      </div>
+                      <div class="auth-model-row">
+                        <span class="auth-dot auth-dot--ok" aria-hidden="true"></span>
+                        <span class="auth-model-label">视频生成</span>
+                        <span class="auth-model-name">可灵 Kling 2.1</span>
+                      </div>
+                    </td>
                     <td>
                       <label class="toggle user-list-toggle" title="启用/停用账户">
                         <input type="checkbox" checked aria-label="启用/停用账户" />
@@ -2151,9 +2238,31 @@
                       </div>
                     </td>
                   </tr>
-                  <tr data-remark="后期剪辑，仅分配剪辑类项目。">
+                  <tr
+                    data-remark="后期剪辑，仅分配剪辑类项目。"
+                    data-text-concurrency="5"
+                    data-image-concurrency="4"
+                    data-video-concurrency="6"
+                  >
                     <td class="col-index">2</td>
                     <td class="col-name"><span class="user-list-name" title="剪辑阿伟">剪辑阿伟</span></td>
+                    <td class="auth-models-cell">
+                      <div class="auth-model-row">
+                        <span class="auth-dot auth-dot--ok" aria-hidden="true"></span>
+                        <span class="auth-model-label">文本分析</span>
+                        <span class="auth-model-name">Gemini 3 Flash</span>
+                      </div>
+                      <div class="auth-model-row">
+                        <span class="auth-dot auth-dot--fail" aria-hidden="true"></span>
+                        <span class="auth-model-label">图像生成</span>
+                        <span class="auth-model-name">Imagen 3 Fast</span>
+                      </div>
+                      <div class="auth-model-row">
+                        <span class="auth-dot auth-dot--ok" aria-hidden="true"></span>
+                        <span class="auth-model-label">视频生成</span>
+                        <span class="auth-model-name">Runway Gen-3 Alpha</span>
+                      </div>
+                    </td>
                     <td>
                       <label class="toggle user-list-toggle" title="启用/停用账户">
                         <input type="checkbox" checked aria-label="启用/停用账户" />
@@ -2169,9 +2278,31 @@
                       </div>
                     </td>
                   </tr>
-                  <tr data-remark="实习账号，权限受限。">
+                  <tr
+                    data-remark="实习账号，权限受限。"
+                    data-text-concurrency="3"
+                    data-image-concurrency="5"
+                    data-video-concurrency="4"
+                  >
                     <td class="col-index">3</td>
                     <td class="col-name"><span class="user-list-name" title="实习生小周">实习生小周</span></td>
+                    <td class="auth-models-cell">
+                      <div class="auth-model-row">
+                        <span class="auth-dot auth-dot--fail" aria-hidden="true"></span>
+                        <span class="auth-model-label">文本分析</span>
+                        <span class="auth-model-name">GPT-4.1 Mini</span>
+                      </div>
+                      <div class="auth-model-row">
+                        <span class="auth-dot auth-dot--ok" aria-hidden="true"></span>
+                        <span class="auth-model-label">图像生成</span>
+                        <span class="auth-model-name">DALL·E 3</span>
+                      </div>
+                      <div class="auth-model-row">
+                        <span class="auth-dot auth-dot--fail" aria-hidden="true"></span>
+                        <span class="auth-model-label">视频生成</span>
+                        <span class="auth-model-name">海螺 MiniMax 视频</span>
+                      </div>
+                    </td>
                     <td>
                       <label class="toggle user-list-toggle" title="启用/停用账户">
                         <input type="checkbox" aria-label="启用/停用账户" />
@@ -2769,6 +2900,87 @@
                 autocomplete="username"
               />
             </div>
+
+            <div class="user-edit-modal__section-title">已授权模型</div>
+
+            <div class="user-edit-modal__group">
+              <div class="user-edit-modal__field">
+                <label class="user-edit-modal__label" for="admin-user-edit-model-text">文本分析模型<span class="user-edit-modal__req">*</span></label>
+                <select class="user-edit-modal__select" id="admin-user-edit-model-text" name="admin_edit_model_text" required>
+                  <option value="">请选择文本分析模型</option>
+                  <option value="Doubao Seed 2.0 Pro">Doubao Seed 2.0 Pro</option>
+                  <option value="Gemini 3 Flash">Gemini 3 Flash</option>
+                  <option value="GPT-4.1 Mini">GPT-4.1 Mini</option>
+                  <option value="Claude 3.5 Sonnet">Claude 3.5 Sonnet</option>
+                </select>
+              </div>
+              <div class="user-edit-modal__field">
+                <label class="user-edit-modal__label" for="admin-user-edit-text-concurrency">允许并发数</label>
+                <select class="user-edit-modal__select" id="admin-user-edit-text-concurrency" name="admin_edit_text_concurrency">
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5" selected>5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                  <option value="8">8</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="user-edit-modal__group">
+              <div class="user-edit-modal__field">
+                <label class="user-edit-modal__label" for="admin-user-edit-model-image">图像生成模型<span class="user-edit-modal__req">*</span></label>
+                <select class="user-edit-modal__select" id="admin-user-edit-model-image" name="admin_edit_model_image" required>
+                  <option value="">请选择图像生成模型</option>
+                  <option value="Gemini 3 Pro Image">Gemini 3 Pro Image</option>
+                  <option value="Imagen 3 Fast">Imagen 3 Fast</option>
+                  <option value="DALL·E 3">DALL·E 3</option>
+                  <option value="Midjourney V6">Midjourney V6</option>
+                </select>
+              </div>
+              <div class="user-edit-modal__field">
+                <label class="user-edit-modal__label" for="admin-user-edit-image-concurrency">允许并发数</label>
+                <select class="user-edit-modal__select" id="admin-user-edit-image-concurrency" name="admin_edit_image_concurrency">
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5" selected>5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                  <option value="8">8</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="user-edit-modal__group">
+              <div class="user-edit-modal__field">
+                <label class="user-edit-modal__label" for="admin-user-edit-model-video">视频生成模型<span class="user-edit-modal__req">*</span></label>
+                <select class="user-edit-modal__select" id="admin-user-edit-model-video" name="admin_edit_model_video" required>
+                  <option value="">请选择视频生成模型</option>
+                  <option value="可灵 Kling 2.1">可灵 Kling 2.1</option>
+                  <option value="Runway Gen-3 Alpha">Runway Gen-3 Alpha</option>
+                  <option value="海螺 MiniMax 视频">海螺 MiniMax 视频</option>
+                  <option value="Sora 2">Sora 2</option>
+                </select>
+              </div>
+              <div class="user-edit-modal__field">
+                <label class="user-edit-modal__label" for="admin-user-edit-video-concurrency">允许并发数</label>
+                <select class="user-edit-modal__select" id="admin-user-edit-video-concurrency" name="admin_edit_video_concurrency">
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5" selected>5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                  <option value="8">8</option>
+                </select>
+              </div>
+            </div>
+
             <div class="user-edit-modal__field user-edit-modal__field--textarea">
               <label class="user-edit-modal__label" for="admin-user-edit-remark">备注</label>
               <textarea
@@ -2883,6 +3095,87 @@
                 </button>
               </div>
             </div>
+
+            <div class="user-edit-modal__section-title">已授权模型</div>
+
+            <div class="user-edit-modal__group">
+              <div class="user-edit-modal__field">
+                <label class="user-edit-modal__label" for="admin-user-create-model-text">文本分析模型<span class="user-edit-modal__req">*</span></label>
+                <select class="user-edit-modal__select" id="admin-user-create-model-text" name="admin_model_text" required>
+                  <option value="">请选择文本分析模型</option>
+                  <option value="Doubao Seed 2.0 Pro">Doubao Seed 2.0 Pro</option>
+                  <option value="Gemini 3 Flash">Gemini 3 Flash</option>
+                  <option value="GPT-4.1 Mini">GPT-4.1 Mini</option>
+                  <option value="Claude 3.5 Sonnet">Claude 3.5 Sonnet</option>
+                </select>
+              </div>
+              <div class="user-edit-modal__field">
+                <label class="user-edit-modal__label" for="admin-user-create-text-concurrency">允许并发数</label>
+                <select class="user-edit-modal__select" id="admin-user-create-text-concurrency" name="admin_text_concurrency">
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5" selected>5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                  <option value="8">8</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="user-edit-modal__group">
+              <div class="user-edit-modal__field">
+                <label class="user-edit-modal__label" for="admin-user-create-model-image">图像生成模型<span class="user-edit-modal__req">*</span></label>
+                <select class="user-edit-modal__select" id="admin-user-create-model-image" name="admin_model_image" required>
+                  <option value="">请选择图像生成模型</option>
+                  <option value="Gemini 3 Pro Image">Gemini 3 Pro Image</option>
+                  <option value="Imagen 3 Fast">Imagen 3 Fast</option>
+                  <option value="DALL·E 3">DALL·E 3</option>
+                  <option value="Midjourney V6">Midjourney V6</option>
+                </select>
+              </div>
+              <div class="user-edit-modal__field">
+                <label class="user-edit-modal__label" for="admin-user-create-image-concurrency">允许并发数</label>
+                <select class="user-edit-modal__select" id="admin-user-create-image-concurrency" name="admin_image_concurrency">
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5" selected>5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                  <option value="8">8</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="user-edit-modal__group">
+              <div class="user-edit-modal__field">
+                <label class="user-edit-modal__label" for="admin-user-create-model-video">视频生成模型<span class="user-edit-modal__req">*</span></label>
+                <select class="user-edit-modal__select" id="admin-user-create-model-video" name="admin_model_video" required>
+                  <option value="">请选择视频生成模型</option>
+                  <option value="可灵 Kling 2.1">可灵 Kling 2.1</option>
+                  <option value="Runway Gen-3 Alpha">Runway Gen-3 Alpha</option>
+                  <option value="海螺 MiniMax 视频">海螺 MiniMax 视频</option>
+                  <option value="Sora 2">Sora 2</option>
+                </select>
+              </div>
+              <div class="user-edit-modal__field">
+                <label class="user-edit-modal__label" for="admin-user-create-video-concurrency">允许并发数</label>
+                <select class="user-edit-modal__select" id="admin-user-create-video-concurrency" name="admin_video_concurrency">
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5" selected>5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                  <option value="8">8</option>
+                </select>
+              </div>
+            </div>
+
             <div class="user-edit-modal__field user-edit-modal__field--textarea">
               <label class="user-edit-modal__label" for="admin-user-create-remark">备注</label>
               <textarea
@@ -3470,7 +3763,7 @@
           btnConfirm.addEventListener("click", confirmPending);
         })();
 
-        // 账户分配-Admin：编辑用户弹框（用户名、备注）
+        // 账户分配-Admin：编辑用户弹框（用户名、已授权模型、备注）
         (function () {
           var modal = document.getElementById("admin-user-edit-modal");
           var form = document.getElementById("admin-user-edit-form");
@@ -3490,6 +3783,52 @@
             modal.setAttribute("aria-hidden", "false");
           }
 
+          function setSelectOptionByValue(select, value) {
+            if (!select) return;
+            select.value = "";
+            if (!value) return;
+            var opts = select.options;
+            for (var i = 0; i < opts.length; i++) {
+              if (opts[i].value === value) {
+                select.value = value;
+                return;
+              }
+            }
+          }
+
+          function setConcurrencySelect(select, attrVal) {
+            if (!select) return;
+            var v = attrVal != null && /^[1-8]$/.test(String(attrVal)) ? String(attrVal) : "5";
+            select.value = v;
+          }
+
+          function fillAdminEditFromRow(row) {
+            var nameEl = row.querySelector(".user-list-name");
+            var usernameInput = document.getElementById("admin-user-edit-username");
+            if (usernameInput) usernameInput.value = nameEl ? nameEl.textContent.trim() : "";
+
+            var remarkEl = document.getElementById("admin-user-edit-remark");
+            if (remarkEl) remarkEl.value = row.getAttribute("data-remark") || "";
+
+            var cell = row.querySelector(".auth-models-cell");
+            var modelRows = cell ? cell.querySelectorAll(".auth-model-row") : [];
+
+            function pickModelName(idx) {
+              var r = modelRows[idx];
+              if (!r) return "";
+              var n = r.querySelector(".auth-model-name");
+              return n ? n.textContent.trim() : "";
+            }
+
+            setSelectOptionByValue(document.getElementById("admin-user-edit-model-text"), pickModelName(0));
+            setSelectOptionByValue(document.getElementById("admin-user-edit-model-image"), pickModelName(1));
+            setSelectOptionByValue(document.getElementById("admin-user-edit-model-video"), pickModelName(2));
+
+            setConcurrencySelect(document.getElementById("admin-user-edit-text-concurrency"), row.getAttribute("data-text-concurrency"));
+            setConcurrencySelect(document.getElementById("admin-user-edit-image-concurrency"), row.getAttribute("data-image-concurrency"));
+            setConcurrencySelect(document.getElementById("admin-user-edit-video-concurrency"), row.getAttribute("data-video-concurrency"));
+          }
+
           var panel = document.getElementById("panel-account-admin");
           if (panel) {
             panel.addEventListener("click", function (e) {
@@ -3499,13 +3838,7 @@
               var row = btn.closest("tr");
               if (!row) return;
 
-              var nameEl = row.querySelector(".user-list-name");
-              var usernameInput = document.getElementById("admin-user-edit-username");
-              if (usernameInput) usernameInput.value = nameEl ? nameEl.textContent.trim() : "";
-
-              var remarkEl = document.getElementById("admin-user-edit-remark");
-              if (remarkEl) remarkEl.value = row.getAttribute("data-remark") || "";
-
+              fillAdminEditFromRow(row);
               openAdminEditModal();
             });
           }

@@ -657,6 +657,19 @@
           localStorage.setItem(STORAGE_KEY, JSON.stringify(arr));
         }
 
+        /** 将历史占位项目名「啊啊啊」统一为「AAA」 */
+        function migrateLegacyProjectNames() {
+          var list = loadProjects();
+          var changed = false;
+          for (var i = 0; i < list.length; i++) {
+            if (list[i] && list[i].name === "啊啊啊") {
+              list[i].name = "AAA";
+              changed = true;
+            }
+          }
+          if (changed) saveProjects(list);
+        }
+
         function formatZhTime(iso) {
           var d = new Date(iso);
           if (isNaN(d.getTime())) return "";
@@ -932,6 +945,7 @@
           });
         })();
 
+        migrateLegacyProjectNames();
         renderProjects();
       })();
     </script>
