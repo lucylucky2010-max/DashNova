@@ -32,15 +32,17 @@
 
         <form class="login-form" action="#" method="post" novalidate>
           <div class="field">
-            <label class="field__label" for="username">用户名</label>
-            <input
-              id="username"
+            <label class="field__label" for="login-user">登录用户</label>
+            <select
+              id="login-user"
               name="username"
-              type="text"
-              class="field__input"
-              placeholder="请输入用户名"
+              class="field__input field__input--select"
               autocomplete="username"
-            />
+              aria-label="选择登录用户"
+            >
+              <option value="Super" selected>Super</option>
+              <option value="Admin">Admin</option>
+            </select>
           </div>
           <div class="field password-field">
             <label class="field__label" for="password">密码</label>
@@ -52,8 +54,9 @@
                 class="field__input"
                 placeholder="请输入密码"
                 autocomplete="current-password"
-                minlength="8"
+                minlength="6"
                 maxlength="20"
+                value="123456"
               />
               <button
                 type="button"
@@ -102,11 +105,18 @@
         <p class="login-card__hint">
           还没有账户？<a href="register.html" class="link-primary">立即注册</a>
         </p>
-        <a href="index.html" class="login-card__back">← 返回首页</a>
       </div>
     </main>
     <script>
       (function () {
+        try {
+          if (new URLSearchParams(window.location.search).get("logout") === "1") {
+            sessionStorage.removeItem("dashnova_login_user");
+            if (window.history && window.history.replaceState)
+              window.history.replaceState({}, "", "index.html");
+          }
+        } catch (e) {}
+
         const passwordInput = document.getElementById("password");
         const toggleBtn = document.getElementById("pw-toggle");
 
@@ -137,6 +147,10 @@
           .querySelector(".login-form")
           .addEventListener("submit", function (e) {
             e.preventDefault();
+            var loginUser = document.getElementById("login-user");
+            try {
+              if (loginUser) sessionStorage.setItem("dashnova_login_user", loginUser.value);
+            } catch (err) {}
             window.location.href = "main.html";
           });
       })();
