@@ -1060,9 +1060,22 @@
         }
 
         if (heroBtn) {
-          heroBtn.addEventListener("click", function () {
-            openNewProjectModal();
-          });
+          var rawRole = null;
+          try {
+            rawRole = sessionStorage.getItem("dashnova_login_user");
+          } catch (e) {}
+          /* 与 login-user-sync 一致：非 Admin、非 user 视为 Super（含未写入 session 的默认态） */
+          var isSuperHome = rawRole !== "Admin" && rawRole !== "user";
+          if (isSuperHome) {
+            heroBtn.textContent = "管理账号分配";
+            heroBtn.addEventListener("click", function () {
+              window.location.href = "settings.html";
+            });
+          } else {
+            heroBtn.addEventListener("click", function () {
+              openNewProjectModal();
+            });
+          }
         }
 
         if (btnCancel) btnCancel.addEventListener("click", closeNewProjectModal);
@@ -1157,5 +1170,6 @@
         })();
       })();
     </script>
+    <script src="super-home-nav.js"></script>
   </body>
 </html>

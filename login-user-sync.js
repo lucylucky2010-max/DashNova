@@ -26,6 +26,19 @@
     } catch (e) {}
   }
 
+  /** Super：隐藏顶部「工作台」「资产库」入口（与 getDisplayName 一致：无存储时视为 Super） */
+  function toggleSuperNavRestricted() {
+    try {
+      var raw = sessionStorage.getItem(KEY);
+      var isSuper = raw !== "Admin" && raw !== "user";
+      document
+        .querySelectorAll('a.app-nav__link[data-page="projects"], a.app-nav__link[data-page="assets"]')
+        .forEach(function (el) {
+          el.style.display = isSuper ? "none" : "";
+        });
+    } catch (e) {}
+  }
+
   function applyToNav() {
     var name = getDisplayName();
     var letter = avatarLetter(name);
@@ -36,6 +49,7 @@
     if (triggerName) triggerName.textContent = name;
     if (header) header.textContent = name;
     toggleSettingsTabForRole();
+    toggleSuperNavRestricted();
   }
 
   if (document.readyState === "loading") {
