@@ -214,6 +214,13 @@
         box-shadow: 0 0 0 2px rgba(54, 81, 211, 0.12);
       }
 
+      /* 全局图像模型配置：批量并发下拉（无「允许并发数」标签，占位文案较长） */
+      .concurrency-picker--global-batch .concurrency-picker__select {
+        width: auto;
+        min-width: 200px;
+        max-width: min(280px, 100%);
+      }
+
       .model-card__title-row {
         display: flex;
         align-items: center;
@@ -679,6 +686,64 @@
 
       .auth-models-cell {
         min-width: 220px;
+      }
+
+      #panel-account-super .auth-models-cell,
+      #panel-account-admin .auth-models-cell {
+        min-width: 280px;
+      }
+
+      /* Super：按类型分组，支持多模型（无状态圆点） */
+      .auth-model-stack {
+        font-size: 12px;
+        line-height: 1.45;
+        color: var(--text-title);
+      }
+
+      .auth-model-stack + .auth-model-stack {
+        margin-top: 8px;
+        padding-top: 8px;
+        border-top: 1px solid #f3f4f6;
+      }
+
+      .auth-model-stack__header {
+        display: flex;
+        align-items: flex-start;
+        gap: 8px;
+      }
+
+      .auth-model-stack .auth-model-label {
+        margin-top: 1px;
+      }
+
+      .auth-model-stack__list {
+        display: flex;
+        flex-direction: column;
+        gap: 3px;
+        min-width: 0;
+        flex: 1;
+      }
+
+      .auth-model-stack__list .auth-model-name {
+        display: block;
+      }
+
+      /* 账户分配表格：同类型多模型一行内用分号分隔，不换行罗列 */
+      #panel-account-super .auth-model-stack__list,
+      #panel-account-admin .auth-model-stack__list {
+        display: block;
+        flex-direction: unset;
+        gap: 0;
+      }
+
+      #panel-account-super .auth-model-stack__list .auth-model-name,
+      #panel-account-admin .auth-model-stack__list .auth-model-name {
+        display: inline;
+      }
+
+      #panel-account-super .auth-model-stack__list .auth-model-name:not(:last-child)::after,
+      #panel-account-admin .auth-model-stack__list .auth-model-name:not(:last-child)::after {
+        content: "；";
       }
 
       .auth-model-row {
@@ -1169,6 +1234,358 @@
         margin-bottom: 8px;
       }
 
+      /* Super 新建/编辑用户：已授权模型（文本 / 图像 / 视频页签 + 表格） */
+      /* 已授权模型与备注之间的浅灰内容区 */
+      .super-auth-scope .super-auth-models-region {
+        margin-bottom: 14px;
+        padding: 12px 14px 14px;
+        background: #f4f5f7;
+        border-radius: 10px;
+        min-height: 300px;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .super-auth-scope .super-auth-models {
+        flex: 1 1 auto;
+        display: flex;
+        flex-direction: column;
+        min-height: 0;
+        margin-bottom: 0;
+        padding: 0;
+        background: transparent;
+        border: none;
+      }
+
+      .super-auth-scope .super-auth-panel {
+        flex: 1 1 auto;
+        display: flex;
+        flex-direction: column;
+        min-height: 0;
+      }
+
+      .super-auth-scope .super-auth-table-wrap {
+        flex: 1 1 auto;
+        min-height: 176px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        border: none;
+        border-radius: 0;
+        overflow: visible;
+        background: transparent;
+      }
+
+      .super-auth-scope .super-auth-table-wrap.has-rows {
+        align-items: stretch;
+        justify-content: flex-start;
+        border: 1px solid #e5e7eb;
+        border-radius: 10px;
+        background: #fff;
+        overflow-x: auto;
+      }
+
+      .super-auth-scope .super-auth-empty {
+        margin: 0;
+        padding: 16px 12px;
+        font-size: 13px;
+        color: #9ca3af;
+        text-align: center;
+        user-select: none;
+      }
+
+      .super-auth-scope .super-auth-table-wrap.has-rows .super-auth-empty {
+        display: none;
+      }
+
+      .super-auth-scope .super-auth-table-wrap:not(.has-rows) .super-auth-table {
+        display: none;
+      }
+
+      .super-auth-scope .super-auth-table-wrap.has-rows .super-auth-table {
+        display: table;
+        width: 100%;
+      }
+
+      .super-auth-scope .super-auth-tabs {
+        display: flex;
+        padding: 4px;
+        gap: 4px;
+        background: #eef0f3;
+        border: 1px solid #e5e7eb;
+        border-radius: 10px;
+        margin-bottom: 12px;
+      }
+
+      .super-auth-scope .super-auth-tab {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 5px;
+        padding: 8px 6px;
+        font-size: 13px;
+        font-weight: 500;
+        font-family: inherit;
+        color: #6b7280;
+        background: transparent;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: color 0.12s ease, background 0.12s ease, box-shadow 0.12s ease;
+      }
+
+      .super-auth-scope .super-auth-tab--active {
+        color: #111827;
+        font-weight: 600;
+        background: #fff;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+      }
+
+      .super-auth-scope .super-auth-tab__icon {
+        width: 14px;
+        height: 14px;
+        flex-shrink: 0;
+      }
+
+      .super-auth-scope .super-auth-panel[hidden] {
+        display: none !important;
+      }
+
+      .super-auth-scope .super-auth-add-block {
+        margin-bottom: 10px;
+      }
+
+      .super-auth-scope .super-auth-add-block[hidden] {
+        display: none !important;
+      }
+
+      .super-auth-scope .super-auth-add {
+        margin-bottom: 0;
+      }
+
+      .super-auth-scope .super-auth-model-name-row {
+        margin-bottom: 8px;
+      }
+
+      .super-auth-scope .super-auth-model-name-row .user-edit-modal__input {
+        width: 100%;
+        box-sizing: border-box;
+      }
+
+      .super-auth-scope .super-auth-add__row2 {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .super-auth-scope .super-auth-add__row2 .user-edit-modal__input {
+        flex: 1;
+        min-width: 0;
+      }
+
+      .super-auth-scope .super-auth-cancel-add {
+        flex-shrink: 0;
+        padding: 8px 6px;
+        font-size: 13px;
+        font-weight: 500;
+        font-family: inherit;
+        color: #6b7280;
+        background: none;
+        border: none;
+        cursor: pointer;
+        transition: color 0.12s ease;
+      }
+
+      .super-auth-scope .super-auth-cancel-add:hover {
+        color: #3651d3;
+      }
+
+      .super-auth-scope .super-auth-save-btn {
+        flex-shrink: 0;
+        padding: 8px 18px;
+        font-size: 13px;
+        font-weight: 600;
+        font-family: inherit;
+        color: #fff;
+        border: none;
+        border-radius: 999px;
+        cursor: pointer;
+        background: linear-gradient(90deg, #3651d3 0%, #6b95f0 100%);
+        box-shadow: 0 2px 10px -2px rgba(54, 81, 211, 0.4);
+        transition: filter 0.12s ease;
+      }
+
+      .super-auth-scope .super-auth-save-btn:hover {
+        filter: brightness(1.05);
+      }
+
+      .super-auth-scope .super-auth-add-hint {
+        margin: 6px 0 0;
+        font-size: 12px;
+        color: #dc2626;
+        min-height: 0;
+      }
+
+      .super-auth-scope .super-auth-add-hint[hidden] {
+        display: none !important;
+      }
+
+      .super-auth-scope .super-auth-form-error {
+        margin: 0 0 8px;
+        font-size: 12px;
+        color: #dc2626;
+      }
+
+      .super-auth-scope .super-auth-form-error[hidden] {
+        display: none !important;
+      }
+
+      .super-auth-scope .super-auth-table-toolbar {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        margin-bottom: 6px;
+      }
+
+      /* 展开添加表单时隐藏「+ 添加」（JS 为面板添加 super-auth-panel--adding） */
+      .super-auth-scope .super-auth-panel--adding .super-auth-table-toolbar {
+        display: none;
+      }
+
+      .super-auth-scope .super-auth-table {
+        width: 100%;
+        table-layout: fixed;
+        border-collapse: collapse;
+        font-size: 13px;
+      }
+
+      .super-auth-scope .super-auth-table thead th {
+        position: sticky;
+        top: 0;
+        z-index: 1;
+        text-align: left;
+        font-weight: 600;
+        font-size: 12px;
+        color: var(--text-muted);
+        background: #f9fafb;
+        padding: 8px 10px;
+        border-bottom: 1px solid #e5e7eb;
+        white-space: nowrap;
+      }
+
+      .super-auth-scope .super-auth-table thead th.super-auth-col-del {
+        text-align: right;
+      }
+
+      .super-auth-scope .super-auth-col-del {
+        width: 44px;
+        padding: 4px 6px !important;
+        text-align: right;
+        vertical-align: middle;
+      }
+
+      .super-auth-scope .super-auth-table tbody td {
+        padding: 6px 8px;
+        border-bottom: 1px solid #f3f4f6;
+        color: #111827;
+        text-align: left;
+        vertical-align: middle;
+        font-size: 12px;
+        line-height: 1.4;
+      }
+
+      /* 第 1 列 ID：收窄 */
+      .super-auth-scope .super-auth-table tbody td:nth-child(1) {
+        width: 40px;
+        max-width: 48px;
+        padding-left: 6px;
+        padding-right: 4px;
+        white-space: nowrap;
+      }
+
+      /* 第 2 列模型名称：靠左，中等宽度 */
+      .super-auth-scope .super-auth-table tbody td:nth-child(2) {
+        width: 26%;
+        word-break: break-word;
+      }
+
+      /* 第 3 列 API Key：靠左，占满剩余空间（最宽） */
+      .super-auth-scope .super-auth-table tbody td:nth-child(3) {
+        width: auto;
+        word-break: break-all;
+      }
+
+      /* Super 新建用户弹框：ID 列收窄（数字左右各 2px），API Key 列更宽 */
+      #user-create-modal .super-auth-scope .super-auth-table thead th:nth-child(1),
+      #user-create-modal .super-auth-scope .super-auth-table tbody td:nth-child(1) {
+        width: 32px;
+        max-width: 36px;
+        min-width: 28px;
+        padding-left: 2px;
+        padding-right: 2px;
+        box-sizing: border-box;
+        text-align: center;
+      }
+
+      #user-create-modal .super-auth-scope .super-auth-table thead th:nth-child(1) {
+        padding-top: 8px;
+        padding-bottom: 8px;
+      }
+
+      #user-create-modal .super-auth-scope .super-auth-table thead th:nth-child(2),
+      #user-create-modal .super-auth-scope .super-auth-table tbody td:nth-child(2) {
+        width: 18%;
+      }
+
+      #user-create-modal .super-auth-scope .super-auth-table thead th:nth-child(3),
+      #user-create-modal .super-auth-scope .super-auth-table tbody td:nth-child(3) {
+        width: auto;
+        min-width: 48%;
+      }
+
+      .super-auth-scope .super-auth-table tbody td:nth-child(4),
+      .super-auth-scope .super-auth-table tbody td.super-auth-col-del {
+        text-align: right;
+      }
+
+      .super-auth-scope .super-auth-table tbody tr {
+        position: relative;
+      }
+
+      .super-auth-scope .super-auth-table tbody tr:last-child td {
+        border-bottom: none;
+      }
+
+      .super-auth-scope .super-auth-row-delete {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 28px;
+        height: 28px;
+        padding: 0;
+        border: none;
+        border-radius: 8px;
+        background: transparent;
+        color: #9ca3af;
+        cursor: pointer;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.15s ease, color 0.12s ease, background 0.12s ease;
+      }
+
+      .super-auth-scope .super-auth-table tbody tr:hover .super-auth-row-delete,
+      .super-auth-scope .super-auth-table tbody tr:focus-within .super-auth-row-delete {
+        opacity: 1;
+        pointer-events: auto;
+      }
+
+      .super-auth-scope .super-auth-row-delete:hover {
+        color: #dc2626;
+        background: rgba(220, 38, 38, 0.08);
+      }
+
       .user-edit-modal__footer {
         flex-shrink: 0;
         display: flex;
@@ -1276,38 +1693,46 @@
         scrollbar-gutter: stable;
       }
 
-      /* 账户分配-Super：新建用户（视口内高宽平衡，页头/底栏固定，正文可纵向滚动） */
-      #user-create-modal .user-edit-modal__dialog {
+      /* 账户分配-Super：新建 / 编辑用户（视口内高宽平衡，页头/底栏固定，正文可纵向滚动） */
+      #user-create-modal .user-edit-modal__dialog,
+      #user-edit-modal .user-edit-modal__dialog {
         width: min(780px, 92vw);
         max-width: min(780px, 92vw);
-        max-height: min(85vh, calc(100vh - 48px));
+        min-height: min(680px, 90vh);
+        max-height: min(92vh, calc(100vh - 32px));
         overflow: hidden;
       }
 
       @media (max-height: 720px) {
-        #user-create-modal .user-edit-modal__dialog {
-          max-height: calc(100vh - 32px);
+        #user-create-modal .user-edit-modal__dialog,
+        #user-edit-modal .user-edit-modal__dialog {
+          max-height: calc(100vh - 24px);
+          min-height: min(620px, calc(100vh - 24px));
         }
       }
 
-      #user-create-modal .user-edit-modal__form {
+      #user-create-modal .user-edit-modal__form,
+      #user-edit-modal .user-edit-modal__form {
         flex: 1 1 auto;
         min-height: 0;
         display: flex;
         flex-direction: column;
       }
 
-      #user-create-modal .user-edit-modal__header {
+      #user-create-modal .user-edit-modal__header,
+      #user-edit-modal .user-edit-modal__header {
         flex-shrink: 0;
         padding: 18px 28px 12px;
       }
 
-      #user-create-modal .user-edit-modal__footer {
+      #user-create-modal .user-edit-modal__footer,
+      #user-edit-modal .user-edit-modal__footer {
         flex-shrink: 0;
         padding: 16px 28px 20px;
       }
 
-      #user-create-modal .user-edit-modal__scroll {
+      #user-create-modal .user-edit-modal__scroll,
+      #user-edit-modal .user-edit-modal__scroll {
         flex: 1 1 auto;
         min-height: 0;
         overflow-x: hidden;
@@ -1316,26 +1741,31 @@
         scrollbar-gutter: stable;
       }
 
-      #user-create-modal .user-edit-modal__field {
+      #user-create-modal .user-edit-modal__field,
+      #user-edit-modal .user-edit-modal__field {
         gap: 14px;
         margin-bottom: 14px;
       }
 
-      #user-create-modal .user-edit-modal__field:last-child {
+      #user-create-modal .user-edit-modal__field:last-child,
+      #user-edit-modal .user-edit-modal__field:last-child {
         margin-bottom: 0;
       }
 
-      #user-create-modal .user-edit-modal__field--textarea .user-edit-modal__label {
+      #user-create-modal .user-edit-modal__field--textarea .user-edit-modal__label,
+      #user-edit-modal .user-edit-modal__field--textarea .user-edit-modal__label {
         padding-top: 10px;
       }
 
-      #user-create-modal .user-edit-modal__textarea {
+      #user-create-modal .user-edit-modal__textarea,
+      #user-edit-modal .user-edit-modal__textarea {
         min-height: 80px;
         max-height: 120px;
         line-height: 1.5;
       }
 
-      #user-create-modal .user-edit-modal__label {
+      #user-create-modal .user-edit-modal__label,
+      #user-edit-modal .user-edit-modal__label {
         flex: 0 0 132px;
       }
 
@@ -1519,6 +1949,183 @@
       #user-create-modal .admin-pwd-toggle.is-visible .admin-pwd-toggle__icon--hide,
       #self-change-password-modal .admin-pwd-toggle.is-visible .admin-pwd-toggle__icon--hide {
         display: none;
+      }
+
+      /* Admin 新建/编辑用户：已授权模型（页签 + 表格：模型名称 / 是否授权 / 允许并发数） */
+      #admin-user-create-modal .admin-create-auth-wrap,
+      #admin-user-edit-modal .admin-create-auth-wrap {
+        margin-bottom: 12px;
+      }
+
+      #admin-user-create-modal .admin-create-auth-tabs,
+      #admin-user-edit-modal .admin-create-auth-tabs {
+        display: flex;
+        padding: 4px;
+        gap: 4px;
+        background: #eef0f3;
+        border: 1px solid #e5e7eb;
+        border-radius: 10px;
+        margin-bottom: 12px;
+      }
+
+      #admin-user-create-modal .admin-create-auth-tab,
+      #admin-user-edit-modal .admin-create-auth-tab {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 5px;
+        padding: 8px 6px;
+        font-size: 13px;
+        font-weight: 500;
+        font-family: inherit;
+        color: #6b7280;
+        background: transparent;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: color 0.12s ease, background 0.12s ease, box-shadow 0.12s ease;
+      }
+
+      #admin-user-create-modal .admin-create-auth-tab--active,
+      #admin-user-edit-modal .admin-create-auth-tab--active {
+        color: #111827;
+        font-weight: 600;
+        background: #fff;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+      }
+
+      #admin-user-create-modal .admin-create-auth-tab__icon,
+      #admin-user-edit-modal .admin-create-auth-tab__icon {
+        width: 14px;
+        height: 14px;
+        flex-shrink: 0;
+      }
+
+      #admin-user-create-modal .admin-create-auth-panel[hidden],
+      #admin-user-edit-modal .admin-create-auth-panel[hidden] {
+        display: none !important;
+      }
+
+      #admin-user-create-modal .admin-create-auth-table-wrap,
+      #admin-user-edit-modal .admin-create-auth-table-wrap {
+        border: 1px solid #e5e7eb;
+        border-radius: 10px;
+        background: #fff;
+        max-height: 280px;
+        overflow: auto;
+      }
+
+      #admin-user-create-modal .admin-create-auth-table,
+      #admin-user-edit-modal .admin-create-auth-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 13px;
+      }
+
+      #admin-user-create-modal .admin-create-auth-table thead th,
+      #admin-user-edit-modal .admin-create-auth-table thead th {
+        position: sticky;
+        top: 0;
+        z-index: 1;
+        text-align: left;
+        font-weight: 600;
+        font-size: 12px;
+        color: var(--text-muted);
+        background: #f9fafb;
+        padding: 10px 12px;
+        border-bottom: 1px solid #e5e7eb;
+        white-space: nowrap;
+      }
+
+      #admin-user-create-modal .admin-create-auth-table thead th.admin-create-auth-table__col-auth,
+      #admin-user-create-modal .admin-create-auth-table thead th.admin-create-auth-table__col-conc,
+      #admin-user-edit-modal .admin-create-auth-table thead th.admin-create-auth-table__col-auth,
+      #admin-user-edit-modal .admin-create-auth-table thead th.admin-create-auth-table__col-conc {
+        text-align: center;
+      }
+
+      #admin-user-create-modal .admin-create-auth-table__col-auth,
+      #admin-user-edit-modal .admin-create-auth-table__col-auth {
+        text-align: center;
+        width: 100px;
+      }
+
+      #admin-user-create-modal .admin-create-auth-table__col-conc,
+      #admin-user-edit-modal .admin-create-auth-table__col-conc {
+        text-align: center;
+        width: 84px;
+      }
+
+      #admin-user-create-modal .admin-create-auth-table tbody td,
+      #admin-user-edit-modal .admin-create-auth-table tbody td {
+        padding: 10px 12px;
+        vertical-align: middle;
+        border-bottom: 1px solid #f3f4f6;
+      }
+
+      #admin-user-create-modal .admin-create-auth-table tbody td:nth-child(3),
+      #admin-user-edit-modal .admin-create-auth-table tbody td:nth-child(3) {
+        text-align: center;
+      }
+
+      #admin-user-create-modal .admin-create-auth-table tbody tr:last-child td,
+      #admin-user-edit-modal .admin-create-auth-table tbody tr:last-child td {
+        border-bottom: none;
+      }
+
+      #admin-user-create-modal .admin-create-auth-table__cell-auth,
+      #admin-user-edit-modal .admin-create-auth-table__cell-auth {
+        text-align: center;
+        vertical-align: middle;
+      }
+
+      #admin-user-create-modal .admin-create-auth-onoff,
+      #admin-user-edit-modal .admin-create-auth-onoff {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        vertical-align: middle;
+      }
+
+      #admin-user-create-modal .admin-create-auth-table .user-edit-modal__select.admin-create-model-concurrency,
+      #admin-user-edit-modal .admin-create-auth-table .user-edit-modal__select.admin-create-model-concurrency {
+        box-sizing: border-box;
+        display: block;
+        width: 64px;
+        min-width: 64px;
+        max-width: 64px;
+        margin: 0 auto;
+        padding: 6px 8px;
+        padding-right: 22px;
+        font-size: 12px;
+        text-align: center;
+        text-align-last: center;
+        appearance: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        background-color: #fff;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%239ca3af' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: right 8px center;
+        background-size: 12px 12px;
+      }
+
+      #admin-user-create-modal .admin-create-auth-table .user-edit-modal__select.admin-create-model-concurrency::-ms-expand,
+      #admin-user-edit-modal .admin-create-auth-table .user-edit-modal__select.admin-create-model-concurrency::-ms-expand {
+        display: none;
+      }
+
+      #admin-user-create-modal .admin-create-auth-table .admin-create-model-concurrency option,
+      #admin-user-edit-modal .admin-create-auth-table .admin-create-model-concurrency option {
+        text-align: center;
+      }
+
+      #admin-user-create-modal .admin-create-auth-error,
+      #admin-user-edit-modal .admin-create-auth-error {
+        font-size: 12px;
+        color: #b91c1c;
+        margin: 0 0 8px;
       }
 
       /* 顶部用户菜单：修改密码弹框（与设置内 user-edit-modal 一致） */
@@ -1756,7 +2363,13 @@
                 <p class="model-card__desc">负责脚本解析、分镜构建等全流程文本分析能力。</p>
                 <div class="select-wrap">
                   <select class="select-field">
-                    <option>必选配置</option>
+                    <option value="">请选择默认模型</option>
+                    <option value="doubao-seed-2-pro" selected>Doubao Seed 2.0 Pro</option>
+                    <option value="doubao-seed-2-lite">Doubao Seed 2.0 Lite</option>
+                    <option value="doubao-seed-2-mini">Doubao Seed 2.0 Mini</option>
+                    <option value="gemini-3-flash">Gemini 3 Flash</option>
+                    <option value="gpt-4-1-mini">GPT-4.1 Mini</option>
+                    <option value="claude-3-5-sonnet">Claude 3.5 Sonnet</option>
                   </select>
                 </div>
               </div>
@@ -1774,7 +2387,11 @@
                 <p class="model-card__desc">负责将图像与指令合成为最终视频片段。</p>
                 <div class="select-wrap">
                   <select class="select-field">
-                    <option>必选配置</option>
+                    <option value="">请选择默认模型</option>
+                    <option value="kling-2-1" selected>可灵 Kling 2.1</option>
+                    <option value="runway-gen3">Runway Gen-3 Alpha</option>
+                    <option value="sora-2">Sora 2</option>
+                    <option value="minimax-video">海螺 MiniMax 视频</option>
                   </select>
                 </div>
               </div>
@@ -1788,9 +2405,10 @@
                 <svg class="sub-heading__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="2.18"/><circle cx="13.5" cy="6.5" r="2.5"/><path d="M3 20l5.5-7.5L12 17l3.5-4.5L21 20"/></svg>
                 全局图像模型配置
               </h3>
-              <div class="concurrency-picker">
-                <span class="concurrency-picker__label">允许并发数</span>
-                <select class="concurrency-picker__select"><option>1</option><option>2</option><option>3</option><option>4</option><option selected>5</option><option>6</option><option>7</option><option>8</option></select>
+              <div class="concurrency-picker concurrency-picker--global-batch">
+                <select class="concurrency-picker__select" aria-label="批量应用到以下场景">
+                  <option value="batch" selected>批量应用到以下场景</option>
+                </select>
               </div>
             </div>
             <p class="section-desc">设置负责整个系统所有地方图像生成/编辑的模型</p>
@@ -1807,7 +2425,14 @@
                   角色生成
                 </div>
                 <div class="select-wrap">
-                  <select class="select-field"><option>跟随全局配置</option></select>
+                  <select class="select-field">
+                    <option value="inherit" selected>跟随全局配置</option>
+                    <option value="nano-banana-pro">Nano Banana Pro</option>
+                    <option value="gemini-3-pro-image">Gemini 3 Pro Image</option>
+                    <option value="imagen-3-fast">Imagen 3 Fast</option>
+                    <option value="dall-e-3">DALL·E 3</option>
+                    <option value="midjourney-v6">Midjourney V6</option>
+                  </select>
                 </div>
               </div>
               <div class="image-model-item">
@@ -1816,7 +2441,14 @@
                   场景生成
                 </div>
                 <div class="select-wrap">
-                  <select class="select-field"><option>跟随全局配置</option></select>
+                  <select class="select-field">
+                    <option value="inherit" selected>跟随全局配置</option>
+                    <option value="nano-banana-pro">Nano Banana Pro</option>
+                    <option value="gemini-3-pro-image">Gemini 3 Pro Image</option>
+                    <option value="imagen-3-fast">Imagen 3 Fast</option>
+                    <option value="dall-e-3">DALL·E 3</option>
+                    <option value="midjourney-v6">Midjourney V6</option>
+                  </select>
                 </div>
               </div>
               <div class="image-model-item">
@@ -1825,7 +2457,14 @@
                   镜头生成
                 </div>
                 <div class="select-wrap">
-                  <select class="select-field"><option>跟随全局配置</option></select>
+                  <select class="select-field">
+                    <option value="inherit" selected>跟随全局配置</option>
+                    <option value="nano-banana-pro">Nano Banana Pro</option>
+                    <option value="gemini-3-pro-image">Gemini 3 Pro Image</option>
+                    <option value="imagen-3-fast">Imagen 3 Fast</option>
+                    <option value="dall-e-3">DALL·E 3</option>
+                    <option value="midjourney-v6">Midjourney V6</option>
+                  </select>
                 </div>
               </div>
               <div class="image-model-item">
@@ -1834,7 +2473,14 @@
                   编辑图片
                 </div>
                 <div class="select-wrap">
-                  <select class="select-field"><option>跟随全局配置</option></select>
+                  <select class="select-field">
+                    <option value="inherit" selected>跟随全局配置</option>
+                    <option value="nano-banana-pro">Nano Banana Pro</option>
+                    <option value="gemini-3-pro-image">Gemini 3 Pro Image</option>
+                    <option value="imagen-3-fast">Imagen 3 Fast</option>
+                    <option value="dall-e-3">DALL·E 3</option>
+                    <option value="midjourney-v6">Midjourney V6</option>
+                  </select>
                 </div>
               </div>
             </div>
@@ -1851,19 +2497,31 @@
               <div class="image-model-item">
                 <div class="image-model-item__label">口型同步</div>
                 <div class="select-wrap">
-                  <select class="select-field"><option>暂不启用</option></select>
+                  <select class="select-field">
+                    <option value="off" selected>暂不启用</option>
+                    <option value="heygen-demo">HeyGen 口型（示例）</option>
+                    <option value="synclabs-demo">Sync Labs（示例）</option>
+                  </select>
                 </div>
               </div>
               <div class="image-model-item">
                 <div class="image-model-item__label">语音合成</div>
                 <div class="select-wrap">
-                  <select class="select-field"><option>暂不启用</option></select>
+                  <select class="select-field">
+                    <option value="off" selected>暂不启用</option>
+                    <option value="azure-tts-demo">Azure Neural TTS（示例）</option>
+                    <option value="eleven-tts-demo">ElevenLabs TTS（示例）</option>
+                  </select>
                 </div>
               </div>
               <div class="image-model-item">
                 <div class="image-model-item__label">音色设计</div>
                 <div class="select-wrap">
-                  <select class="select-field"><option>暂不启用</option></select>
+                  <select class="select-field">
+                    <option value="off" selected>暂不启用</option>
+                    <option value="fish-audio-demo">Fish Audio（示例）</option>
+                    <option value="minimax-voice-demo">MiniMax 音色（示例）</option>
+                  </select>
                 </div>
               </div>
             </div>
@@ -2058,8 +2716,8 @@
                     <th class="col-name">用户名</th>
                     <th>已授权模型</th>
                     <th>状态</th>
-                    <th>授权时间</th>
-                    <th>操作</th>
+                    <th>最新授权时间</th>
+                    <th aria-label="操作"></th>
                   </tr>
                 </thead>
                 <tbody>
@@ -2067,20 +2725,32 @@
                     <td class="col-index">1</td>
                     <td class="col-name"><span class="user-list-name" title="流光小张">流光小张</span></td>
                     <td class="auth-models-cell">
-                      <div class="auth-model-row">
-                        <span class="auth-dot auth-dot--ok" aria-hidden="true"></span>
-                        <span class="auth-model-label">文本分析</span>
-                        <span class="auth-model-name">Doubao Seed 2.0 Pro</span>
+                      <div class="auth-model-stack" data-auth-kind="text">
+                        <div class="auth-model-stack__header">
+                          <span class="auth-model-label">文本</span>
+                          <div class="auth-model-stack__list">
+                            <span class="auth-model-name">Doubao Seed 2.0 Pro</span>
+                            <span class="auth-model-name">Gemini 3 Flash</span>
+                          </div>
+                        </div>
                       </div>
-                      <div class="auth-model-row">
-                        <span class="auth-dot auth-dot--ok" aria-hidden="true"></span>
-                        <span class="auth-model-label">图像生成</span>
-                        <span class="auth-model-name">Gemini 3 Pro Image</span>
+                      <div class="auth-model-stack" data-auth-kind="image">
+                        <div class="auth-model-stack__header">
+                          <span class="auth-model-label">图像</span>
+                          <div class="auth-model-stack__list">
+                            <span class="auth-model-name">Gemini 3 Pro Image</span>
+                            <span class="auth-model-name">DALL·E 3</span>
+                          </div>
+                        </div>
                       </div>
-                      <div class="auth-model-row">
-                        <span class="auth-dot auth-dot--ok" aria-hidden="true"></span>
-                        <span class="auth-model-label">视频生成</span>
-                        <span class="auth-model-name">可灵 Kling 2.1</span>
+                      <div class="auth-model-stack" data-auth-kind="video">
+                        <div class="auth-model-stack__header">
+                          <span class="auth-model-label">视频</span>
+                          <div class="auth-model-stack__list">
+                            <span class="auth-model-name">可灵 Kling 2.1</span>
+                            <span class="auth-model-name">Runway Gen-3 Alpha</span>
+                          </div>
+                        </div>
                       </div>
                     </td>
                     <td>
@@ -2102,20 +2772,32 @@
                     <td class="col-index">2</td>
                     <td class="col-name"><span class="user-list-name" title="chenwei_z">chenwei_z</span></td>
                     <td class="auth-models-cell">
-                      <div class="auth-model-row">
-                        <span class="auth-dot auth-dot--ok" aria-hidden="true"></span>
-                        <span class="auth-model-label">文本分析</span>
-                        <span class="auth-model-name">Gemini 3 Flash</span>
+                      <div class="auth-model-stack" data-auth-kind="text">
+                        <div class="auth-model-stack__header">
+                          <span class="auth-model-label">文本</span>
+                          <div class="auth-model-stack__list">
+                            <span class="auth-model-name">GPT-4.1 Mini</span>
+                            <span class="auth-model-name">Claude 3.5 Sonnet</span>
+                          </div>
+                        </div>
                       </div>
-                      <div class="auth-model-row">
-                        <span class="auth-dot auth-dot--fail" aria-hidden="true"></span>
-                        <span class="auth-model-label">图像生成</span>
-                        <span class="auth-model-name">Imagen 3 Fast</span>
+                      <div class="auth-model-stack" data-auth-kind="image">
+                        <div class="auth-model-stack__header">
+                          <span class="auth-model-label">图像</span>
+                          <div class="auth-model-stack__list">
+                            <span class="auth-model-name">Imagen 3 Fast</span>
+                            <span class="auth-model-name">Midjourney V6</span>
+                          </div>
+                        </div>
                       </div>
-                      <div class="auth-model-row">
-                        <span class="auth-dot auth-dot--ok" aria-hidden="true"></span>
-                        <span class="auth-model-label">视频生成</span>
-                        <span class="auth-model-name">Runway Gen-3 Alpha</span>
+                      <div class="auth-model-stack" data-auth-kind="video">
+                        <div class="auth-model-stack__header">
+                          <span class="auth-model-label">视频</span>
+                          <div class="auth-model-stack__list">
+                            <span class="auth-model-name">Sora 2</span>
+                            <span class="auth-model-name">海螺 MiniMax 视频</span>
+                          </div>
+                        </div>
                       </div>
                     </td>
                     <td>
@@ -2137,20 +2819,31 @@
                     <td class="col-index">3</td>
                     <td class="col-name"><span class="user-list-name" title="zhang_yi_m">zhang_yi_m</span></td>
                     <td class="auth-models-cell">
-                      <div class="auth-model-row">
-                        <span class="auth-dot auth-dot--fail" aria-hidden="true"></span>
-                        <span class="auth-model-label">文本分析</span>
-                        <span class="auth-model-name">GPT-4.1 Mini</span>
+                      <div class="auth-model-stack" data-auth-kind="text">
+                        <div class="auth-model-stack__header">
+                          <span class="auth-model-label">文本</span>
+                          <div class="auth-model-stack__list">
+                            <span class="auth-model-name">Doubao Seed 2.0 Pro</span>
+                          </div>
+                        </div>
                       </div>
-                      <div class="auth-model-row">
-                        <span class="auth-dot auth-dot--ok" aria-hidden="true"></span>
-                        <span class="auth-model-label">图像生成</span>
-                        <span class="auth-model-name">DALL·E 3</span>
+                      <div class="auth-model-stack" data-auth-kind="image">
+                        <div class="auth-model-stack__header">
+                          <span class="auth-model-label">图像</span>
+                          <div class="auth-model-stack__list">
+                            <span class="auth-model-name">Nano Banana Pro</span>
+                            <span class="auth-model-name">Gemini 3 Pro Image</span>
+                            <span class="auth-model-name">DALL·E 3</span>
+                          </div>
+                        </div>
                       </div>
-                      <div class="auth-model-row">
-                        <span class="auth-dot auth-dot--ok" aria-hidden="true"></span>
-                        <span class="auth-model-label">视频生成</span>
-                        <span class="auth-model-name">海螺 MiniMax 视频</span>
+                      <div class="auth-model-stack" data-auth-kind="video">
+                        <div class="auth-model-stack__header">
+                          <span class="auth-model-label">视频</span>
+                          <div class="auth-model-stack__list">
+                            <span class="auth-model-name">可灵 Kling 2.1</span>
+                          </div>
+                        </div>
                       </div>
                     </td>
                     <td>
@@ -2193,8 +2886,8 @@
                     <th class="col-name">用户名</th>
                     <th>已授权模型</th>
                     <th>状态</th>
-                    <th>创建时间</th>
-                    <th>操作</th>
+                    <th>最新授权时间</th>
+                    <th aria-label="操作"></th>
                   </tr>
                 </thead>
                 <tbody>
@@ -2207,20 +2900,32 @@
                     <td class="col-index">1</td>
                     <td class="col-name"><span class="user-list-name" title="运营小李">运营小李</span></td>
                     <td class="auth-models-cell">
-                      <div class="auth-model-row">
-                        <span class="auth-dot auth-dot--ok" aria-hidden="true"></span>
-                        <span class="auth-model-label">文本分析</span>
-                        <span class="auth-model-name">Doubao Seed 2.0 Pro</span>
+                      <div class="auth-model-stack" data-auth-kind="text">
+                        <div class="auth-model-stack__header">
+                          <span class="auth-model-label">文本</span>
+                          <div class="auth-model-stack__list">
+                            <span class="auth-model-name">Doubao Seed 2.0 Pro</span>
+                            <span class="auth-model-name">Gemini 3 Flash</span>
+                          </div>
+                        </div>
                       </div>
-                      <div class="auth-model-row">
-                        <span class="auth-dot auth-dot--ok" aria-hidden="true"></span>
-                        <span class="auth-model-label">图像生成</span>
-                        <span class="auth-model-name">Gemini 3 Pro Image</span>
+                      <div class="auth-model-stack" data-auth-kind="image">
+                        <div class="auth-model-stack__header">
+                          <span class="auth-model-label">图像</span>
+                          <div class="auth-model-stack__list">
+                            <span class="auth-model-name">Gemini 3 Pro Image</span>
+                            <span class="auth-model-name">DALL·E 3</span>
+                          </div>
+                        </div>
                       </div>
-                      <div class="auth-model-row">
-                        <span class="auth-dot auth-dot--ok" aria-hidden="true"></span>
-                        <span class="auth-model-label">视频生成</span>
-                        <span class="auth-model-name">可灵 Kling 2.1</span>
+                      <div class="auth-model-stack" data-auth-kind="video">
+                        <div class="auth-model-stack__header">
+                          <span class="auth-model-label">视频</span>
+                          <div class="auth-model-stack__list">
+                            <span class="auth-model-name">可灵 Kling 2.1</span>
+                            <span class="auth-model-name">Runway Gen-3 Alpha</span>
+                          </div>
+                        </div>
                       </div>
                     </td>
                     <td>
@@ -2247,20 +2952,32 @@
                     <td class="col-index">2</td>
                     <td class="col-name"><span class="user-list-name" title="剪辑阿伟">剪辑阿伟</span></td>
                     <td class="auth-models-cell">
-                      <div class="auth-model-row">
-                        <span class="auth-dot auth-dot--ok" aria-hidden="true"></span>
-                        <span class="auth-model-label">文本分析</span>
-                        <span class="auth-model-name">Gemini 3 Flash</span>
+                      <div class="auth-model-stack" data-auth-kind="text">
+                        <div class="auth-model-stack__header">
+                          <span class="auth-model-label">文本</span>
+                          <div class="auth-model-stack__list">
+                            <span class="auth-model-name">Doubao Seed 2.0 Lite</span>
+                            <span class="auth-model-name">GPT-4.1 Mini</span>
+                          </div>
+                        </div>
                       </div>
-                      <div class="auth-model-row">
-                        <span class="auth-dot auth-dot--fail" aria-hidden="true"></span>
-                        <span class="auth-model-label">图像生成</span>
-                        <span class="auth-model-name">Imagen 3 Fast</span>
+                      <div class="auth-model-stack" data-auth-kind="image">
+                        <div class="auth-model-stack__header">
+                          <span class="auth-model-label">图像</span>
+                          <div class="auth-model-stack__list">
+                            <span class="auth-model-name">Imagen 3 Fast</span>
+                            <span class="auth-model-name">Midjourney V6</span>
+                          </div>
+                        </div>
                       </div>
-                      <div class="auth-model-row">
-                        <span class="auth-dot auth-dot--ok" aria-hidden="true"></span>
-                        <span class="auth-model-label">视频生成</span>
-                        <span class="auth-model-name">Runway Gen-3 Alpha</span>
+                      <div class="auth-model-stack" data-auth-kind="video">
+                        <div class="auth-model-stack__header">
+                          <span class="auth-model-label">视频</span>
+                          <div class="auth-model-stack__list">
+                            <span class="auth-model-name">Runway Gen-3 Alpha</span>
+                            <span class="auth-model-name">Sora 2</span>
+                          </div>
+                        </div>
                       </div>
                     </td>
                     <td>
@@ -2287,20 +3004,30 @@
                     <td class="col-index">3</td>
                     <td class="col-name"><span class="user-list-name" title="实习生小周">实习生小周</span></td>
                     <td class="auth-models-cell">
-                      <div class="auth-model-row">
-                        <span class="auth-dot auth-dot--fail" aria-hidden="true"></span>
-                        <span class="auth-model-label">文本分析</span>
-                        <span class="auth-model-name">GPT-4.1 Mini</span>
+                      <div class="auth-model-stack" data-auth-kind="text">
+                        <div class="auth-model-stack__header">
+                          <span class="auth-model-label">文本</span>
+                          <div class="auth-model-stack__list">
+                            <span class="auth-model-name">Doubao Seed 2.0 Mini</span>
+                            <span class="auth-model-name">Claude 3.5 Sonnet</span>
+                          </div>
+                        </div>
                       </div>
-                      <div class="auth-model-row">
-                        <span class="auth-dot auth-dot--ok" aria-hidden="true"></span>
-                        <span class="auth-model-label">图像生成</span>
-                        <span class="auth-model-name">DALL·E 3</span>
+                      <div class="auth-model-stack" data-auth-kind="image">
+                        <div class="auth-model-stack__header">
+                          <span class="auth-model-label">图像</span>
+                          <div class="auth-model-stack__list">
+                            <span class="auth-model-name">DALL·E 3</span>
+                          </div>
+                        </div>
                       </div>
-                      <div class="auth-model-row">
-                        <span class="auth-dot auth-dot--fail" aria-hidden="true"></span>
-                        <span class="auth-model-label">视频生成</span>
-                        <span class="auth-model-name">海螺 MiniMax 视频</span>
+                      <div class="auth-model-stack" data-auth-kind="video">
+                        <div class="auth-model-stack__header">
+                          <span class="auth-model-label">视频</span>
+                          <div class="auth-model-stack__list">
+                            <span class="auth-model-name">海螺 MiniMax 视频</span>
+                          </div>
+                        </div>
                       </div>
                     </td>
                     <td>
@@ -2427,106 +3154,202 @@
 
             <div class="user-edit-modal__section-title">已授权模型</div>
 
-            <div class="user-edit-modal__group">
-              <div class="user-edit-modal__field">
-                <label class="user-edit-modal__label" for="user-edit-model-text">文本分析模型<span class="user-edit-modal__req">*</span></label>
-                <select class="user-edit-modal__select" id="user-edit-model-text" name="model_text" required>
-                  <option value="">请选择文本分析模型</option>
-                  <option value="Doubao Seed 2.0 Pro">Doubao Seed 2.0 Pro</option>
-                  <option value="Gemini 3 Flash">Gemini 3 Flash</option>
-                  <option value="GPT-4.1 Mini">GPT-4.1 Mini</option>
-                  <option value="Claude 3.5 Sonnet">Claude 3.5 Sonnet</option>
-                </select>
+            <div class="super-auth-scope">
+            <div class="super-auth-models-region">
+            <div class="super-auth-models" id="user-edit-super-auth-models">
+              <input type="hidden" name="authorized_models_text" id="user-edit-hidden-models-text" value="[]" />
+              <input type="hidden" name="authorized_models_image" id="user-edit-hidden-models-image" value="[]" />
+              <input type="hidden" name="authorized_models_video" id="user-edit-hidden-models-video" value="[]" />
+              <p class="super-auth-form-error" id="user-edit-auth-error" role="alert" hidden></p>
+              <div class="super-auth-tabs" role="tablist" aria-label="已授权模型类型">
+                <button
+                  type="button"
+                  role="tab"
+                  class="super-auth-tab super-auth-tab--active"
+                  data-super-edit-tab="text"
+                  aria-selected="true"
+                  id="super-edit-tab-text"
+                >
+                  <svg class="super-auth-tab__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <line x1="3" y1="6" x2="21" y2="6" />
+                    <line x1="3" y1="12" x2="21" y2="12" />
+                    <line x1="3" y1="18" x2="21" y2="18" />
+                  </svg>
+                  文本
+                </button>
+                <button
+                  type="button"
+                  role="tab"
+                  class="super-auth-tab"
+                  data-super-edit-tab="image"
+                  aria-selected="false"
+                  id="super-edit-tab-image"
+                >
+                  <svg class="super-auth-tab__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <rect x="2" y="2" width="20" height="20" rx="2.18" />
+                    <circle cx="13.5" cy="6.5" r="2.5" />
+                    <path d="M3 20l5.5-7.5L12 17l3.5-4.5L21 20" />
+                  </svg>
+                  图像
+                </button>
+                <button
+                  type="button"
+                  role="tab"
+                  class="super-auth-tab"
+                  data-super-edit-tab="video"
+                  aria-selected="false"
+                  id="super-edit-tab-video"
+                >
+                  <svg class="super-auth-tab__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <polygon points="23 7 16 12 23 17 23 7" />
+                    <rect x="1" y="5" width="15" height="14" rx="2" ry="2" />
+                  </svg>
+                  视频
+                </button>
               </div>
-              <div class="user-edit-modal__field">
-                <label class="user-edit-modal__label" for="user-edit-text-base-url">Base URL</label>
-                <input
-                  type="text"
-                  class="user-edit-modal__input"
-                  id="user-edit-text-base-url"
-                  name="text_base_url"
-                  placeholder="https://api.example.com/v1"
-                />
+
+              <div class="super-auth-panel" data-super-edit-kind="text" id="super-edit-panel-text" role="tabpanel" aria-labelledby="super-edit-tab-text">
+                <div class="super-auth-add-block" id="super-edit-add-block-text" hidden>
+                  <div class="super-auth-add">
+                    <div class="super-auth-model-name-row">
+                      <input
+                        type="text"
+                        class="user-edit-modal__input"
+                        id="super-edit-text-name"
+                        placeholder="请输入模型名称"
+                        autocomplete="off"
+                      />
+                    </div>
+                    <div class="super-auth-add__row2">
+                      <input
+                        type="text"
+                        class="user-edit-modal__input"
+                        id="super-edit-text-key"
+                        placeholder="请输入 API Key"
+                        autocomplete="off"
+                      />
+                      <button type="button" class="super-auth-cancel-add" data-super-edit-cancel="text">取消</button>
+                      <button type="button" class="super-auth-save-btn" data-super-edit-save="text">保存</button>
+                    </div>
+                    <p class="super-auth-add-hint" id="super-edit-hint-text" hidden></p>
+                  </div>
+                </div>
+                <div class="super-auth-table-toolbar">
+                  <button type="button" class="btn-add-model super-edit-focus-add" data-super-edit-focus="text">
+                    <span aria-hidden="true">+</span> 添加
+                  </button>
+                </div>
+                <div class="super-auth-table-wrap">
+                  <p class="super-auth-empty" role="status">暂无任何信息</p>
+                  <table class="super-auth-table">
+                    <thead>
+                      <tr>
+                        <th>ID</th>
+                        <th>模型名称</th>
+                        <th>API Key</th>
+                        <th class="super-auth-col-del" scope="col" aria-label="操作"></th>
+                      </tr>
+                    </thead>
+                    <tbody id="super-edit-tbody-text"></tbody>
+                  </table>
+                </div>
               </div>
-              <div class="user-edit-modal__field">
-                <label class="user-edit-modal__label" for="user-edit-text-api-key">API Key</label>
-                <input
-                  type="text"
-                  class="user-edit-modal__input"
-                  id="user-edit-text-api-key"
-                  name="text_api_key"
-                  placeholder="请输入 API Key"
-                  autocomplete="off"
-                />
+
+              <div class="super-auth-panel" data-super-edit-kind="image" id="super-edit-panel-image" role="tabpanel" aria-labelledby="super-edit-tab-image" hidden>
+                <div class="super-auth-add-block" id="super-edit-add-block-image" hidden>
+                  <div class="super-auth-add">
+                    <div class="super-auth-model-name-row">
+                      <input
+                        type="text"
+                        class="user-edit-modal__input"
+                        id="super-edit-image-name"
+                        placeholder="请输入模型名称"
+                        autocomplete="off"
+                      />
+                    </div>
+                    <div class="super-auth-add__row2">
+                      <input
+                        type="text"
+                        class="user-edit-modal__input"
+                        id="super-edit-image-key"
+                        placeholder="请输入 API Key"
+                        autocomplete="off"
+                      />
+                      <button type="button" class="super-auth-cancel-add" data-super-edit-cancel="image">取消</button>
+                      <button type="button" class="super-auth-save-btn" data-super-edit-save="image">保存</button>
+                    </div>
+                    <p class="super-auth-add-hint" id="super-edit-hint-image" hidden></p>
+                  </div>
+                </div>
+                <div class="super-auth-table-toolbar">
+                  <button type="button" class="btn-add-model super-edit-focus-add" data-super-edit-focus="image">
+                    <span aria-hidden="true">+</span> 添加
+                  </button>
+                </div>
+                <div class="super-auth-table-wrap">
+                  <p class="super-auth-empty" role="status">暂无任何信息</p>
+                  <table class="super-auth-table">
+                    <thead>
+                      <tr>
+                        <th>ID</th>
+                        <th>模型名称</th>
+                        <th>API Key</th>
+                        <th class="super-auth-col-del" scope="col" aria-label="操作"></th>
+                      </tr>
+                    </thead>
+                    <tbody id="super-edit-tbody-image"></tbody>
+                  </table>
+                </div>
+              </div>
+
+              <div class="super-auth-panel" data-super-edit-kind="video" id="super-edit-panel-video" role="tabpanel" aria-labelledby="super-edit-tab-video" hidden>
+                <div class="super-auth-add-block" id="super-edit-add-block-video" hidden>
+                  <div class="super-auth-add">
+                    <div class="super-auth-model-name-row">
+                      <input
+                        type="text"
+                        class="user-edit-modal__input"
+                        id="super-edit-video-name"
+                        placeholder="请输入模型名称"
+                        autocomplete="off"
+                      />
+                    </div>
+                    <div class="super-auth-add__row2">
+                      <input
+                        type="text"
+                        class="user-edit-modal__input"
+                        id="super-edit-video-key"
+                        placeholder="请输入 API Key"
+                        autocomplete="off"
+                      />
+                      <button type="button" class="super-auth-cancel-add" data-super-edit-cancel="video">取消</button>
+                      <button type="button" class="super-auth-save-btn" data-super-edit-save="video">保存</button>
+                    </div>
+                    <p class="super-auth-add-hint" id="super-edit-hint-video" hidden></p>
+                  </div>
+                </div>
+                <div class="super-auth-table-toolbar">
+                  <button type="button" class="btn-add-model super-edit-focus-add" data-super-edit-focus="video">
+                    <span aria-hidden="true">+</span> 添加
+                  </button>
+                </div>
+                <div class="super-auth-table-wrap">
+                  <p class="super-auth-empty" role="status">暂无任何信息</p>
+                  <table class="super-auth-table">
+                    <thead>
+                      <tr>
+                        <th>ID</th>
+                        <th>模型名称</th>
+                        <th>API Key</th>
+                        <th class="super-auth-col-del" scope="col" aria-label="操作"></th>
+                      </tr>
+                    </thead>
+                    <tbody id="super-edit-tbody-video"></tbody>
+                  </table>
+                </div>
               </div>
             </div>
-
-            <div class="user-edit-modal__group">
-              <div class="user-edit-modal__field">
-                <label class="user-edit-modal__label" for="user-edit-model-image">图像生成模型<span class="user-edit-modal__req">*</span></label>
-                <select class="user-edit-modal__select" id="user-edit-model-image" name="model_image" required>
-                  <option value="">请选择图像生成模型</option>
-                  <option value="Gemini 3 Pro Image">Gemini 3 Pro Image</option>
-                  <option value="Imagen 3 Fast">Imagen 3 Fast</option>
-                  <option value="DALL·E 3">DALL·E 3</option>
-                  <option value="Midjourney V6">Midjourney V6</option>
-                </select>
-              </div>
-              <div class="user-edit-modal__field">
-                <label class="user-edit-modal__label" for="user-edit-image-base-url">Base URL</label>
-                <input
-                  type="text"
-                  class="user-edit-modal__input"
-                  id="user-edit-image-base-url"
-                  name="image_base_url"
-                  placeholder="https://api.example.com/v1"
-                />
-              </div>
-              <div class="user-edit-modal__field">
-                <label class="user-edit-modal__label" for="user-edit-image-api-key">API Key</label>
-                <input
-                  type="text"
-                  class="user-edit-modal__input"
-                  id="user-edit-image-api-key"
-                  name="image_api_key"
-                  placeholder="请输入 API Key"
-                  autocomplete="off"
-                />
-              </div>
             </div>
-
-            <div class="user-edit-modal__group">
-              <div class="user-edit-modal__field">
-                <label class="user-edit-modal__label" for="user-edit-model-video">视频生成模型<span class="user-edit-modal__req">*</span></label>
-                <select class="user-edit-modal__select" id="user-edit-model-video" name="model_video" required>
-                  <option value="">请选择视频生成模型</option>
-                  <option value="可灵 Kling 2.1">可灵 Kling 2.1</option>
-                  <option value="Runway Gen-3 Alpha">Runway Gen-3 Alpha</option>
-                  <option value="海螺 MiniMax 视频">海螺 MiniMax 视频</option>
-                  <option value="Sora 2">Sora 2</option>
-                </select>
-              </div>
-              <div class="user-edit-modal__field">
-                <label class="user-edit-modal__label" for="user-edit-video-base-url">Base URL</label>
-                <input
-                  type="text"
-                  class="user-edit-modal__input"
-                  id="user-edit-video-base-url"
-                  name="video_base_url"
-                  placeholder="https://api.example.com/v1"
-                />
-              </div>
-              <div class="user-edit-modal__field">
-                <label class="user-edit-modal__label" for="user-edit-video-api-key">API Key</label>
-                <input
-                  type="text"
-                  class="user-edit-modal__input"
-                  id="user-edit-video-api-key"
-                  name="video_api_key"
-                  placeholder="请输入 API Key"
-                  autocomplete="off"
-                />
-              </div>
             </div>
 
             <div class="user-edit-modal__field user-edit-modal__field--textarea">
@@ -2645,106 +3468,202 @@
 
             <div class="user-edit-modal__section-title">已授权模型</div>
 
-            <div class="user-edit-modal__group">
-              <div class="user-edit-modal__field">
-                <label class="user-edit-modal__label" for="user-create-model-text">文本分析模型<span class="user-edit-modal__req">*</span></label>
-                <select class="user-edit-modal__select" id="user-create-model-text" name="model_text" required>
-                  <option value="">请选择文本分析模型</option>
-                  <option value="Doubao Seed 2.0 Pro">Doubao Seed 2.0 Pro</option>
-                  <option value="Gemini 3 Flash">Gemini 3 Flash</option>
-                  <option value="GPT-4.1 Mini">GPT-4.1 Mini</option>
-                  <option value="Claude 3.5 Sonnet">Claude 3.5 Sonnet</option>
-                </select>
+            <div class="super-auth-scope">
+            <div class="super-auth-models-region">
+            <div class="super-auth-models" id="user-create-super-auth-models">
+              <input type="hidden" name="authorized_models_text" id="user-create-hidden-models-text" value="[]" />
+              <input type="hidden" name="authorized_models_image" id="user-create-hidden-models-image" value="[]" />
+              <input type="hidden" name="authorized_models_video" id="user-create-hidden-models-video" value="[]" />
+              <p class="super-auth-form-error" id="user-create-auth-error" role="alert" hidden></p>
+              <div class="super-auth-tabs" role="tablist" aria-label="已授权模型类型">
+                <button
+                  type="button"
+                  role="tab"
+                  class="super-auth-tab super-auth-tab--active"
+                  data-super-auth-tab="text"
+                  aria-selected="true"
+                  id="super-auth-tab-text"
+                >
+                  <svg class="super-auth-tab__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <line x1="3" y1="6" x2="21" y2="6" />
+                    <line x1="3" y1="12" x2="21" y2="12" />
+                    <line x1="3" y1="18" x2="21" y2="18" />
+                  </svg>
+                  文本
+                </button>
+                <button
+                  type="button"
+                  role="tab"
+                  class="super-auth-tab"
+                  data-super-auth-tab="image"
+                  aria-selected="false"
+                  id="super-auth-tab-image"
+                >
+                  <svg class="super-auth-tab__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <rect x="2" y="2" width="20" height="20" rx="2.18" />
+                    <circle cx="13.5" cy="6.5" r="2.5" />
+                    <path d="M3 20l5.5-7.5L12 17l3.5-4.5L21 20" />
+                  </svg>
+                  图像
+                </button>
+                <button
+                  type="button"
+                  role="tab"
+                  class="super-auth-tab"
+                  data-super-auth-tab="video"
+                  aria-selected="false"
+                  id="super-auth-tab-video"
+                >
+                  <svg class="super-auth-tab__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <polygon points="23 7 16 12 23 17 23 7" />
+                    <rect x="1" y="5" width="15" height="14" rx="2" ry="2" />
+                  </svg>
+                  视频
+                </button>
               </div>
-              <div class="user-edit-modal__field">
-                <label class="user-edit-modal__label" for="user-create-text-base-url">Base URL</label>
-                <input
-                  type="text"
-                  class="user-edit-modal__input"
-                  id="user-create-text-base-url"
-                  name="text_base_url"
-                  placeholder="https://api.example.com/v1"
-                />
+
+              <div class="super-auth-panel" data-super-auth-kind="text" id="super-auth-panel-text" role="tabpanel" aria-labelledby="super-auth-tab-text">
+                <div class="super-auth-add-block" id="super-auth-add-block-text" hidden>
+                  <div class="super-auth-add">
+                    <div class="super-auth-model-name-row">
+                      <input
+                        type="text"
+                        class="user-edit-modal__input"
+                        id="super-auth-text-name"
+                        placeholder="请输入模型名称"
+                        autocomplete="off"
+                      />
+                    </div>
+                    <div class="super-auth-add__row2">
+                      <input
+                        type="text"
+                        class="user-edit-modal__input"
+                        id="super-auth-text-key"
+                        placeholder="请输入 API Key"
+                        autocomplete="off"
+                      />
+                      <button type="button" class="super-auth-cancel-add" data-super-auth-cancel="text">取消</button>
+                      <button type="button" class="super-auth-save-btn" data-super-auth-save="text">保存</button>
+                    </div>
+                    <p class="super-auth-add-hint" id="super-auth-hint-text" hidden></p>
+                  </div>
+                </div>
+                <div class="super-auth-table-toolbar">
+                  <button type="button" class="btn-add-model super-auth-focus-add" data-super-auth-focus="text">
+                    <span aria-hidden="true">+</span> 添加
+                  </button>
+                </div>
+                <div class="super-auth-table-wrap">
+                  <p class="super-auth-empty" role="status">暂无任何信息</p>
+                  <table class="super-auth-table">
+                    <thead>
+                      <tr>
+                        <th>ID</th>
+                        <th>模型名称</th>
+                        <th>API Key</th>
+                        <th class="super-auth-col-del" scope="col" aria-label="操作"></th>
+                      </tr>
+                    </thead>
+                    <tbody id="super-auth-tbody-text"></tbody>
+                  </table>
+                </div>
               </div>
-              <div class="user-edit-modal__field">
-                <label class="user-edit-modal__label" for="user-create-text-api-key">API Key</label>
-                <input
-                  type="text"
-                  class="user-edit-modal__input"
-                  id="user-create-text-api-key"
-                  name="text_api_key"
-                  placeholder="请输入 API Key"
-                  autocomplete="off"
-                />
+
+              <div class="super-auth-panel" data-super-auth-kind="image" id="super-auth-panel-image" role="tabpanel" aria-labelledby="super-auth-tab-image" hidden>
+                <div class="super-auth-add-block" id="super-auth-add-block-image" hidden>
+                  <div class="super-auth-add">
+                    <div class="super-auth-model-name-row">
+                      <input
+                        type="text"
+                        class="user-edit-modal__input"
+                        id="super-auth-image-name"
+                        placeholder="请输入模型名称"
+                        autocomplete="off"
+                      />
+                    </div>
+                    <div class="super-auth-add__row2">
+                      <input
+                        type="text"
+                        class="user-edit-modal__input"
+                        id="super-auth-image-key"
+                        placeholder="请输入 API Key"
+                        autocomplete="off"
+                      />
+                      <button type="button" class="super-auth-cancel-add" data-super-auth-cancel="image">取消</button>
+                      <button type="button" class="super-auth-save-btn" data-super-auth-save="image">保存</button>
+                    </div>
+                    <p class="super-auth-add-hint" id="super-auth-hint-image" hidden></p>
+                  </div>
+                </div>
+                <div class="super-auth-table-toolbar">
+                  <button type="button" class="btn-add-model super-auth-focus-add" data-super-auth-focus="image">
+                    <span aria-hidden="true">+</span> 添加
+                  </button>
+                </div>
+                <div class="super-auth-table-wrap">
+                  <p class="super-auth-empty" role="status">暂无任何信息</p>
+                  <table class="super-auth-table">
+                    <thead>
+                      <tr>
+                        <th>ID</th>
+                        <th>模型名称</th>
+                        <th>API Key</th>
+                        <th class="super-auth-col-del" scope="col" aria-label="操作"></th>
+                      </tr>
+                    </thead>
+                    <tbody id="super-auth-tbody-image"></tbody>
+                  </table>
+                </div>
+              </div>
+
+              <div class="super-auth-panel" data-super-auth-kind="video" id="super-auth-panel-video" role="tabpanel" aria-labelledby="super-auth-tab-video" hidden>
+                <div class="super-auth-add-block" id="super-auth-add-block-video" hidden>
+                  <div class="super-auth-add">
+                    <div class="super-auth-model-name-row">
+                      <input
+                        type="text"
+                        class="user-edit-modal__input"
+                        id="super-auth-video-name"
+                        placeholder="请输入模型名称"
+                        autocomplete="off"
+                      />
+                    </div>
+                    <div class="super-auth-add__row2">
+                      <input
+                        type="text"
+                        class="user-edit-modal__input"
+                        id="super-auth-video-key"
+                        placeholder="请输入 API Key"
+                        autocomplete="off"
+                      />
+                      <button type="button" class="super-auth-cancel-add" data-super-auth-cancel="video">取消</button>
+                      <button type="button" class="super-auth-save-btn" data-super-auth-save="video">保存</button>
+                    </div>
+                    <p class="super-auth-add-hint" id="super-auth-hint-video" hidden></p>
+                  </div>
+                </div>
+                <div class="super-auth-table-toolbar">
+                  <button type="button" class="btn-add-model super-auth-focus-add" data-super-auth-focus="video">
+                    <span aria-hidden="true">+</span> 添加
+                  </button>
+                </div>
+                <div class="super-auth-table-wrap">
+                  <p class="super-auth-empty" role="status">暂无任何信息</p>
+                  <table class="super-auth-table">
+                    <thead>
+                      <tr>
+                        <th>ID</th>
+                        <th>模型名称</th>
+                        <th>API Key</th>
+                        <th class="super-auth-col-del" scope="col" aria-label="操作"></th>
+                      </tr>
+                    </thead>
+                    <tbody id="super-auth-tbody-video"></tbody>
+                  </table>
+                </div>
               </div>
             </div>
-
-            <div class="user-edit-modal__group">
-              <div class="user-edit-modal__field">
-                <label class="user-edit-modal__label" for="user-create-model-image">图像生成模型<span class="user-edit-modal__req">*</span></label>
-                <select class="user-edit-modal__select" id="user-create-model-image" name="model_image" required>
-                  <option value="">请选择图像生成模型</option>
-                  <option value="Gemini 3 Pro Image">Gemini 3 Pro Image</option>
-                  <option value="Imagen 3 Fast">Imagen 3 Fast</option>
-                  <option value="DALL·E 3">DALL·E 3</option>
-                  <option value="Midjourney V6">Midjourney V6</option>
-                </select>
-              </div>
-              <div class="user-edit-modal__field">
-                <label class="user-edit-modal__label" for="user-create-image-base-url">Base URL</label>
-                <input
-                  type="text"
-                  class="user-edit-modal__input"
-                  id="user-create-image-base-url"
-                  name="image_base_url"
-                  placeholder="https://api.example.com/v1"
-                />
-              </div>
-              <div class="user-edit-modal__field">
-                <label class="user-edit-modal__label" for="user-create-image-api-key">API Key</label>
-                <input
-                  type="text"
-                  class="user-edit-modal__input"
-                  id="user-create-image-api-key"
-                  name="image_api_key"
-                  placeholder="请输入 API Key"
-                  autocomplete="off"
-                />
-              </div>
             </div>
-
-            <div class="user-edit-modal__group">
-              <div class="user-edit-modal__field">
-                <label class="user-edit-modal__label" for="user-create-model-video">视频生成模型<span class="user-edit-modal__req">*</span></label>
-                <select class="user-edit-modal__select" id="user-create-model-video" name="model_video" required>
-                  <option value="">请选择视频生成模型</option>
-                  <option value="可灵 Kling 2.1">可灵 Kling 2.1</option>
-                  <option value="Runway Gen-3 Alpha">Runway Gen-3 Alpha</option>
-                  <option value="海螺 MiniMax 视频">海螺 MiniMax 视频</option>
-                  <option value="Sora 2">Sora 2</option>
-                </select>
-              </div>
-              <div class="user-edit-modal__field">
-                <label class="user-edit-modal__label" for="user-create-video-base-url">Base URL</label>
-                <input
-                  type="text"
-                  class="user-edit-modal__input"
-                  id="user-create-video-base-url"
-                  name="video_base_url"
-                  placeholder="https://api.example.com/v1"
-                />
-              </div>
-              <div class="user-edit-modal__field">
-                <label class="user-edit-modal__label" for="user-create-video-api-key">API Key</label>
-                <input
-                  type="text"
-                  class="user-edit-modal__input"
-                  id="user-create-video-api-key"
-                  name="video_api_key"
-                  placeholder="请输入 API Key"
-                  autocomplete="off"
-                />
-              </div>
             </div>
 
             <div class="user-edit-modal__field user-edit-modal__field--textarea">
@@ -2903,81 +3822,405 @@
 
             <div class="user-edit-modal__section-title">已授权模型</div>
 
-            <div class="user-edit-modal__group">
-              <div class="user-edit-modal__field">
-                <label class="user-edit-modal__label" for="admin-user-edit-model-text">文本分析模型<span class="user-edit-modal__req">*</span></label>
-                <select class="user-edit-modal__select" id="admin-user-edit-model-text" name="admin_edit_model_text" required>
-                  <option value="">请选择文本分析模型</option>
-                  <option value="Doubao Seed 2.0 Pro">Doubao Seed 2.0 Pro</option>
-                  <option value="Gemini 3 Flash">Gemini 3 Flash</option>
-                  <option value="GPT-4.1 Mini">GPT-4.1 Mini</option>
-                  <option value="Claude 3.5 Sonnet">Claude 3.5 Sonnet</option>
-                </select>
+            <div class="admin-create-auth-wrap">
+              <input type="hidden" id="admin-edit-models-text-json" name="admin_edit_authorized_models_text" value="[]" />
+              <input type="hidden" id="admin-edit-models-image-json" name="admin_edit_authorized_models_image" value="[]" />
+              <input type="hidden" id="admin-edit-models-video-json" name="admin_edit_authorized_models_video" value="[]" />
+              <p class="admin-create-auth-error" id="admin-edit-auth-error" role="alert" hidden></p>
+              <div class="admin-create-auth-tabs" role="tablist" aria-label="已授权模型类型">
+                <button
+                  type="button"
+                  role="tab"
+                  class="admin-create-auth-tab admin-create-auth-tab--active"
+                  data-admin-edit-tab="text"
+                  aria-selected="true"
+                  id="admin-edit-tab-text"
+                >
+                  <svg class="admin-create-auth-tab__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <line x1="3" y1="6" x2="21" y2="6" />
+                    <line x1="3" y1="12" x2="21" y2="12" />
+                    <line x1="3" y1="18" x2="21" y2="18" />
+                  </svg>
+                  文本
+                </button>
+                <button type="button" role="tab" class="admin-create-auth-tab" data-admin-edit-tab="image" aria-selected="false" id="admin-edit-tab-image">
+                  <svg class="admin-create-auth-tab__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <rect x="2" y="2" width="20" height="20" rx="2.18" />
+                    <circle cx="13.5" cy="6.5" r="2.5" />
+                    <path d="M3 20l5.5-7.5L12 17l3.5-4.5L21 20" />
+                  </svg>
+                  图像
+                </button>
+                <button type="button" role="tab" class="admin-create-auth-tab" data-admin-edit-tab="video" aria-selected="false" id="admin-edit-tab-video">
+                  <svg class="admin-create-auth-tab__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <polygon points="23 7 16 12 23 17 23 7" />
+                    <rect x="1" y="5" width="15" height="14" rx="2" ry="2" />
+                  </svg>
+                  视频
+                </button>
               </div>
-              <div class="user-edit-modal__field">
-                <label class="user-edit-modal__label" for="admin-user-edit-text-concurrency">允许并发数</label>
-                <select class="user-edit-modal__select" id="admin-user-edit-text-concurrency" name="admin_edit_text_concurrency">
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                  <option value="4">4</option>
-                  <option value="5" selected>5</option>
-                  <option value="6">6</option>
-                  <option value="7">7</option>
-                  <option value="8">8</option>
-                </select>
-              </div>
-            </div>
 
-            <div class="user-edit-modal__group">
-              <div class="user-edit-modal__field">
-                <label class="user-edit-modal__label" for="admin-user-edit-model-image">图像生成模型<span class="user-edit-modal__req">*</span></label>
-                <select class="user-edit-modal__select" id="admin-user-edit-model-image" name="admin_edit_model_image" required>
-                  <option value="">请选择图像生成模型</option>
-                  <option value="Gemini 3 Pro Image">Gemini 3 Pro Image</option>
-                  <option value="Imagen 3 Fast">Imagen 3 Fast</option>
-                  <option value="DALL·E 3">DALL·E 3</option>
-                  <option value="Midjourney V6">Midjourney V6</option>
-                </select>
+              <div class="admin-create-auth-panel" data-admin-edit-panel="text" role="tabpanel" aria-labelledby="admin-edit-tab-text">
+                <div class="admin-create-auth-table-wrap">
+                  <table class="admin-create-auth-table">
+                    <thead>
+                      <tr>
+                        <th scope="col">模型名称</th>
+                        <th scope="col" class="admin-create-auth-table__col-auth">是否授权</th>
+                        <th scope="col" class="admin-create-auth-table__col-conc">允许并发数</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>
+                          <div class="model-list__info">
+                            <div class="model-list__name">Doubao Seed 2.0 Pro</div>
+                            <div class="model-list__id">doubao-seed-2-0-pro-260215</div>
+                          </div>
+                        </td>
+                        <td class="admin-create-auth-table__cell-auth">
+                          <div class="admin-create-auth-onoff" title="授权开关">
+                            <label class="toggle admin-create-auth-onoff__toggle">
+                            <input
+                              type="checkbox"
+                              class="admin-create-model-check"
+                              data-admin-model-kind="text"
+                              data-admin-model-title="Doubao Seed 2.0 Pro"
+                              data-admin-model-slug="doubao-seed-2-0-pro-260215"
+                              aria-label="授权 Doubao Seed 2.0 Pro"
+                            />
+                            <span class="toggle__track"></span>
+                            </label>
+                          </div>
+                        </td>
+                        <td>
+                          <select class="user-edit-modal__select admin-create-model-concurrency" aria-label="Doubao Seed 2.0 Pro 允许并发数">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5" selected>5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                          </select>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <div class="model-list__info">
+                            <div class="model-list__name">Doubao Seed 2.0 Lite</div>
+                            <div class="model-list__id">doubao-seed-2-0-lite-260215</div>
+                          </div>
+                        </td>
+                        <td class="admin-create-auth-table__cell-auth">
+                          <div class="admin-create-auth-onoff" title="授权开关">
+                            <label class="toggle admin-create-auth-onoff__toggle">
+                            <input
+                              type="checkbox"
+                              class="admin-create-model-check"
+                              data-admin-model-kind="text"
+                              data-admin-model-title="Doubao Seed 2.0 Lite"
+                              data-admin-model-slug="doubao-seed-2-0-lite-260215"
+                              aria-label="授权 Doubao Seed 2.0 Lite"
+                            />
+                            <span class="toggle__track"></span>
+                            </label>
+                          </div>
+                        </td>
+                        <td>
+                          <select class="user-edit-modal__select admin-create-model-concurrency" aria-label="Doubao Seed 2.0 Lite 允许并发数">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5" selected>5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                          </select>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <div class="model-list__info">
+                            <div class="model-list__name">Doubao Seed 2.0 Mini</div>
+                            <div class="model-list__id">doubao-seed-2-0-mini-260215</div>
+                          </div>
+                        </td>
+                        <td class="admin-create-auth-table__cell-auth">
+                          <div class="admin-create-auth-onoff" title="授权开关">
+                            <label class="toggle admin-create-auth-onoff__toggle">
+                            <input
+                              type="checkbox"
+                              class="admin-create-model-check"
+                              data-admin-model-kind="text"
+                              data-admin-model-title="Doubao Seed 2.0 Mini"
+                              data-admin-model-slug="doubao-seed-2-0-mini-260215"
+                              aria-label="授权 Doubao Seed 2.0 Mini"
+                            />
+                            <span class="toggle__track"></span>
+                            </label>
+                          </div>
+                        </td>
+                        <td>
+                          <select class="user-edit-modal__select admin-create-model-concurrency" aria-label="Doubao Seed 2.0 Mini 允许并发数">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5" selected>5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                          </select>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
               </div>
-              <div class="user-edit-modal__field">
-                <label class="user-edit-modal__label" for="admin-user-edit-image-concurrency">允许并发数</label>
-                <select class="user-edit-modal__select" id="admin-user-edit-image-concurrency" name="admin_edit_image_concurrency">
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                  <option value="4">4</option>
-                  <option value="5" selected>5</option>
-                  <option value="6">6</option>
-                  <option value="7">7</option>
-                  <option value="8">8</option>
-                </select>
-              </div>
-            </div>
 
-            <div class="user-edit-modal__group">
-              <div class="user-edit-modal__field">
-                <label class="user-edit-modal__label" for="admin-user-edit-model-video">视频生成模型<span class="user-edit-modal__req">*</span></label>
-                <select class="user-edit-modal__select" id="admin-user-edit-model-video" name="admin_edit_model_video" required>
-                  <option value="">请选择视频生成模型</option>
-                  <option value="可灵 Kling 2.1">可灵 Kling 2.1</option>
-                  <option value="Runway Gen-3 Alpha">Runway Gen-3 Alpha</option>
-                  <option value="海螺 MiniMax 视频">海螺 MiniMax 视频</option>
-                  <option value="Sora 2">Sora 2</option>
-                </select>
+              <div class="admin-create-auth-panel" data-admin-edit-panel="image" role="tabpanel" aria-labelledby="admin-edit-tab-image" hidden>
+                <div class="admin-create-auth-table-wrap">
+                  <table class="admin-create-auth-table">
+                    <thead>
+                      <tr>
+                        <th scope="col">模型名称</th>
+                        <th scope="col" class="admin-create-auth-table__col-auth">是否授权</th>
+                        <th scope="col" class="admin-create-auth-table__col-conc">允许并发数</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>
+                          <div class="model-list__info">
+                            <div class="model-list__name">Gemini 3 Pro Image</div>
+                            <div class="model-list__id">gemini-3-pro-image-01</div>
+                          </div>
+                        </td>
+                        <td class="admin-create-auth-table__cell-auth">
+                          <div class="admin-create-auth-onoff" title="授权开关">
+                            <label class="toggle admin-create-auth-onoff__toggle">
+                            <input
+                              type="checkbox"
+                              class="admin-create-model-check"
+                              data-admin-model-kind="image"
+                              data-admin-model-title="Gemini 3 Pro Image"
+                              data-admin-model-slug="gemini-3-pro-image-01"
+                              aria-label="授权 Gemini 3 Pro Image"
+                            />
+                            <span class="toggle__track"></span>
+                            </label>
+                          </div>
+                        </td>
+                        <td>
+                          <select class="user-edit-modal__select admin-create-model-concurrency" aria-label="Gemini 3 Pro Image 允许并发数">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5" selected>5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                          </select>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <div class="model-list__info">
+                            <div class="model-list__name">Imagen 3 Fast</div>
+                            <div class="model-list__id">imagen-3-fast-01</div>
+                          </div>
+                        </td>
+                        <td class="admin-create-auth-table__cell-auth">
+                          <div class="admin-create-auth-onoff" title="授权开关">
+                            <label class="toggle admin-create-auth-onoff__toggle">
+                            <input
+                              type="checkbox"
+                              class="admin-create-model-check"
+                              data-admin-model-kind="image"
+                              data-admin-model-title="Imagen 3 Fast"
+                              data-admin-model-slug="imagen-3-fast-01"
+                              aria-label="授权 Imagen 3 Fast"
+                            />
+                            <span class="toggle__track"></span>
+                            </label>
+                          </div>
+                        </td>
+                        <td>
+                          <select class="user-edit-modal__select admin-create-model-concurrency" aria-label="Imagen 3 Fast 允许并发数">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5" selected>5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                          </select>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <div class="model-list__info">
+                            <div class="model-list__name">DALL·E 3</div>
+                            <div class="model-list__id">dall-e-3-01</div>
+                          </div>
+                        </td>
+                        <td class="admin-create-auth-table__cell-auth">
+                          <div class="admin-create-auth-onoff" title="授权开关">
+                            <label class="toggle admin-create-auth-onoff__toggle">
+                            <input
+                              type="checkbox"
+                              class="admin-create-model-check"
+                              data-admin-model-kind="image"
+                              data-admin-model-title="DALL·E 3"
+                              data-admin-model-slug="dall-e-3-01"
+                              aria-label="授权 DALL·E 3"
+                            />
+                            <span class="toggle__track"></span>
+                            </label>
+                          </div>
+                        </td>
+                        <td>
+                          <select class="user-edit-modal__select admin-create-model-concurrency" aria-label="DALL·E 3 允许并发数">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5" selected>5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                          </select>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
               </div>
-              <div class="user-edit-modal__field">
-                <label class="user-edit-modal__label" for="admin-user-edit-video-concurrency">允许并发数</label>
-                <select class="user-edit-modal__select" id="admin-user-edit-video-concurrency" name="admin_edit_video_concurrency">
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                  <option value="4">4</option>
-                  <option value="5" selected>5</option>
-                  <option value="6">6</option>
-                  <option value="7">7</option>
-                  <option value="8">8</option>
-                </select>
+
+              <div class="admin-create-auth-panel" data-admin-edit-panel="video" role="tabpanel" aria-labelledby="admin-edit-tab-video" hidden>
+                <div class="admin-create-auth-table-wrap">
+                  <table class="admin-create-auth-table">
+                    <thead>
+                      <tr>
+                        <th scope="col">模型名称</th>
+                        <th scope="col" class="admin-create-auth-table__col-auth">是否授权</th>
+                        <th scope="col" class="admin-create-auth-table__col-conc">允许并发数</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>
+                          <div class="model-list__info">
+                            <div class="model-list__name">可灵 Kling 2.1</div>
+                            <div class="model-list__id">kling-2-1-01</div>
+                          </div>
+                        </td>
+                        <td class="admin-create-auth-table__cell-auth">
+                          <div class="admin-create-auth-onoff" title="授权开关">
+                            <label class="toggle admin-create-auth-onoff__toggle">
+                            <input
+                              type="checkbox"
+                              class="admin-create-model-check"
+                              data-admin-model-kind="video"
+                              data-admin-model-title="可灵 Kling 2.1"
+                              data-admin-model-slug="kling-2-1-01"
+                              aria-label="授权 可灵 Kling 2.1"
+                            />
+                            <span class="toggle__track"></span>
+                            </label>
+                          </div>
+                        </td>
+                        <td>
+                          <select class="user-edit-modal__select admin-create-model-concurrency" aria-label="可灵 Kling 2.1 允许并发数">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5" selected>5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                          </select>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <div class="model-list__info">
+                            <div class="model-list__name">Runway Gen-3 Alpha</div>
+                            <div class="model-list__id">runway-gen3-alpha-01</div>
+                          </div>
+                        </td>
+                        <td class="admin-create-auth-table__cell-auth">
+                          <div class="admin-create-auth-onoff" title="授权开关">
+                            <label class="toggle admin-create-auth-onoff__toggle">
+                            <input
+                              type="checkbox"
+                              class="admin-create-model-check"
+                              data-admin-model-kind="video"
+                              data-admin-model-title="Runway Gen-3 Alpha"
+                              data-admin-model-slug="runway-gen3-alpha-01"
+                              aria-label="授权 Runway Gen-3 Alpha"
+                            />
+                            <span class="toggle__track"></span>
+                            </label>
+                          </div>
+                        </td>
+                        <td>
+                          <select class="user-edit-modal__select admin-create-model-concurrency" aria-label="Runway Gen-3 Alpha 允许并发数">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5" selected>5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                          </select>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <div class="model-list__info">
+                            <div class="model-list__name">Sora 2</div>
+                            <div class="model-list__id">sora-2-01</div>
+                          </div>
+                        </td>
+                        <td class="admin-create-auth-table__cell-auth">
+                          <div class="admin-create-auth-onoff" title="授权开关">
+                            <label class="toggle admin-create-auth-onoff__toggle">
+                            <input
+                              type="checkbox"
+                              class="admin-create-model-check"
+                              data-admin-model-kind="video"
+                              data-admin-model-title="Sora 2"
+                              data-admin-model-slug="sora-2-01"
+                              aria-label="授权 Sora 2"
+                            />
+                            <span class="toggle__track"></span>
+                            </label>
+                          </div>
+                        </td>
+                        <td>
+                          <select class="user-edit-modal__select admin-create-model-concurrency" aria-label="Sora 2 允许并发数">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5" selected>5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                          </select>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
               </div>
             </div>
 
@@ -3098,81 +4341,405 @@
 
             <div class="user-edit-modal__section-title">已授权模型</div>
 
-            <div class="user-edit-modal__group">
-              <div class="user-edit-modal__field">
-                <label class="user-edit-modal__label" for="admin-user-create-model-text">文本分析模型<span class="user-edit-modal__req">*</span></label>
-                <select class="user-edit-modal__select" id="admin-user-create-model-text" name="admin_model_text" required>
-                  <option value="">请选择文本分析模型</option>
-                  <option value="Doubao Seed 2.0 Pro">Doubao Seed 2.0 Pro</option>
-                  <option value="Gemini 3 Flash">Gemini 3 Flash</option>
-                  <option value="GPT-4.1 Mini">GPT-4.1 Mini</option>
-                  <option value="Claude 3.5 Sonnet">Claude 3.5 Sonnet</option>
-                </select>
+            <div class="admin-create-auth-wrap">
+              <input type="hidden" id="admin-create-models-text-json" name="admin_authorized_models_text" value="[]" />
+              <input type="hidden" id="admin-create-models-image-json" name="admin_authorized_models_image" value="[]" />
+              <input type="hidden" id="admin-create-models-video-json" name="admin_authorized_models_video" value="[]" />
+              <p class="admin-create-auth-error" id="admin-create-auth-error" role="alert" hidden></p>
+              <div class="admin-create-auth-tabs" role="tablist" aria-label="已授权模型类型">
+                <button
+                  type="button"
+                  role="tab"
+                  class="admin-create-auth-tab admin-create-auth-tab--active"
+                  data-admin-create-tab="text"
+                  aria-selected="true"
+                  id="admin-create-tab-text"
+                >
+                  <svg class="admin-create-auth-tab__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <line x1="3" y1="6" x2="21" y2="6" />
+                    <line x1="3" y1="12" x2="21" y2="12" />
+                    <line x1="3" y1="18" x2="21" y2="18" />
+                  </svg>
+                  文本
+                </button>
+                <button type="button" role="tab" class="admin-create-auth-tab" data-admin-create-tab="image" aria-selected="false" id="admin-create-tab-image">
+                  <svg class="admin-create-auth-tab__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <rect x="2" y="2" width="20" height="20" rx="2.18" />
+                    <circle cx="13.5" cy="6.5" r="2.5" />
+                    <path d="M3 20l5.5-7.5L12 17l3.5-4.5L21 20" />
+                  </svg>
+                  图像
+                </button>
+                <button type="button" role="tab" class="admin-create-auth-tab" data-admin-create-tab="video" aria-selected="false" id="admin-create-tab-video">
+                  <svg class="admin-create-auth-tab__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <polygon points="23 7 16 12 23 17 23 7" />
+                    <rect x="1" y="5" width="15" height="14" rx="2" ry="2" />
+                  </svg>
+                  视频
+                </button>
               </div>
-              <div class="user-edit-modal__field">
-                <label class="user-edit-modal__label" for="admin-user-create-text-concurrency">允许并发数</label>
-                <select class="user-edit-modal__select" id="admin-user-create-text-concurrency" name="admin_text_concurrency">
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                  <option value="4">4</option>
-                  <option value="5" selected>5</option>
-                  <option value="6">6</option>
-                  <option value="7">7</option>
-                  <option value="8">8</option>
-                </select>
-              </div>
-            </div>
 
-            <div class="user-edit-modal__group">
-              <div class="user-edit-modal__field">
-                <label class="user-edit-modal__label" for="admin-user-create-model-image">图像生成模型<span class="user-edit-modal__req">*</span></label>
-                <select class="user-edit-modal__select" id="admin-user-create-model-image" name="admin_model_image" required>
-                  <option value="">请选择图像生成模型</option>
-                  <option value="Gemini 3 Pro Image">Gemini 3 Pro Image</option>
-                  <option value="Imagen 3 Fast">Imagen 3 Fast</option>
-                  <option value="DALL·E 3">DALL·E 3</option>
-                  <option value="Midjourney V6">Midjourney V6</option>
-                </select>
+              <div class="admin-create-auth-panel" data-admin-create-panel="text" role="tabpanel" aria-labelledby="admin-create-tab-text">
+                <div class="admin-create-auth-table-wrap">
+                  <table class="admin-create-auth-table">
+                    <thead>
+                      <tr>
+                        <th scope="col">模型名称</th>
+                        <th scope="col" class="admin-create-auth-table__col-auth">是否授权</th>
+                        <th scope="col" class="admin-create-auth-table__col-conc">允许并发数</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>
+                          <div class="model-list__info">
+                            <div class="model-list__name">Doubao Seed 2.0 Pro</div>
+                            <div class="model-list__id">doubao-seed-2-0-pro-260215</div>
+                          </div>
+                        </td>
+                        <td class="admin-create-auth-table__cell-auth">
+                          <div class="admin-create-auth-onoff" title="授权开关">
+                            <label class="toggle admin-create-auth-onoff__toggle">
+                            <input
+                              type="checkbox"
+                              class="admin-create-model-check"
+                              data-admin-model-kind="text"
+                              data-admin-model-title="Doubao Seed 2.0 Pro"
+                              data-admin-model-slug="doubao-seed-2-0-pro-260215"
+                              aria-label="授权 Doubao Seed 2.0 Pro"
+                            />
+                            <span class="toggle__track"></span>
+                            </label>
+                          </div>
+                        </td>
+                        <td>
+                          <select class="user-edit-modal__select admin-create-model-concurrency" aria-label="Doubao Seed 2.0 Pro 允许并发数">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5" selected>5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                          </select>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <div class="model-list__info">
+                            <div class="model-list__name">Doubao Seed 2.0 Lite</div>
+                            <div class="model-list__id">doubao-seed-2-0-lite-260215</div>
+                          </div>
+                        </td>
+                        <td class="admin-create-auth-table__cell-auth">
+                          <div class="admin-create-auth-onoff" title="授权开关">
+                            <label class="toggle admin-create-auth-onoff__toggle">
+                            <input
+                              type="checkbox"
+                              class="admin-create-model-check"
+                              data-admin-model-kind="text"
+                              data-admin-model-title="Doubao Seed 2.0 Lite"
+                              data-admin-model-slug="doubao-seed-2-0-lite-260215"
+                              aria-label="授权 Doubao Seed 2.0 Lite"
+                            />
+                            <span class="toggle__track"></span>
+                            </label>
+                          </div>
+                        </td>
+                        <td>
+                          <select class="user-edit-modal__select admin-create-model-concurrency" aria-label="Doubao Seed 2.0 Lite 允许并发数">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5" selected>5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                          </select>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <div class="model-list__info">
+                            <div class="model-list__name">Doubao Seed 2.0 Mini</div>
+                            <div class="model-list__id">doubao-seed-2-0-mini-260215</div>
+                          </div>
+                        </td>
+                        <td class="admin-create-auth-table__cell-auth">
+                          <div class="admin-create-auth-onoff" title="授权开关">
+                            <label class="toggle admin-create-auth-onoff__toggle">
+                            <input
+                              type="checkbox"
+                              class="admin-create-model-check"
+                              data-admin-model-kind="text"
+                              data-admin-model-title="Doubao Seed 2.0 Mini"
+                              data-admin-model-slug="doubao-seed-2-0-mini-260215"
+                              aria-label="授权 Doubao Seed 2.0 Mini"
+                            />
+                            <span class="toggle__track"></span>
+                            </label>
+                          </div>
+                        </td>
+                        <td>
+                          <select class="user-edit-modal__select admin-create-model-concurrency" aria-label="Doubao Seed 2.0 Mini 允许并发数">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5" selected>5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                          </select>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
               </div>
-              <div class="user-edit-modal__field">
-                <label class="user-edit-modal__label" for="admin-user-create-image-concurrency">允许并发数</label>
-                <select class="user-edit-modal__select" id="admin-user-create-image-concurrency" name="admin_image_concurrency">
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                  <option value="4">4</option>
-                  <option value="5" selected>5</option>
-                  <option value="6">6</option>
-                  <option value="7">7</option>
-                  <option value="8">8</option>
-                </select>
-              </div>
-            </div>
 
-            <div class="user-edit-modal__group">
-              <div class="user-edit-modal__field">
-                <label class="user-edit-modal__label" for="admin-user-create-model-video">视频生成模型<span class="user-edit-modal__req">*</span></label>
-                <select class="user-edit-modal__select" id="admin-user-create-model-video" name="admin_model_video" required>
-                  <option value="">请选择视频生成模型</option>
-                  <option value="可灵 Kling 2.1">可灵 Kling 2.1</option>
-                  <option value="Runway Gen-3 Alpha">Runway Gen-3 Alpha</option>
-                  <option value="海螺 MiniMax 视频">海螺 MiniMax 视频</option>
-                  <option value="Sora 2">Sora 2</option>
-                </select>
+              <div class="admin-create-auth-panel" data-admin-create-panel="image" role="tabpanel" aria-labelledby="admin-create-tab-image" hidden>
+                <div class="admin-create-auth-table-wrap">
+                  <table class="admin-create-auth-table">
+                    <thead>
+                      <tr>
+                        <th scope="col">模型名称</th>
+                        <th scope="col" class="admin-create-auth-table__col-auth">是否授权</th>
+                        <th scope="col" class="admin-create-auth-table__col-conc">允许并发数</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>
+                          <div class="model-list__info">
+                            <div class="model-list__name">Gemini 3 Pro Image</div>
+                            <div class="model-list__id">gemini-3-pro-image-01</div>
+                          </div>
+                        </td>
+                        <td class="admin-create-auth-table__cell-auth">
+                          <div class="admin-create-auth-onoff" title="授权开关">
+                            <label class="toggle admin-create-auth-onoff__toggle">
+                            <input
+                              type="checkbox"
+                              class="admin-create-model-check"
+                              data-admin-model-kind="image"
+                              data-admin-model-title="Gemini 3 Pro Image"
+                              data-admin-model-slug="gemini-3-pro-image-01"
+                              aria-label="授权 Gemini 3 Pro Image"
+                            />
+                            <span class="toggle__track"></span>
+                            </label>
+                          </div>
+                        </td>
+                        <td>
+                          <select class="user-edit-modal__select admin-create-model-concurrency" aria-label="Gemini 3 Pro Image 允许并发数">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5" selected>5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                          </select>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <div class="model-list__info">
+                            <div class="model-list__name">Imagen 3 Fast</div>
+                            <div class="model-list__id">imagen-3-fast-01</div>
+                          </div>
+                        </td>
+                        <td class="admin-create-auth-table__cell-auth">
+                          <div class="admin-create-auth-onoff" title="授权开关">
+                            <label class="toggle admin-create-auth-onoff__toggle">
+                            <input
+                              type="checkbox"
+                              class="admin-create-model-check"
+                              data-admin-model-kind="image"
+                              data-admin-model-title="Imagen 3 Fast"
+                              data-admin-model-slug="imagen-3-fast-01"
+                              aria-label="授权 Imagen 3 Fast"
+                            />
+                            <span class="toggle__track"></span>
+                            </label>
+                          </div>
+                        </td>
+                        <td>
+                          <select class="user-edit-modal__select admin-create-model-concurrency" aria-label="Imagen 3 Fast 允许并发数">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5" selected>5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                          </select>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <div class="model-list__info">
+                            <div class="model-list__name">DALL·E 3</div>
+                            <div class="model-list__id">dall-e-3-01</div>
+                          </div>
+                        </td>
+                        <td class="admin-create-auth-table__cell-auth">
+                          <div class="admin-create-auth-onoff" title="授权开关">
+                            <label class="toggle admin-create-auth-onoff__toggle">
+                            <input
+                              type="checkbox"
+                              class="admin-create-model-check"
+                              data-admin-model-kind="image"
+                              data-admin-model-title="DALL·E 3"
+                              data-admin-model-slug="dall-e-3-01"
+                              aria-label="授权 DALL·E 3"
+                            />
+                            <span class="toggle__track"></span>
+                            </label>
+                          </div>
+                        </td>
+                        <td>
+                          <select class="user-edit-modal__select admin-create-model-concurrency" aria-label="DALL·E 3 允许并发数">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5" selected>5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                          </select>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
               </div>
-              <div class="user-edit-modal__field">
-                <label class="user-edit-modal__label" for="admin-user-create-video-concurrency">允许并发数</label>
-                <select class="user-edit-modal__select" id="admin-user-create-video-concurrency" name="admin_video_concurrency">
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                  <option value="4">4</option>
-                  <option value="5" selected>5</option>
-                  <option value="6">6</option>
-                  <option value="7">7</option>
-                  <option value="8">8</option>
-                </select>
+
+              <div class="admin-create-auth-panel" data-admin-create-panel="video" role="tabpanel" aria-labelledby="admin-create-tab-video" hidden>
+                <div class="admin-create-auth-table-wrap">
+                  <table class="admin-create-auth-table">
+                    <thead>
+                      <tr>
+                        <th scope="col">模型名称</th>
+                        <th scope="col" class="admin-create-auth-table__col-auth">是否授权</th>
+                        <th scope="col" class="admin-create-auth-table__col-conc">允许并发数</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>
+                          <div class="model-list__info">
+                            <div class="model-list__name">可灵 Kling 2.1</div>
+                            <div class="model-list__id">kling-2-1-01</div>
+                          </div>
+                        </td>
+                        <td class="admin-create-auth-table__cell-auth">
+                          <div class="admin-create-auth-onoff" title="授权开关">
+                            <label class="toggle admin-create-auth-onoff__toggle">
+                            <input
+                              type="checkbox"
+                              class="admin-create-model-check"
+                              data-admin-model-kind="video"
+                              data-admin-model-title="可灵 Kling 2.1"
+                              data-admin-model-slug="kling-2-1-01"
+                              aria-label="授权 可灵 Kling 2.1"
+                            />
+                            <span class="toggle__track"></span>
+                            </label>
+                          </div>
+                        </td>
+                        <td>
+                          <select class="user-edit-modal__select admin-create-model-concurrency" aria-label="可灵 Kling 2.1 允许并发数">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5" selected>5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                          </select>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <div class="model-list__info">
+                            <div class="model-list__name">Runway Gen-3 Alpha</div>
+                            <div class="model-list__id">runway-gen3-alpha-01</div>
+                          </div>
+                        </td>
+                        <td class="admin-create-auth-table__cell-auth">
+                          <div class="admin-create-auth-onoff" title="授权开关">
+                            <label class="toggle admin-create-auth-onoff__toggle">
+                            <input
+                              type="checkbox"
+                              class="admin-create-model-check"
+                              data-admin-model-kind="video"
+                              data-admin-model-title="Runway Gen-3 Alpha"
+                              data-admin-model-slug="runway-gen3-alpha-01"
+                              aria-label="授权 Runway Gen-3 Alpha"
+                            />
+                            <span class="toggle__track"></span>
+                            </label>
+                          </div>
+                        </td>
+                        <td>
+                          <select class="user-edit-modal__select admin-create-model-concurrency" aria-label="Runway Gen-3 Alpha 允许并发数">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5" selected>5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                          </select>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <div class="model-list__info">
+                            <div class="model-list__name">Sora 2</div>
+                            <div class="model-list__id">sora-2-01</div>
+                          </div>
+                        </td>
+                        <td class="admin-create-auth-table__cell-auth">
+                          <div class="admin-create-auth-onoff" title="授权开关">
+                            <label class="toggle admin-create-auth-onoff__toggle">
+                            <input
+                              type="checkbox"
+                              class="admin-create-model-check"
+                              data-admin-model-kind="video"
+                              data-admin-model-title="Sora 2"
+                              data-admin-model-slug="sora-2-01"
+                              aria-label="授权 Sora 2"
+                            />
+                            <span class="toggle__track"></span>
+                            </label>
+                          </div>
+                        </td>
+                        <td>
+                          <select class="user-edit-modal__select admin-create-model-concurrency" aria-label="Sora 2 允许并发数">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5" selected>5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                          </select>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
               </div>
             </div>
 
@@ -3485,7 +5052,7 @@
           btnConfirm.addEventListener("click", confirmPending);
         })();
 
-        // 账户分配-Super：编辑用户弹框
+        // 账户分配-Super：编辑用户弹框（已授权模型交互与新建用户一致）
         (function () {
           var modal = document.getElementById("user-edit-modal");
           var form = document.getElementById("user-edit-form");
@@ -3494,6 +5061,8 @@
           var backdrop = modal.querySelector(".user-edit-modal__backdrop");
           var btnClose = modal.querySelector(".user-edit-modal__close");
           var btnCancel = modal.querySelector(".user-edit-modal__cancel-edit");
+
+          var SUPER_EDIT_KINDS = ["text", "image", "video"];
 
           function closeUserEditModal() {
             modal.classList.remove("user-edit-modal--open");
@@ -3505,19 +5074,149 @@
             modal.setAttribute("aria-hidden", "false");
           }
 
-          function setSelectByModelName(select, name) {
-            if (!select || !name) {
-              if (select) select.value = "";
-              return;
+          function setUserEditAuthError(msg) {
+            var el = document.getElementById("user-edit-auth-error");
+            if (!el) return;
+            if (msg) {
+              el.textContent = msg;
+              el.hidden = false;
+            } else {
+              el.textContent = "";
+              el.hidden = true;
             }
-            var opts = select.options;
-            for (var i = 0; i < opts.length; i++) {
-              if (opts[i].value === name) {
-                select.selectedIndex = i;
-                return;
-              }
+          }
+
+          function setSuperEditPanelHint(kind, msg) {
+            var el = document.getElementById("super-edit-hint-" + kind);
+            if (!el) return;
+            if (msg) {
+              el.textContent = msg;
+              el.hidden = false;
+            } else {
+              el.textContent = "";
+              el.hidden = true;
             }
-            select.value = "";
+          }
+
+          function hideSuperEditAddBlock(kind) {
+            var block = document.getElementById("super-edit-add-block-" + kind);
+            if (block) block.setAttribute("hidden", "");
+            var panel = document.getElementById("super-edit-panel-" + kind);
+            if (panel) panel.classList.remove("super-auth-panel--adding");
+          }
+
+          function showSuperEditAddBlock(kind) {
+            var block = document.getElementById("super-edit-add-block-" + kind);
+            if (block) block.removeAttribute("hidden");
+            var panel = document.getElementById("super-edit-panel-" + kind);
+            if (panel) panel.classList.add("super-auth-panel--adding");
+          }
+
+          function hideAllSuperEditAddBlocks() {
+            SUPER_EDIT_KINDS.forEach(function (k) {
+              hideSuperEditAddBlock(k);
+            });
+          }
+
+          function refreshSuperEditEmptyForKind(kind) {
+            var tb = document.getElementById("super-edit-tbody-" + kind);
+            if (!tb) return;
+            var wrap = tb.closest(".super-auth-table-wrap");
+            if (!wrap) return;
+            wrap.classList.toggle("has-rows", tb.rows.length > 0);
+          }
+
+          function refreshAllSuperEditEmpty() {
+            SUPER_EDIT_KINDS.forEach(refreshSuperEditEmptyForKind);
+          }
+
+          function switchSuperEditTab(kind) {
+            modal.querySelectorAll("[data-super-edit-tab]").forEach(function (b) {
+              var k = b.getAttribute("data-super-edit-tab");
+              var on = k === kind;
+              b.classList.toggle("super-auth-tab--active", on);
+              b.setAttribute("aria-selected", on ? "true" : "false");
+            });
+            modal.querySelectorAll("[data-super-edit-kind]").forEach(function (p) {
+              var k = p.getAttribute("data-super-edit-kind");
+              var show = k === kind;
+              if (show) p.removeAttribute("hidden");
+              else p.setAttribute("hidden", "");
+            });
+            hideAllSuperEditAddBlocks();
+          }
+
+          function syncAuthorizedModelsEditHidden() {
+            SUPER_EDIT_KINDS.forEach(function (kind) {
+              var tb = document.getElementById("super-edit-tbody-" + kind);
+              var hid = document.getElementById("user-edit-hidden-models-" + kind);
+              if (!tb || !hid) return;
+              var arr = [];
+              Array.prototype.forEach.call(tb.rows, function (tr) {
+                arr.push({
+                  id: tr.cells[0] ? tr.cells[0].textContent.trim() : "",
+                  modelName: tr.cells[1] ? tr.cells[1].textContent.trim() : "",
+                  apiKey: tr.cells[2] ? tr.cells[2].textContent.trim() : "",
+                });
+              });
+              hid.value = JSON.stringify(arr);
+            });
+          }
+
+          function renumberSuperEditRows(kind) {
+            var tb = document.getElementById("super-edit-tbody-" + kind);
+            if (!tb) return;
+            Array.prototype.forEach.call(tb.rows, function (tr, i) {
+              if (tr.cells[0]) tr.cells[0].textContent = String(i + 1);
+            });
+            syncAuthorizedModelsEditHidden();
+            refreshSuperEditEmptyForKind(kind);
+          }
+
+          function addSuperEditRow(kind, modelName, apiKey) {
+            var tb = document.getElementById("super-edit-tbody-" + kind);
+            if (!tb) return;
+            var tr = document.createElement("tr");
+            var n = tb.rows.length + 1;
+            var td0 = document.createElement("td");
+            td0.textContent = String(n);
+            var td1 = document.createElement("td");
+            td1.textContent = modelName;
+            var td2 = document.createElement("td");
+            td2.textContent = apiKey;
+            var td3 = document.createElement("td");
+            td3.className = "super-auth-col-del";
+            var delBtn = document.createElement("button");
+            delBtn.type = "button";
+            delBtn.className = "super-auth-row-delete";
+            delBtn.setAttribute("aria-label", "删除该模型");
+            delBtn.setAttribute("data-super-edit-delete", kind);
+            delBtn.innerHTML =
+              '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>';
+            td3.appendChild(delBtn);
+            tr.appendChild(td0);
+            tr.appendChild(td1);
+            tr.appendChild(td2);
+            tr.appendChild(td3);
+            tb.appendChild(tr);
+            syncAuthorizedModelsEditHidden();
+            refreshSuperEditEmptyForKind(kind);
+          }
+
+          function clearSuperEditModelsUi() {
+            SUPER_EDIT_KINDS.forEach(function (kind) {
+              var tb = document.getElementById("super-edit-tbody-" + kind);
+              if (tb) tb.innerHTML = "";
+              setSuperEditPanelHint(kind, "");
+              var nameI = document.getElementById("super-edit-" + kind + "-name");
+              var keyI = document.getElementById("super-edit-" + kind + "-key");
+              if (nameI) nameI.value = "";
+              if (keyI) keyI.value = "";
+            });
+            setUserEditAuthError("");
+            hideAllSuperEditAddBlocks();
+            syncAuthorizedModelsEditHidden();
+            refreshAllSuperEditEmpty();
           }
 
           var panel = document.getElementById("panel-account-super");
@@ -3533,22 +5232,97 @@
               var usernameInput = document.getElementById("user-edit-username");
               if (usernameInput) usernameInput.value = nameEl ? nameEl.textContent.trim() : "";
 
-              var modelNames = row.querySelectorAll(".auth-models-cell .auth-model-name");
-              setSelectByModelName(document.getElementById("user-edit-model-text"), modelNames[0] ? modelNames[0].textContent.trim() : "");
-              setSelectByModelName(document.getElementById("user-edit-model-image"), modelNames[1] ? modelNames[1].textContent.trim() : "");
-              setSelectByModelName(document.getElementById("user-edit-model-video"), modelNames[2] ? modelNames[2].textContent.trim() : "");
+              clearSuperEditModelsUi();
+              switchSuperEditTab("text");
 
-              document.getElementById("user-edit-text-base-url").value = "";
-              document.getElementById("user-edit-text-api-key").value = "";
-              document.getElementById("user-edit-image-base-url").value = "";
-              document.getElementById("user-edit-image-api-key").value = "";
-              document.getElementById("user-edit-video-base-url").value = "";
-              document.getElementById("user-edit-video-api-key").value = "";
+              var cell = row.querySelector(".auth-models-cell");
+              var VKEY = {
+                text: "sk-virtual-text-placeholder-demo",
+                image: "sk-virtual-image-placeholder-demo",
+                video: "sk-virtual-video-placeholder-demo",
+              };
+              ["text", "image", "video"].forEach(function (kind) {
+                var stack = cell && cell.querySelector('.auth-model-stack[data-auth-kind="' + kind + '"]');
+                if (!stack) return;
+                var list = stack.querySelectorAll(".auth-model-stack__list .auth-model-name");
+                var j;
+                for (j = 0; j < list.length; j++) {
+                  var nm = list[j].textContent.trim();
+                  if (nm) addSuperEditRow(kind, nm, VKEY[kind]);
+                }
+              });
+
               document.getElementById("user-edit-remark").value = "";
 
               openUserEditModal();
             });
           }
+
+          modal.addEventListener("click", function (e) {
+            var tabBtn = e.target.closest("[data-super-edit-tab]");
+            if (tabBtn && modal.contains(tabBtn)) {
+              var kind = tabBtn.getAttribute("data-super-edit-tab");
+              if (kind) switchSuperEditTab(kind);
+              return;
+            }
+
+            var saveBtn = e.target.closest("[data-super-edit-save]");
+            if (saveBtn && modal.contains(saveBtn)) {
+              var k = saveBtn.getAttribute("data-super-edit-save");
+              if (!k) return;
+              var nameI = document.getElementById("super-edit-" + k + "-name");
+              var keyI = document.getElementById("super-edit-" + k + "-key");
+              var nameVal = nameI && nameI.value.trim();
+              var keyVal = keyI && keyI.value.trim();
+              setSuperEditPanelHint(k, "");
+              if (!nameVal || !keyVal) {
+                setSuperEditPanelHint(k, "请填写模型名称和 API Key");
+                return;
+              }
+              addSuperEditRow(k, nameVal, keyVal);
+              if (nameI) nameI.value = "";
+              if (keyI) keyI.value = "";
+              setSuperEditPanelHint(k, "");
+              hideSuperEditAddBlock(k);
+              return;
+            }
+
+            var cancelAdd = e.target.closest("[data-super-edit-cancel]");
+            if (cancelAdd && modal.contains(cancelAdd)) {
+              var ck = cancelAdd.getAttribute("data-super-edit-cancel");
+              if (ck) {
+                var ni = document.getElementById("super-edit-" + ck + "-name");
+                var ki = document.getElementById("super-edit-" + ck + "-key");
+                if (ni) ni.value = "";
+                if (ki) ki.value = "";
+                setSuperEditPanelHint(ck, "");
+                hideSuperEditAddBlock(ck);
+              }
+              return;
+            }
+
+            var focusAdd = e.target.closest("[data-super-edit-focus]");
+            if (focusAdd && modal.contains(focusAdd)) {
+              var fk = focusAdd.getAttribute("data-super-edit-focus");
+              if (fk) showSuperEditAddBlock(fk);
+              var inp = fk && document.getElementById("super-edit-" + fk + "-name");
+              if (inp) {
+                inp.focus();
+                inp.scrollIntoView({ block: "nearest", behavior: "smooth" });
+              }
+              return;
+            }
+
+            var delBtn = e.target.closest("[data-super-edit-delete]");
+            if (delBtn && modal.contains(delBtn)) {
+              var dk = delBtn.getAttribute("data-super-edit-delete");
+              var delRow = delBtn.closest("tr");
+              if (dk && delRow && delRow.parentNode) {
+                delRow.parentNode.removeChild(delRow);
+                renumberSuperEditRows(dk);
+              }
+            }
+          });
 
           function onClose() {
             closeUserEditModal();
@@ -3560,6 +5334,14 @@
 
           form.addEventListener("submit", function (e) {
             e.preventDefault();
+            setUserEditAuthError("");
+            var tbTextEdit = document.getElementById("super-edit-tbody-text");
+            if (!tbTextEdit || !tbTextEdit.rows.length) {
+              setUserEditAuthError("请在「文本」页签下至少添加一个已授权模型。");
+              switchSuperEditTab("text");
+              return;
+            }
+            syncAuthorizedModelsEditHidden();
             if (!form.checkValidity()) {
               form.reportValidity();
               return;
@@ -3581,9 +5363,225 @@
           var pwd = document.getElementById("user-create-password");
           var pwd2 = document.getElementById("user-create-password2");
 
+          var SUPER_AUTH_KINDS = ["text", "image", "video"];
+          var SUPER_AUTH_LABELS = { text: "文本", image: "图像", video: "视频" };
+
+          function setUserCreateAuthError(msg) {
+            var el = document.getElementById("user-create-auth-error");
+            if (!el) return;
+            if (msg) {
+              el.textContent = msg;
+              el.hidden = false;
+            } else {
+              el.textContent = "";
+              el.hidden = true;
+            }
+          }
+
+          function setSuperAuthPanelHint(kind, msg) {
+            var el = document.getElementById("super-auth-hint-" + kind);
+            if (!el) return;
+            if (msg) {
+              el.textContent = msg;
+              el.hidden = false;
+            } else {
+              el.textContent = "";
+              el.hidden = true;
+            }
+          }
+
+          function hideSuperAuthAddBlock(kind) {
+            var block = document.getElementById("super-auth-add-block-" + kind);
+            if (block) block.setAttribute("hidden", "");
+            var panel = document.getElementById("super-auth-panel-" + kind);
+            if (panel) panel.classList.remove("super-auth-panel--adding");
+          }
+
+          function showSuperAuthAddBlock(kind) {
+            var block = document.getElementById("super-auth-add-block-" + kind);
+            if (block) block.removeAttribute("hidden");
+            var panel = document.getElementById("super-auth-panel-" + kind);
+            if (panel) panel.classList.add("super-auth-panel--adding");
+          }
+
+          function hideAllSuperAuthAddBlocks() {
+            SUPER_AUTH_KINDS.forEach(function (k) {
+              hideSuperAuthAddBlock(k);
+            });
+          }
+
+          function refreshSuperAuthEmptyForKind(kind) {
+            var tb = document.getElementById("super-auth-tbody-" + kind);
+            if (!tb) return;
+            var wrap = tb.closest(".super-auth-table-wrap");
+            if (!wrap) return;
+            wrap.classList.toggle("has-rows", tb.rows.length > 0);
+          }
+
+          function refreshAllSuperAuthEmpty() {
+            SUPER_AUTH_KINDS.forEach(refreshSuperAuthEmptyForKind);
+          }
+
+          function switchSuperAuthTab(kind) {
+            modal.querySelectorAll(".super-auth-tab").forEach(function (b) {
+              var k = b.getAttribute("data-super-auth-tab");
+              var on = k === kind;
+              b.classList.toggle("super-auth-tab--active", on);
+              b.setAttribute("aria-selected", on ? "true" : "false");
+            });
+            modal.querySelectorAll(".super-auth-panel").forEach(function (p) {
+              var k = p.getAttribute("data-super-auth-kind");
+              var show = k === kind;
+              if (show) p.removeAttribute("hidden");
+              else p.setAttribute("hidden", "");
+            });
+            hideAllSuperAuthAddBlocks();
+          }
+
+          function syncAuthorizedModelsHidden() {
+            SUPER_AUTH_KINDS.forEach(function (kind) {
+              var tb = document.getElementById("super-auth-tbody-" + kind);
+              var hid = document.getElementById("user-create-hidden-models-" + kind);
+              if (!tb || !hid) return;
+              var arr = [];
+              Array.prototype.forEach.call(tb.rows, function (tr) {
+                arr.push({
+                  id: tr.cells[0] ? tr.cells[0].textContent.trim() : "",
+                  modelName: tr.cells[1] ? tr.cells[1].textContent.trim() : "",
+                  apiKey: tr.cells[2] ? tr.cells[2].textContent.trim() : "",
+                });
+              });
+              hid.value = JSON.stringify(arr);
+            });
+          }
+
+          function renumberSuperAuthRows(kind) {
+            var tb = document.getElementById("super-auth-tbody-" + kind);
+            if (!tb) return;
+            Array.prototype.forEach.call(tb.rows, function (tr, i) {
+              if (tr.cells[0]) tr.cells[0].textContent = String(i + 1);
+            });
+            syncAuthorizedModelsHidden();
+            refreshSuperAuthEmptyForKind(kind);
+          }
+
+          function addSuperAuthRow(kind, modelName, apiKey) {
+            var tb = document.getElementById("super-auth-tbody-" + kind);
+            if (!tb) return;
+            var tr = document.createElement("tr");
+            var n = tb.rows.length + 1;
+            var td0 = document.createElement("td");
+            td0.textContent = String(n);
+            var td1 = document.createElement("td");
+            td1.textContent = modelName;
+            var td2 = document.createElement("td");
+            td2.textContent = apiKey;
+            var td3 = document.createElement("td");
+            td3.className = "super-auth-col-del";
+            var delBtn = document.createElement("button");
+            delBtn.type = "button";
+            delBtn.className = "super-auth-row-delete";
+            delBtn.setAttribute("aria-label", "删除该模型");
+            delBtn.setAttribute("data-super-auth-delete", kind);
+            delBtn.innerHTML =
+              '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>';
+            td3.appendChild(delBtn);
+            tr.appendChild(td0);
+            tr.appendChild(td1);
+            tr.appendChild(td2);
+            tr.appendChild(td3);
+            tb.appendChild(tr);
+            syncAuthorizedModelsHidden();
+            refreshSuperAuthEmptyForKind(kind);
+          }
+
+          function clearSuperAuthModelsUi() {
+            SUPER_AUTH_KINDS.forEach(function (kind) {
+              var tb = document.getElementById("super-auth-tbody-" + kind);
+              if (tb) tb.innerHTML = "";
+              setSuperAuthPanelHint(kind, "");
+              var nameI = document.getElementById("super-auth-" + kind + "-name");
+              var keyI = document.getElementById("super-auth-" + kind + "-key");
+              if (nameI) nameI.value = "";
+              if (keyI) keyI.value = "";
+            });
+            setUserCreateAuthError("");
+            hideAllSuperAuthAddBlocks();
+            syncAuthorizedModelsHidden();
+            refreshAllSuperAuthEmpty();
+          }
+
           function resetCreateForm() {
             form.reset();
+            clearSuperAuthModelsUi();
+            switchSuperAuthTab("text");
           }
+
+          modal.addEventListener("click", function (e) {
+            var tabBtn = e.target.closest("[data-super-auth-tab]");
+            if (tabBtn && modal.contains(tabBtn)) {
+              var kind = tabBtn.getAttribute("data-super-auth-tab");
+              if (kind) switchSuperAuthTab(kind);
+              return;
+            }
+
+            var saveBtn = e.target.closest("[data-super-auth-save]");
+            if (saveBtn && modal.contains(saveBtn)) {
+              var k = saveBtn.getAttribute("data-super-auth-save");
+              if (!k) return;
+              var nameI = document.getElementById("super-auth-" + k + "-name");
+              var keyI = document.getElementById("super-auth-" + k + "-key");
+              var nameVal = nameI && nameI.value.trim();
+              var keyVal = keyI && keyI.value.trim();
+              setSuperAuthPanelHint(k, "");
+              if (!nameVal || !keyVal) {
+                setSuperAuthPanelHint(k, "请填写模型名称和 API Key");
+                return;
+              }
+              addSuperAuthRow(k, nameVal, keyVal);
+              if (nameI) nameI.value = "";
+              if (keyI) keyI.value = "";
+              setSuperAuthPanelHint(k, "");
+              hideSuperAuthAddBlock(k);
+              return;
+            }
+
+            var cancelAdd = e.target.closest("[data-super-auth-cancel]");
+            if (cancelAdd && modal.contains(cancelAdd)) {
+              var ck = cancelAdd.getAttribute("data-super-auth-cancel");
+              if (ck) {
+                var ni = document.getElementById("super-auth-" + ck + "-name");
+                var ki = document.getElementById("super-auth-" + ck + "-key");
+                if (ni) ni.value = "";
+                if (ki) ki.value = "";
+                setSuperAuthPanelHint(ck, "");
+                hideSuperAuthAddBlock(ck);
+              }
+              return;
+            }
+
+            var focusAdd = e.target.closest("[data-super-auth-focus]");
+            if (focusAdd && modal.contains(focusAdd)) {
+              var fk = focusAdd.getAttribute("data-super-auth-focus");
+              if (fk) showSuperAuthAddBlock(fk);
+              var inp = fk && document.getElementById("super-auth-" + fk + "-name");
+              if (inp) {
+                inp.focus();
+                inp.scrollIntoView({ block: "nearest", behavior: "smooth" });
+              }
+              return;
+            }
+
+            var delBtn = e.target.closest("[data-super-auth-delete]");
+            if (delBtn && modal.contains(delBtn)) {
+              var dk = delBtn.getAttribute("data-super-auth-delete");
+              var row = delBtn.closest("tr");
+              if (dk && row && row.parentNode) {
+                row.parentNode.removeChild(row);
+                renumberSuperAuthRows(dk);
+              }
+            }
+          });
 
           function resetPwdVisibility() {
             modal.querySelectorAll(".admin-pwd-toggle").forEach(function (btn) {
@@ -3644,12 +5642,20 @@
 
           form.addEventListener("submit", function (e) {
             e.preventDefault();
+            setUserCreateAuthError("");
             if (pwd2) pwd2.setCustomValidity("");
             if (pwd && pwd2 && pwd.value !== pwd2.value) {
               pwd2.setCustomValidity("两次输入的密码不一致");
               pwd2.reportValidity();
               return;
             }
+            var tbTextCreate = document.getElementById("super-auth-tbody-text");
+            if (!tbTextCreate || !tbTextCreate.rows.length) {
+              setUserCreateAuthError("请在「文本」页签下至少添加一个已授权模型。");
+              switchSuperAuthTab("text");
+              return;
+            }
+            syncAuthorizedModelsHidden();
             if (!form.checkValidity()) {
               form.reportValidity();
               return;
@@ -3772,6 +5778,10 @@
           var backdrop = modal.querySelector(".user-edit-modal__backdrop");
           var btnClose = modal.querySelector(".admin-user-edit-modal__close");
           var btnCancel = modal.querySelector(".admin-user-edit-modal__cancel");
+          var errEl = document.getElementById("admin-edit-auth-error");
+          var hidText = document.getElementById("admin-edit-models-text-json");
+          var hidImage = document.getElementById("admin-edit-models-image-json");
+          var hidVideo = document.getElementById("admin-edit-models-video-json");
 
           function closeAdminEditModal() {
             modal.classList.remove("user-edit-modal--open");
@@ -3783,23 +5793,65 @@
             modal.setAttribute("aria-hidden", "false");
           }
 
-          function setSelectOptionByValue(select, value) {
-            if (!select) return;
-            select.value = "";
-            if (!value) return;
-            var opts = select.options;
-            for (var i = 0; i < opts.length; i++) {
-              if (opts[i].value === value) {
-                select.value = value;
-                return;
-              }
-            }
+          function clearEditAuthError() {
+            if (!errEl) return;
+            errEl.textContent = "";
+            errEl.setAttribute("hidden", "");
           }
 
-          function setConcurrencySelect(select, attrVal) {
-            if (!select) return;
-            var v = attrVal != null && /^[1-8]$/.test(String(attrVal)) ? String(attrVal) : "5";
-            select.value = v;
+          function showEditAuthError(msg) {
+            if (!errEl) return;
+            errEl.textContent = msg;
+            errEl.removeAttribute("hidden");
+          }
+
+          function switchAdminEditAuthTab(kind) {
+            modal.querySelectorAll("[data-admin-edit-tab]").forEach(function (btn) {
+              var k = btn.getAttribute("data-admin-edit-tab");
+              var on = k === kind;
+              btn.classList.toggle("admin-create-auth-tab--active", on);
+              btn.setAttribute("aria-selected", on ? "true" : "false");
+            });
+            modal.querySelectorAll("[data-admin-edit-panel]").forEach(function (pnl) {
+              var k = pnl.getAttribute("data-admin-edit-panel");
+              if (k === kind) pnl.removeAttribute("hidden");
+              else pnl.setAttribute("hidden", "");
+            });
+          }
+
+          function syncAdminEditHiddenModels() {
+            var byKind = { text: [], image: [], video: [] };
+            modal.querySelectorAll(".admin-create-model-check:checked").forEach(function (inp) {
+              var k = inp.getAttribute("data-admin-model-kind");
+              var title = inp.getAttribute("data-admin-model-title") || "";
+              var slug = inp.getAttribute("data-admin-model-slug") || "";
+              if (!k || !byKind[k]) return;
+              var tr = inp.closest("tr");
+              var concEl = tr && tr.querySelector(".admin-create-model-concurrency");
+              var conc = concEl && concEl.value ? concEl.value : "5";
+              byKind[k].push({ title: title, slug: slug, concurrency: conc });
+            });
+            if (hidText) hidText.value = JSON.stringify(byKind.text);
+            if (hidImage) hidImage.value = JSON.stringify(byKind.image);
+            if (hidVideo) hidVideo.value = JSON.stringify(byKind.video);
+          }
+
+          function validateAdminEditModels() {
+            var kinds = ["text", "image", "video"];
+            var labels = { text: "文本", image: "图像", video: "视频" };
+            var i;
+            for (i = 0; i < kinds.length; i++) {
+              var kind = kinds[i];
+              var pnl = modal.querySelector('[data-admin-edit-panel="' + kind + '"]');
+              var n = pnl ? pnl.querySelectorAll(".admin-create-model-check:checked").length : 0;
+              if (!n) {
+                showEditAuthError("请至少在「" + labels[kind] + "」页签下启用 1 个模型。");
+                switchAdminEditAuthTab(kind);
+                return false;
+              }
+            }
+            clearEditAuthError();
+            return true;
           }
 
           function fillAdminEditFromRow(row) {
@@ -3810,23 +5862,57 @@
             var remarkEl = document.getElementById("admin-user-edit-remark");
             if (remarkEl) remarkEl.value = row.getAttribute("data-remark") || "";
 
-            var cell = row.querySelector(".auth-models-cell");
-            var modelRows = cell ? cell.querySelectorAll(".auth-model-row") : [];
+            modal.querySelectorAll(".admin-create-model-check").forEach(function (inp) {
+              inp.checked = false;
+            });
+            modal.querySelectorAll(".admin-create-model-concurrency").forEach(function (sel) {
+              sel.value = "5";
+            });
 
-            function pickModelName(idx) {
-              var r = modelRows[idx];
-              if (!r) return "";
-              var n = r.querySelector(".auth-model-name");
-              return n ? n.textContent.trim() : "";
+            var cell = row.querySelector(".auth-models-cell");
+
+            function namesForKind(kind) {
+              var out = [];
+              if (!cell) return out;
+              var stack = cell.querySelector('.auth-model-stack[data-auth-kind="' + kind + '"]');
+              if (stack) {
+                stack.querySelectorAll(".auth-model-stack__list .auth-model-name").forEach(function (el) {
+                  var t = el.textContent.trim();
+                  if (t) out.push(t);
+                });
+                return out;
+              }
+              var legacy = cell.querySelectorAll(".auth-model-row");
+              var idx = kind === "text" ? 0 : kind === "image" ? 1 : 2;
+              var r = legacy[idx];
+              if (r) {
+                var n = r.querySelector(".auth-model-name");
+                if (n && n.textContent.trim()) out.push(n.textContent.trim());
+              }
+              return out;
             }
 
-            setSelectOptionByValue(document.getElementById("admin-user-edit-model-text"), pickModelName(0));
-            setSelectOptionByValue(document.getElementById("admin-user-edit-model-image"), pickModelName(1));
-            setSelectOptionByValue(document.getElementById("admin-user-edit-model-video"), pickModelName(2));
+            ["text", "image", "video"].forEach(function (kind) {
+              var pnl = modal.querySelector('[data-admin-edit-panel="' + kind + '"]');
+              if (!pnl) return;
+              var concAttr = kind === "text" ? "data-text-concurrency" : kind === "image" ? "data-image-concurrency" : "data-video-concurrency";
+              var concVal = row.getAttribute(concAttr);
+              if (concVal == null || !/^[1-8]$/.test(String(concVal))) concVal = "5";
+              var titles = namesForKind(kind);
+              pnl.querySelectorAll(".admin-create-model-check").forEach(function (inp) {
+                var title = inp.getAttribute("data-admin-model-title") || "";
+                if (titles.indexOf(title) !== -1) {
+                  inp.checked = true;
+                  var tr = inp.closest("tr");
+                  var sel = tr && tr.querySelector(".admin-create-model-concurrency");
+                  if (sel) sel.value = concVal;
+                }
+              });
+            });
 
-            setConcurrencySelect(document.getElementById("admin-user-edit-text-concurrency"), row.getAttribute("data-text-concurrency"));
-            setConcurrencySelect(document.getElementById("admin-user-edit-image-concurrency"), row.getAttribute("data-image-concurrency"));
-            setConcurrencySelect(document.getElementById("admin-user-edit-video-concurrency"), row.getAttribute("data-video-concurrency"));
+            clearEditAuthError();
+            switchAdminEditAuthTab("text");
+            syncAdminEditHiddenModels();
           }
 
           var panel = document.getElementById("panel-account-admin");
@@ -3851,12 +5937,31 @@
           btnClose.addEventListener("click", onClose);
           btnCancel.addEventListener("click", onClose);
 
+          modal.addEventListener("click", function (e) {
+            var tabBtn = e.target.closest("[data-admin-edit-tab]");
+            if (tabBtn && modal.contains(tabBtn)) {
+              var k = tabBtn.getAttribute("data-admin-edit-tab");
+              if (k) switchAdminEditAuthTab(k);
+            }
+          });
+
+          modal.addEventListener("change", function (e) {
+            var t = e.target;
+            if (!t || !t.classList) return;
+            if (t.classList.contains("admin-create-model-check") || t.classList.contains("admin-create-model-concurrency")) {
+              clearEditAuthError();
+              syncAdminEditHiddenModels();
+            }
+          });
+
           form.addEventListener("submit", function (e) {
             e.preventDefault();
             if (!form.checkValidity()) {
               form.reportValidity();
               return;
             }
+            if (!validateAdminEditModels()) return;
+            syncAdminEditHiddenModels();
             closeAdminEditModal();
           });
         })();
@@ -3871,9 +5976,77 @@
           var backdrop = modal.querySelector(".user-edit-modal__backdrop");
           var btnClose = modal.querySelector(".admin-user-create-modal__close");
           var btnCancel = modal.querySelector(".admin-user-create-modal__cancel");
+          var errEl = document.getElementById("admin-create-auth-error");
+          var hidText = document.getElementById("admin-create-models-text-json");
+          var hidImage = document.getElementById("admin-create-models-image-json");
+          var hidVideo = document.getElementById("admin-create-models-video-json");
+
+          function clearAuthError() {
+            if (!errEl) return;
+            errEl.textContent = "";
+            errEl.setAttribute("hidden", "");
+          }
+
+          function showAuthError(msg) {
+            if (!errEl) return;
+            errEl.textContent = msg;
+            errEl.removeAttribute("hidden");
+          }
+
+          function switchAdminCreateAuthTab(kind) {
+            modal.querySelectorAll("[data-admin-create-tab]").forEach(function (btn) {
+              var k = btn.getAttribute("data-admin-create-tab");
+              var on = k === kind;
+              btn.classList.toggle("admin-create-auth-tab--active", on);
+              btn.setAttribute("aria-selected", on ? "true" : "false");
+            });
+            modal.querySelectorAll("[data-admin-create-panel]").forEach(function (panel) {
+              var k = panel.getAttribute("data-admin-create-panel");
+              if (k === kind) panel.removeAttribute("hidden");
+              else panel.setAttribute("hidden", "");
+            });
+          }
+
+          function syncAdminCreateHiddenModels() {
+            var byKind = { text: [], image: [], video: [] };
+            modal.querySelectorAll(".admin-create-model-check:checked").forEach(function (inp) {
+              var k = inp.getAttribute("data-admin-model-kind");
+              var title = inp.getAttribute("data-admin-model-title") || "";
+              var slug = inp.getAttribute("data-admin-model-slug") || "";
+              if (!k || !byKind[k]) return;
+              var row = inp.closest("tr");
+              var concEl = row && row.querySelector(".admin-create-model-concurrency");
+              var conc = concEl && concEl.value ? concEl.value : "5";
+              byKind[k].push({ title: title, slug: slug, concurrency: conc });
+            });
+            if (hidText) hidText.value = JSON.stringify(byKind.text);
+            if (hidImage) hidImage.value = JSON.stringify(byKind.image);
+            if (hidVideo) hidVideo.value = JSON.stringify(byKind.video);
+          }
+
+          function validateAdminCreateModels() {
+            var kinds = ["text", "image", "video"];
+            var labels = { text: "文本", image: "图像", video: "视频" };
+            var i;
+            for (i = 0; i < kinds.length; i++) {
+              var kind = kinds[i];
+              var panel = modal.querySelector('[data-admin-create-panel="' + kind + '"]');
+              var n = panel ? panel.querySelectorAll(".admin-create-model-check:checked").length : 0;
+              if (!n) {
+                showAuthError("请至少在「" + labels[kind] + "」页签下启用 1 个模型。");
+                switchAdminCreateAuthTab(kind);
+                return false;
+              }
+            }
+            clearAuthError();
+            return true;
+          }
 
           function resetForm() {
             form.reset();
+            clearAuthError();
+            switchAdminCreateAuthTab("text");
+            syncAdminCreateHiddenModels();
           }
 
           function resetPwdVisibility() {
@@ -3914,6 +6087,13 @@
           btnCancel.addEventListener("click", onClose);
 
           modal.addEventListener("click", function (e) {
+            var tabBtn = e.target.closest("[data-admin-create-tab]");
+            if (tabBtn && modal.contains(tabBtn)) {
+              var k = tabBtn.getAttribute("data-admin-create-tab");
+              if (k) switchAdminCreateAuthTab(k);
+              return;
+            }
+
             var btn = e.target.closest(".admin-pwd-toggle");
             if (!btn || !modal.contains(btn)) return;
             var wrap = btn.closest(".admin-pwd-input-wrap");
@@ -3933,6 +6113,15 @@
             }
           });
 
+          modal.addEventListener("change", function (e) {
+            var t = e.target;
+            if (!t || !t.classList) return;
+            if (t.classList.contains("admin-create-model-check") || t.classList.contains("admin-create-model-concurrency")) {
+              clearAuthError();
+              syncAdminCreateHiddenModels();
+            }
+          });
+
           var pwd = document.getElementById("admin-user-create-password");
           var pwd2 = document.getElementById("admin-user-create-password2");
 
@@ -3948,6 +6137,8 @@
               form.reportValidity();
               return;
             }
+            if (!validateAdminCreateModels()) return;
+            syncAdminCreateHiddenModels();
             closeAdminCreateModal();
           });
         })();
