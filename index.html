@@ -7,7 +7,117 @@
     <link rel="icon" href="favicon.svg?v=20260320-1" type="image/svg+xml" />
     <link rel="stylesheet" href="styles.css" />
   </head>
-  <body>
+  <body class="page-login">
+    <div class="bg-trails" aria-hidden="true">
+      <svg viewBox="0 0 1440 900" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="login-trail-a" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="rgba(255,255,255,0)" />
+            <stop offset="38%" stop-color="rgba(130,165,255,0.14)" />
+            <stop offset="62%" stop-color="rgba(160,190,255,0.1)" />
+            <stop offset="100%" stop-color="rgba(255,255,255,0)" />
+          </linearGradient>
+          <linearGradient id="login-trail-b" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="rgba(255,255,255,0)" />
+            <stop offset="42%" stop-color="rgba(100,150,240,0.11)" />
+            <stop offset="100%" stop-color="rgba(255,255,255,0)" />
+          </linearGradient>
+          <linearGradient id="login-trail-c" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="rgba(255,255,255,0)" />
+            <stop offset="48%" stop-color="rgba(140,160,255,0.09)" />
+            <stop offset="100%" stop-color="rgba(255,255,255,0)" />
+          </linearGradient>
+          <linearGradient id="login-trail-d" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="rgba(255,255,255,0)" />
+            <stop offset="40%" stop-color="rgba(115,160,255,0.13)" />
+            <stop offset="58%" stop-color="rgba(150,185,255,0.1)" />
+            <stop offset="100%" stop-color="rgba(255,255,255,0)" />
+          </linearGradient>
+        </defs>
+        <path
+          d="M-80 720 Q 420 360, 880 400 T 1520 180"
+          fill="none"
+          stroke="url(#login-trail-a)"
+          stroke-width="1.5"
+        />
+        <path
+          d="M-40 820 Q 380 480, 800 520 T 1540 320"
+          fill="none"
+          stroke="url(#login-trail-b)"
+          stroke-width="1"
+        />
+        <path
+          d="M180 0 Q 520 260, 1020 220 T 1520 500"
+          fill="none"
+          stroke="url(#login-trail-c)"
+          stroke-width="1.2"
+        />
+        <!-- 登录框下方区域：斜向弧形流线 -->
+        <path
+          d="M-120 900 Q 380 820, 720 860 T 1560 740"
+          fill="none"
+          stroke="url(#login-trail-d)"
+          stroke-width="1.25"
+        />
+      </svg>
+    </div>
+    <div class="bg-stars" aria-hidden="true">
+      <span class="bg-star" style="left: 6%; top: 24%">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M12 2l2.2 6.8h7l-5.7 4.1 2.2 6.8L12 15.6 6.3 19.7l2.2-6.8L2.8 8.8h7L12 2z" />
+        </svg>
+      </span>
+      <span class="bg-star" style="left: 18%; top: 11%">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M12 2l2.2 6.8h7l-5.7 4.1 2.2 6.8L12 15.6 6.3 19.7l2.2-6.8L2.8 8.8h7L12 2z" />
+        </svg>
+      </span>
+      <span class="bg-star" style="left: 3%; top: 62%">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M12 2l2.2 6.8h7l-5.7 4.1 2.2 6.8L12 15.6 6.3 19.7l2.2-6.8L2.8 8.8h7L12 2z" />
+        </svg>
+      </span>
+      <span class="bg-star" style="left: 28%; top: 88%">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M12 2l2.2 6.8h7l-5.7 4.1 2.2 6.8L12 15.6 6.3 19.7l2.2-6.8L2.8 8.8h7L12 2z" />
+        </svg>
+      </span>
+      <span class="bg-star" style="left: 94%; top: 20%">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M12 2l2.2 6.8h7l-5.7 4.1 2.2 6.8L12 15.6 6.3 19.7l2.2-6.8L2.8 8.8h7L12 2z" />
+        </svg>
+      </span>
+      <span class="bg-star" style="left: 88%; top: 68%">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M12 2l2.2 6.8h7l-5.7 4.1 2.2 6.8L12 15.6 6.3 19.7l2.2-6.8L2.8 8.8h7L12 2z" />
+        </svg>
+      </span>
+      <span class="bg-star" style="left: 72%; top: 8%">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M12 2l2.2 6.8h7l-5.7 4.1 2.2 6.8L12 15.6 6.3 19.7l2.2-6.8L2.8 8.8h7L12 2z" />
+        </svg>
+      </span>
+      <span class="bg-star bg-star--lg bg-star--motion" style="left: 84%; top: 14%">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M12 2l2.2 6.8h7l-5.7 4.1 2.2 6.8L12 15.6 6.3 19.7l2.2-6.8L2.8 8.8h7L12 2z" />
+        </svg>
+      </span>
+      <span class="bg-star bg-star--lg bg-star--motion-2" style="left: 10%; top: 42%">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M12 2l2.2 6.8h7l-5.7 4.1 2.2 6.8L12 15.6 6.3 19.7l2.2-6.8L2.8 8.8h7L12 2z" />
+        </svg>
+      </span>
+      <span class="bg-star bg-star--lg bg-star--motion-3" style="left: 92%; top: 48%">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M12 2l2.2 6.8h7l-5.7 4.1 2.2 6.8L12 15.6 6.3 19.7l2.2-6.8L2.8 8.8h7L12 2z" />
+        </svg>
+      </span>
+      <span class="bg-star bg-star--lg bg-star--motion-4" style="left: 58%; top: 6%">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M12 2l2.2 6.8h7l-5.7 4.1 2.2 6.8L12 15.6 6.3 19.7l2.2-6.8L2.8 8.8h7L12 2z" />
+        </svg>
+      </span>
+    </div>
     <header class="top-nav">
       <div class="top-nav__inner">
         <div class="top-nav__left">
@@ -20,13 +130,6 @@
     </header>
 
     <main class="page-main">
-      <div class="login-ambient" aria-hidden="true">
-        <div class="login-streak login-streak--1"></div>
-        <div class="login-streak login-streak--2"></div>
-        <div class="login-streak login-streak--3"></div>
-        <div class="login-streak login-streak--4"></div>
-        <div class="login-streak login-streak--5"></div>
-      </div>
       <div class="login-card">
         <div class="login-card__header">
           <h1 class="login-card__title">登录流光</h1>

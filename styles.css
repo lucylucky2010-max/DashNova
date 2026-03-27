@@ -40,6 +40,140 @@ body {
   color: var(--text-body);
 }
 
+/* ===== 登录页：与首页 landing 相同的渐变底 + 弧形流线（main.html .bg-trails）===== */
+body.page-login {
+  position: relative;
+  background: linear-gradient(168deg, #eaefff 0%, #f1f3fb 32%, #ede9ff 62%, #f5f6ff 100%);
+}
+
+body.page-login .bg-trails {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+body.page-login .bg-trails svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+body.page-login .top-nav {
+  position: relative;
+  z-index: 2;
+}
+
+body.page-login .page-main {
+  position: relative;
+  z-index: 1;
+}
+
+/* 登录页星点（多于 landing；大星轻微漂移/呼吸） */
+body.page-login .bg-stars {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+body.page-login .bg-star {
+  position: absolute;
+  color: rgba(255, 255, 255, 0.94);
+  filter: drop-shadow(0 0 5px rgba(100, 150, 255, 0.54))
+    drop-shadow(0 0 12px rgba(120, 160, 255, 0.26));
+  transform: translate(-50%, -50%);
+}
+
+body.page-login .bg-star svg {
+  display: block;
+  width: 12px;
+  height: 12px;
+}
+
+body.page-login .bg-star--lg svg {
+  width: 20px;
+  height: 20px;
+}
+
+body.page-login .bg-star--lg {
+  filter: drop-shadow(0 0 6px rgba(100, 150, 255, 0.65))
+    drop-shadow(0 0 20px rgba(130, 175, 255, 0.32));
+}
+
+body.page-login .bg-star--motion {
+  animation: login-star-float-a 7.5s ease-in-out infinite alternate;
+}
+
+body.page-login .bg-star--motion-2 {
+  animation: login-star-float-b 9s ease-in-out infinite alternate;
+}
+
+body.page-login .bg-star--motion-3 {
+  animation: login-star-float-c 6s ease-in-out infinite alternate;
+}
+
+body.page-login .bg-star--motion-4 {
+  animation: login-star-float-d 8.5s ease-in-out infinite alternate;
+}
+
+@keyframes login-star-float-a {
+  0% {
+    opacity: 0.72;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(calc(-50% + 3px), calc(-50% - 4px)) scale(1.07);
+  }
+}
+
+@keyframes login-star-float-b {
+  0% {
+    opacity: 0.7;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  100% {
+    opacity: 0.98;
+    transform: translate(calc(-50% - 4px), calc(-50% + 3px)) scale(1.05);
+  }
+}
+
+@keyframes login-star-float-c {
+  0% {
+    opacity: 0.68;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(calc(-50% + 2px), calc(-50% + 5px)) scale(1.08);
+  }
+}
+
+@keyframes login-star-float-d {
+  0% {
+    opacity: 0.74;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  100% {
+    opacity: 0.96;
+    transform: translate(calc(-50% - 3px), calc(-50% - 3px)) scale(1.06);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body.page-login .bg-star--motion,
+  body.page-login .bg-star--motion-2,
+  body.page-login .bg-star--motion-3,
+  body.page-login .bg-star--motion-4 {
+    animation: none;
+    transform: translate(-50%, -50%);
+    opacity: 0.88;
+  }
+}
+
 /* ===== 顶栏 ===== */
 .top-nav {
   background: var(--bg-nav);
@@ -152,254 +286,11 @@ body {
 
 /* ===== 主区域：居中卡片 ===== */
 .page-main {
-  position: relative;
   min-height: calc(100vh - 61px);
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 40px 20px 48px;
-  overflow: hidden;
-}
-
-/* 登录页右上：流星式微动光带（冷蓝、克制、无交互）
-   主轨 blur 过大易把细轨糊成一团，故主轨用较小 blur，各轨拉开 top/right 与角度 */
-.login-ambient {
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: min(78vw, 900px);
-  height: min(75vh, 680px);
-  min-height: 300px;
-  pointer-events: none;
-  z-index: 0;
-  overflow: hidden;
-  isolation: isolate;
-}
-
-.login-streak {
-  position: absolute;
-  border-radius: 999px;
-  will-change: transform, opacity;
-}
-
-/* 主光轨：相对最亮，但 blur 克制，避免盖住其余轨 */
-.login-streak--1 {
-  z-index: 1;
-  top: 2%;
-  right: -6%;
-  width: 125%;
-  max-width: 700px;
-  height: 7px;
-  transform-origin: 92% 50%;
-  background: linear-gradient(
-    90deg,
-    transparent 0%,
-    rgba(37, 99, 235, 0) 18%,
-    rgba(59, 130, 246, 0.22) 38%,
-    rgba(186, 230, 253, 0.5) 50%,
-    rgba(59, 130, 246, 0.2) 62%,
-    rgba(37, 99, 235, 0) 82%,
-    transparent 100%
-  );
-  box-shadow: 0 0 20px 4px rgba(59, 130, 246, 0.06);
-  filter: blur(5px);
-  opacity: 0.62;
-  transform: rotate(-35deg) skewY(1.2deg);
-  animation: login-streak-drift-1 15s ease-in-out infinite alternate,
-    login-streak-breathe-1 12s ease-in-out infinite alternate;
-}
-
-.login-streak--2 {
-  z-index: 3;
-  top: 22%;
-  right: -10%;
-  width: 110%;
-  max-width: 620px;
-  height: 4px;
-  transform-origin: 88% 40%;
-  background: linear-gradient(
-    90deg,
-    transparent 0%,
-    rgba(30, 64, 175, 0) 22%,
-    rgba(59, 130, 246, 0.35) 50%,
-    rgba(125, 211, 252, 0.45) 54%,
-    rgba(59, 130, 246, 0.28) 68%,
-    transparent 100%
-  );
-  filter: blur(4px);
-  opacity: 0.52;
-  transform: rotate(-42deg) skewY(-1.2deg);
-  animation: login-streak-drift-2 13s ease-in-out infinite alternate,
-    login-streak-breathe-2 14s ease-in-out infinite alternate;
-}
-
-.login-streak--3 {
-  z-index: 4;
-  top: 40%;
-  right: 4%;
-  width: 88%;
-  max-width: 520px;
-  height: 3px;
-  transform-origin: 95% 50%;
-  background: linear-gradient(
-    90deg,
-    transparent 0%,
-    rgba(59, 130, 246, 0.2) 42%,
-    rgba(224, 242, 254, 0.5) 51%,
-    rgba(59, 130, 246, 0.18) 68%,
-    transparent 100%
-  );
-  filter: blur(3px);
-  opacity: 0.48;
-  transform: rotate(-31deg) skewY(2.2deg);
-  animation: login-streak-drift-3 11s ease-in-out infinite alternate,
-    login-streak-breathe-3 10s ease-in-out infinite alternate;
-}
-
-.login-streak--4 {
-  z-index: 5;
-  top: 8%;
-  right: 18%;
-  width: 58%;
-  max-width: 380px;
-  height: 2px;
-  transform-origin: 100% 50%;
-  background: linear-gradient(
-    90deg,
-    transparent 0%,
-    rgba(96, 165, 250, 0.25) 46%,
-    rgba(239, 246, 255, 0.55) 52%,
-    rgba(96, 165, 250, 0.2) 66%,
-    transparent 100%
-  );
-  filter: blur(2px);
-  opacity: 0.42;
-  transform: rotate(-48deg);
-  animation: login-streak-drift-4 16s ease-in-out infinite alternate,
-    login-streak-breathe-4 13s ease-in-out infinite alternate;
-}
-
-.login-streak--5 {
-  z-index: 2;
-  top: 52%;
-  right: -4%;
-  width: 70%;
-  max-width: 440px;
-  height: 2px;
-  transform-origin: 90% 50%;
-  background: linear-gradient(
-    90deg,
-    rgba(15, 23, 42, 0) 0%,
-    rgba(59, 130, 246, 0.15) 44%,
-    rgba(147, 197, 253, 0.4) 52%,
-    rgba(59, 130, 246, 0.12) 72%,
-    transparent 100%
-  );
-  filter: blur(3px);
-  opacity: 0.4;
-  transform: rotate(-38deg) skewY(-1deg);
-  animation: login-streak-drift-5 9s ease-in-out infinite alternate,
-    login-streak-breathe-5 15s ease-in-out infinite alternate;
-}
-
-@keyframes login-streak-drift-1 {
-  0% {
-    transform: rotate(-35deg) skewY(1.2deg) translate(0, 0);
-  }
-  100% {
-    transform: rotate(-33.8deg) skewY(1deg) translate(-12px, 8px);
-  }
-}
-
-@keyframes login-streak-breathe-1 {
-  0% {
-    opacity: 0.52;
-  }
-  100% {
-    opacity: 0.68;
-  }
-}
-
-@keyframes login-streak-drift-2 {
-  0% {
-    transform: rotate(-42deg) skewY(-1.2deg) translate(0, 0);
-  }
-  100% {
-    transform: rotate(-40.5deg) skewY(-0.9deg) translate(-11px, 7px);
-  }
-}
-
-@keyframes login-streak-breathe-2 {
-  0% {
-    opacity: 0.42;
-  }
-  100% {
-    opacity: 0.58;
-  }
-}
-
-@keyframes login-streak-drift-3 {
-  0% {
-    transform: rotate(-31deg) skewY(2.2deg) translate(0, 0);
-  }
-  100% {
-    transform: rotate(-32.2deg) skewY(1.8deg) translate(-9px, 10px);
-  }
-}
-
-@keyframes login-streak-breathe-3 {
-  0% {
-    opacity: 0.38;
-  }
-  100% {
-    opacity: 0.54;
-  }
-}
-
-@keyframes login-streak-drift-4 {
-  0% {
-    transform: rotate(-48deg) translate(0, 0);
-  }
-  100% {
-    transform: rotate(-46.5deg) translate(-14px, 6px);
-  }
-}
-
-@keyframes login-streak-breathe-4 {
-  0% {
-    opacity: 0.34;
-  }
-  100% {
-    opacity: 0.5;
-  }
-}
-
-@keyframes login-streak-drift-5 {
-  0% {
-    transform: rotate(-38deg) skewY(-1deg) translate(0, 0);
-  }
-  100% {
-    transform: rotate(-39deg) skewY(-0.6deg) translate(-8px, 6px);
-  }
-}
-
-@keyframes login-streak-breathe-5 {
-  0% {
-    opacity: 0.32;
-  }
-  100% {
-    opacity: 0.48;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .login-streak--1,
-  .login-streak--2,
-  .login-streak--3,
-  .login-streak--4,
-  .login-streak--5 {
-    animation: none;
-  }
 }
 
 .login-card {
